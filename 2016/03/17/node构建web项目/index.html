@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.6" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.0.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="构建web项目有两种方式，第一种使用砖头盖，第二种使用模板拼。今天两种我都大概的讲一下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node构建web项目">
+<meta property="og:url" content="http://dingyusong.com/2016/03/17/node构建web项目/index.html">
+<meta property="og:site_name" content="丁玉松的博客">
+<meta property="og:description" content="构建web项目有两种方式，第一种使用砖头盖，第二种使用模板拼。今天两种我都大概的讲一下。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-02-16T05:57:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node构建web项目">
+<meta name="twitter:description" content="构建web项目有两种方式，第一种使用砖头盖，第二种使用模板拼。今天两种我都大概的讲一下。">
+
+
+
+
+
+
+  <link rel="canonical" href="http://dingyusong.com/2016/03/17/node构建web项目/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>node构建web项目 | 丁玉松的博客</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0637faead87cced30bf0f958c98240e8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">丁玉松的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">把握当下，面对现实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+    
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dingyusong.com/2016/03/17/node构建web项目/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="丁玉松">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丁玉松的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">node构建web项目</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-03-17T15:37:59+08:00">2016-03-17</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/03/17/node构建web项目/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/03/17/node构建web项目/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/03/17/node构建web项目/" class="leancloud_visitors" data-flag-title="node构建web项目">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>构建web项目有两种方式，第一种使用砖头盖，第二种使用模板拼。今天两种我都大概的讲一下。</p>
+<a id="more"></a>
+<h2 id="使用node生成"><a href="#使用node生成" class="headerlink" title="使用node生成"></a>使用node生成</h2><h3 id="node建立工程"><a href="#node建立工程" class="headerlink" title="node建立工程"></a>node建立工程</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">dingyuson<span class="variable">g:nodepractise</span> GoldWallet$ <span class="built_in">mkdir</span> mayweb</span><br><span class="line">dingyuson<span class="variable">g:nodepractise</span> GoldWallet$ <span class="keyword">ls</span></span><br><span class="line">mayweb</span><br><span class="line">dingyuson<span class="variable">g:nodepractise</span> GoldWallet$ <span class="keyword">cd</span> mayweb/</span><br><span class="line">dingyuson<span class="variable">g:mayweb</span> GoldWallet$ npm init</span><br><span class="line">This utility will walk you through creating <span class="keyword">a</span> package.json <span class="keyword">file</span>.</span><br><span class="line">It <span class="keyword">only</span> covers the most common <span class="built_in">items</span>, <span class="built_in">and</span> tries <span class="keyword">to</span> guess sensible defaults.</span><br><span class="line"></span><br><span class="line">See `npm <span class="keyword">help</span> json` <span class="keyword">for</span> definitive documentation <span class="keyword">on</span> these fields</span><br><span class="line"><span class="built_in">and</span> exactly what they <span class="keyword">do</span>.</span><br><span class="line"></span><br><span class="line">Use `npm install <span class="symbol">&lt;pkg&gt;</span> --save` afterwards <span class="keyword">to</span> install <span class="keyword">a</span> package <span class="built_in">and</span></span><br><span class="line">save it <span class="keyword">as</span> <span class="keyword">a</span> dependency in the package.json <span class="keyword">file</span>.</span><br><span class="line"></span><br><span class="line">Press ^C at any time <span class="keyword">to</span> <span class="keyword">quit</span>.</span><br><span class="line">name: (mayweb) </span><br><span class="line"><span class="keyword">version</span>: (<span class="number">1.0</span>.<span class="number">0</span>) </span><br><span class="line">description: practise</span><br><span class="line">entry poin<span class="variable">t:</span> (<span class="built_in">index</span>.js) </span><br><span class="line">test <span class="keyword">command</span>: </span><br><span class="line">git repository: </span><br><span class="line">keyword<span class="variable">s:</span> </span><br><span class="line">author: dingyusong</span><br><span class="line">license: (ISC) </span><br><span class="line">About <span class="keyword">to</span> <span class="keyword">write</span> <span class="keyword">to</span> /Users/GoldWallet/Desktop/Demo/nodepractise/mayweb/package.json:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"mayweb"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">"practise"</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"author"</span>: <span class="string">"dingyusong"</span>,</span><br><span class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Is this ok? (yes)</span><br></pre></td></tr></table></figure>
+<h3 id="安装express"><a href="#安装express" class="headerlink" title="安装express"></a>安装express</h3><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">dingyusong:mayweb GoldWallet$ npm install express --save</span><br><span class="line">mayweb<span class="symbol">@1</span><span class="number">.0</span><span class="number">.0</span> /Users/GoldWallet/Desktop/Demo/nodepractise/mayweb</span><br><span class="line">└─┬ express<span class="symbol">@4</span><span class="number">.13</span><span class="number">.4</span> </span><br><span class="line">  ├─┬ accepts<span class="symbol">@1</span><span class="number">.2</span><span class="number">.13</span> </span><br><span class="line">  │ ├─┬ mime-types<span class="symbol">@2</span><span class="number">.1</span><span class="number">.10</span> </span><br><span class="line">  │ │ └── mime-db<span class="symbol">@1</span><span class="number">.22</span><span class="number">.0</span> </span><br><span class="line">  │ └── negotiator<span class="symbol">@0</span><span class="number">.5</span><span class="number">.3</span> </span><br><span class="line">  ├── array-flatten<span class="symbol">@1</span><span class="number">.1</span><span class="number">.1</span> </span><br><span class="line">  ├── content-disposition<span class="symbol">@0</span><span class="number">.5</span><span class="number">.1</span> </span><br><span class="line">  ├── content-type<span class="symbol">@1</span><span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">  ├── cookie<span class="symbol">@0</span><span class="number">.1</span><span class="number">.5</span> </span><br><span class="line">  ├── cookie-signature<span class="symbol">@1</span><span class="number">.0</span><span class="number">.6</span> </span><br><span class="line">  ├─┬ debug<span class="symbol">@2</span><span class="number">.2</span><span class="number">.0</span> </span><br><span class="line">  │ └── ms<span class="symbol">@0</span><span class="number">.7</span><span class="number">.1</span> </span><br><span class="line">  ├── depd<span class="symbol">@1</span><span class="number">.1</span><span class="number">.0</span> </span><br><span class="line">  ├── escape-html<span class="symbol">@1</span><span class="number">.0</span><span class="number">.3</span> </span><br><span class="line">  ├── etag<span class="symbol">@1</span><span class="number">.7</span><span class="number">.0</span> </span><br><span class="line">  ├─┬ finalhandler<span class="symbol">@0</span><span class="number">.4</span><span class="number">.1</span> </span><br><span class="line">  │ └── unpipe<span class="symbol">@1</span><span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">  ├── fresh<span class="symbol">@0</span><span class="number">.3</span><span class="number">.0</span> </span><br><span class="line">  ├── merge-descriptors<span class="symbol">@1</span><span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">  ├── methods<span class="symbol">@1</span><span class="number">.1</span><span class="number">.2</span> </span><br><span class="line">  ├─┬ on-finished<span class="symbol">@2</span><span class="number">.3</span><span class="number">.0</span> </span><br><span class="line">  │ └── ee-first<span class="symbol">@1</span><span class="number">.1</span><span class="number">.1</span> </span><br><span class="line">  ├── parseurl<span class="symbol">@1</span><span class="number">.3</span><span class="number">.1</span> </span><br><span class="line">  ├── path-<span class="keyword">to</span>-regexp<span class="symbol">@0</span><span class="number">.1</span><span class="number">.7</span> </span><br><span class="line">  ├─┬ proxy-addr<span class="symbol">@1</span><span class="number">.0</span><span class="number">.10</span> </span><br><span class="line">  │ ├── forwarded<span class="symbol">@0</span><span class="number">.1</span><span class="number">.0</span> </span><br><span class="line">  │ └── ipaddr.js<span class="symbol">@1</span><span class="number">.0</span><span class="number">.5</span> </span><br><span class="line">  ├── qs<span class="symbol">@4</span><span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">  ├── range-parser<span class="symbol">@1</span><span class="number">.0</span><span class="number">.3</span> </span><br><span class="line">  ├─┬ <span class="built_in">send</span><span class="symbol">@0</span><span class="number">.13</span><span class="number">.1</span> </span><br><span class="line">  │ ├── destroy<span class="symbol">@1</span><span class="number">.0</span><span class="number">.4</span> </span><br><span class="line">  │ ├─┬ http-errors<span class="symbol">@1</span><span class="number">.3</span><span class="number">.1</span> </span><br><span class="line">  │ │ └── inherits<span class="symbol">@2</span><span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">  │ ├── mime<span class="symbol">@1</span><span class="number">.3</span><span class="number">.4</span> </span><br><span class="line">  │ └── statuses<span class="symbol">@1</span><span class="number">.2</span><span class="number">.1</span> </span><br><span class="line">  ├── serve-<span class="keyword">static</span><span class="symbol">@1</span><span class="number">.10</span><span class="number">.2</span> </span><br><span class="line">  ├─┬ type-is<span class="symbol">@1</span><span class="number">.6</span><span class="number">.12</span> </span><br><span class="line">  │ └── media-typer<span class="symbol">@0</span><span class="number">.3</span><span class="number">.0</span> </span><br><span class="line">  ├── utils-merge<span class="symbol">@1</span><span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">  └── vary<span class="symbol">@1</span><span class="number">.0</span><span class="number">.1</span> </span><br><span class="line"></span><br><span class="line">npm WARN mayweb<span class="symbol">@1</span><span class="number">.0</span><span class="number">.0</span> No repository field.</span><br><span class="line">dingyusong:mayweb GoldWallet$</span><br></pre></td></tr></table></figure>
+<h3 id="创建helloWorld-修改入口文件"><a href="#创建helloWorld-修改入口文件" class="headerlink" title="创建helloWorld,修改入口文件"></a>创建helloWorld,修改入口文件</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">dingyusong:mayweb GoldWallet$ <span class="keyword">ls</span></span><br><span class="line">node_modules	package.json</span><br><span class="line">dingyusong:mayweb GoldWallet$ <span class="keyword">cat</span> package.json </span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"mayweb"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">"practise"</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"echo \"</span><span class="keyword">Error</span>: <span class="keyword">no</span> <span class="keyword">test</span> specified\<span class="string">" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"author"</span>: <span class="string">"dingyusong"</span>,</span><br><span class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span>,</span><br><span class="line">  <span class="string">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"express"</span>: <span class="string">"^4.13.4"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">dingyusong:mayweb GoldWallet$ vi package.json </span><br><span class="line">dingyusong:mayweb GoldWallet$ vi <span class="keyword">app</span>.js</span><br><span class="line">dingyusong:mayweb GoldWallet$ <span class="keyword">cat</span> <span class="keyword">app</span>.js </span><br><span class="line"><span class="keyword">var</span> express = require('express');</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">app</span> = express();</span><br><span class="line"></span><br><span class="line"><span class="keyword">app</span>.<span class="built_in">get</span>('/', function (req, res) &#123;</span><br><span class="line">  res.send('Hello World!');</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> server = <span class="keyword">app</span>.listen(3000, function () &#123;</span><br><span class="line">  <span class="keyword">var</span> host = server.address().address;</span><br><span class="line">  <span class="keyword">var</span> port = server.address().port;</span><br><span class="line"></span><br><span class="line">  console.<span class="built_in">log</span>('Example <span class="keyword">app</span> listening at http:<span class="comment">//%s:%s', host, port);</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">dingyusong:mayweb GoldWallet$ <span class="keyword">ls</span></span><br><span class="line"><span class="keyword">app</span>.js		node_modules	package.json</span><br></pre></td></tr></table></figure>
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dingyusong:mayweb GoldWallet$ <span class="keyword">node</span> <span class="title">app</span>.js </span><br><span class="line">Example app listening at http://:::<span class="number">3000</span></span><br></pre></td></tr></table></figure>
+<h3 id="碰见的坑"><a href="#碰见的坑" class="headerlink" title="碰见的坑"></a>碰见的坑</h3><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">dingyusong:</span>nodepractise GoldWallet$ npm install -g express</span><br><span class="line">/Users/GoldWallet/.nvm/versions/node/v5.<span class="number">6.0</span>/<span class="class"><span class="keyword">lib</span></span></span><br><span class="line">└── express@<span class="number">4.13</span>.<span class="number">4</span> </span><br><span class="line"></span><br><span class="line"><span class="symbol">dingyusong:</span>nodepractise GoldWallet$ express -v</span><br><span class="line">-<span class="symbol">bash:</span> <span class="symbol">express:</span> command not found</span><br></pre></td></tr></table></figure>
+<p><a href="http://blog.csdn.net/dracotianlong/article/details/39394849" target="_blank" rel="noopener">解决办法</a></p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">dingyusong:</span>nodepractise GoldWallet$ npm install -g express-generator</span><br><span class="line">/Users/GoldWallet/.nvm/versions/node/v5.<span class="number">6.0</span>/bin/express -&gt; <span class="regexp">/Users/</span>GoldWallet/.nvm/versions/node/v5.<span class="number">6.0</span>/<span class="class"><span class="keyword">lib</span>/<span class="title">node_modules</span>/<span class="title">express</span>-<span class="title">generator</span>/<span class="title">bin</span>/<span class="title">express</span></span></span><br><span class="line">/Users/GoldWallet/.nvm/versions/node/v5.<span class="number">6.0</span>/<span class="class"><span class="keyword">lib</span></span></span><br><span class="line">└─┬ express-generator@<span class="number">4.13</span>.<span class="number">1</span> </span><br><span class="line">  ├─┬ commander@<span class="number">2.7</span>.<span class="number">1</span> </span><br><span class="line">  │ └── graceful-readlink@<span class="number">1.0</span>.<span class="number">1</span> </span><br><span class="line">  ├─┬ mkdirp@<span class="number">0.5</span>.<span class="number">1</span> </span><br><span class="line">  │ └── minimist@<span class="number">0.0</span>.<span class="number">8</span> </span><br><span class="line">  └── sorted-object@<span class="number">1.0</span>.<span class="number">0</span> </span><br><span class="line"></span><br><span class="line"><span class="symbol">dingyusong:</span>nodepractise GoldWallet$ express -V</span><br><span class="line"><span class="number">4.13</span>.<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用模板生成器-express-generator"><a href="#使用模板生成器-express-generator" class="headerlink" title="使用模板生成器 express-generator"></a>使用模板生成器 express-generator</h2><p>通过应用生成器工具 express 可以快速创建一个应用的骨架。<br>查看express 命令：</p>
+<h3 id="安装-express-generator"><a href="#安装-express-generator" class="headerlink" title="安装 express-generator"></a>安装 express-generator</h3><ol>
+<li>注意要使用sudo，管理员权限</li>
+</ol>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">DingYusongdeMacBook-<span class="symbol">Pro:</span>Desktop Ding$ npm install express-generator -g</span><br><span class="line">npm WARN checkPermissions Missing write access to /usr/local/<span class="class"><span class="keyword">lib</span>/<span class="title">node_modules</span></span></span><br><span class="line">/usr/local/<span class="class"><span class="keyword">lib</span></span></span><br><span class="line">└─┬ express-generator@<span class="number">4.13</span>.<span class="number">4</span> </span><br><span class="line">  ├─┬ commander@<span class="number">2.7</span>.<span class="number">1</span> </span><br><span class="line">  │ └── graceful-readlink@<span class="number">1.0</span>.<span class="number">1</span> </span><br><span class="line">  ├─┬ mkdirp@<span class="number">0.5</span>.<span class="number">1</span> </span><br><span class="line">  │ └── minimist@<span class="number">0.0</span>.<span class="number">8</span> </span><br><span class="line">  └── sorted-object@<span class="number">2.0</span>.<span class="number">0</span> </span><br><span class="line"></span><br><span class="line">npm ERR! Darwin <span class="number">15.6</span>.<span class="number">0</span></span><br><span class="line">npm ERR! argv <span class="string">"/usr/local/bin/node"</span> <span class="string">"/usr/local/bin/npm"</span> <span class="string">"install"</span> <span class="string">"express-generator"</span> <span class="string">"-g"</span></span><br><span class="line">npm ERR! node v6.<span class="number">4.0</span></span><br><span class="line">npm ERR! npm  v3.<span class="number">10.3</span></span><br><span class="line">npm ERR! path /usr/local/<span class="class"><span class="keyword">lib</span>/<span class="title">node_modules</span></span></span><br><span class="line">npm ERR! code EACCES</span><br><span class="line">npm ERR! errno -<span class="number">13</span></span><br><span class="line">npm ERR! syscall access</span><br><span class="line"></span><br><span class="line">npm ERR! <span class="symbol">Error:</span> <span class="symbol">EACCES:</span> permission denied, access <span class="string">'/usr/local/lib/node_modules'</span></span><br><span class="line">npm ERR!     at Error (native)</span><br><span class="line">npm ERR!  &#123; <span class="symbol">Error:</span> <span class="symbol">EACCES:</span> permission denied, access <span class="string">'/usr/local/lib/node_modules'</span></span><br><span class="line">npm ERR!     at Error (native)</span><br><span class="line">npm ERR!   <span class="symbol">errno:</span> -<span class="number">13</span>,</span><br><span class="line">npm ERR!   <span class="symbol">code:</span> <span class="string">'EACCES'</span>,</span><br><span class="line">npm ERR!   <span class="symbol">syscall:</span> <span class="string">'access'</span>,</span><br><span class="line">npm ERR!   <span class="symbol">path:</span> <span class="string">'/usr/local/lib/node_modules'</span> &#125;</span><br><span class="line">npm ERR! </span><br><span class="line">npm ERR! Please try running this command again <span class="keyword">as</span> root/Administrator.</span><br><span class="line"></span><br><span class="line">npm ERR! Please <span class="keyword">include</span> the following file <span class="keyword">with</span> any support <span class="symbol">request:</span></span><br><span class="line">npm ERR!     /Users/Ding/Desktop/npm-debug.log</span><br><span class="line">DingYusongdeMacBook-<span class="symbol">Pro:</span>Desktop Ding$ sodo npm install express-generator -g</span><br><span class="line">-<span class="symbol">bash:</span> <span class="symbol">sodo:</span> command not found</span><br><span class="line">DingYusongdeMacBook-<span class="symbol">Pro:</span>Desktop Ding$ sudo npm install express-generator -g</span><br><span class="line"><span class="symbol">Password:</span></span><br><span class="line">/usr/local/bin/express -&gt; <span class="regexp">/usr/local</span><span class="regexp">/lib/node</span>_modules/express-generator/bin/express</span><br><span class="line">/usr/local/<span class="class"><span class="keyword">lib</span></span></span><br><span class="line">└─┬ express-generator@<span class="number">4.13</span>.<span class="number">4</span> </span><br><span class="line">  ├─┬ commander@<span class="number">2.7</span>.<span class="number">1</span> </span><br><span class="line">  │ └── graceful-readlink@<span class="number">1.0</span>.<span class="number">1</span> </span><br><span class="line">  ├─┬ mkdirp@<span class="number">0.5</span>.<span class="number">1</span> </span><br><span class="line">  │ └── minimist@<span class="number">0.0</span>.<span class="number">8</span> </span><br><span class="line">  └── sorted-object@<span class="number">2.0</span>.<span class="number">0</span> </span><br><span class="line"></span><br><span class="line">DingYusongdeMacBook-<span class="symbol">Pro:</span>Desktop Ding$ express -V</span><br><span class="line"><span class="number">4.13</span>.<span class="number">4</span></span><br></pre></td></tr></table></figure>
+<h3 id="使用模板初始化生成app"><a href="#使用模板初始化生成app" class="headerlink" title="使用模板初始化生成app"></a>使用模板初始化生成app</h3><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">	DingYusongdeMacBook-<span class="string">Pro:</span>Desktop Ding$ express webapp</span><br><span class="line"></span><br><span class="line">   <span class="string">create :</span> webapp</span><br><span class="line">   <span class="string">create :</span> webapp/<span class="keyword">package</span>.json</span><br><span class="line">   <span class="string">create :</span> webapp/app.js</span><br><span class="line">   <span class="string">create :</span> webapp/<span class="keyword">public</span></span><br><span class="line">   <span class="string">create :</span> webapp<span class="regexp">/public/</span>javascripts</span><br><span class="line">   <span class="string">create :</span> webapp<span class="regexp">/public/</span>images</span><br><span class="line">   <span class="string">create :</span> webapp<span class="regexp">/public/</span>stylesheets</span><br><span class="line">   <span class="string">create :</span> webapp<span class="regexp">/public/</span>stylesheets/style.css</span><br><span class="line">   <span class="string">create :</span> webapp/routes</span><br><span class="line">   <span class="string">create :</span> webapp<span class="regexp">/routes/</span>index.js</span><br><span class="line">   <span class="string">create :</span> webapp<span class="regexp">/routes/</span>users.js</span><br><span class="line">   <span class="string">create :</span> webapp/views</span><br><span class="line">   <span class="string">create :</span> webapp<span class="regexp">/views/</span>index.jade</span><br><span class="line">   <span class="string">create :</span> webapp<span class="regexp">/views/</span>layout.jade</span><br><span class="line">   <span class="string">create :</span> webapp<span class="regexp">/views/</span>error.jade</span><br><span class="line">   <span class="string">create :</span> webapp/bin</span><br><span class="line">   <span class="string">create :</span> webapp<span class="regexp">/bin/</span>www</span><br><span class="line"></span><br><span class="line">   install <span class="string">dependencies:</span></span><br><span class="line">     $ cd webapp &amp;&amp; npm install</span><br><span class="line"></span><br><span class="line">   run the <span class="string">app:</span></span><br><span class="line">     $ DEBUG=<span class="string">webapp:</span>* npm start</span><br><span class="line"></span><br><span class="line">DingYusongdeMacBook-<span class="string">Pro:</span>Desktop Ding$ cd webapp/</span><br><span class="line">DingYusongdeMacBook-<span class="string">Pro:</span>webapp Ding$ ls -a</span><br><span class="line">.		..		app.js		bin		<span class="keyword">package</span>.json	<span class="keyword">public</span>		routes		views</span><br></pre></td></tr></table></figure>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line">DingYusongdeMacBook-Pro:webapp Ding$ npm install</span><br><span class="line">npm WARN deprecated jade@1<span class="number">.11</span><span class="number">.0</span>: Jade has been renamed to pug, please install the latest version of pug instead of jade</span><br><span class="line">npm WARN deprecated transformers@2<span class="number">.1</span><span class="number">.0</span>: Deprecated, use jstransformer</span><br><span class="line">webapp@0<span class="number">.0</span><span class="number">.0</span> /Users/Ding/Desktop/webapp</span><br><span class="line">├─┬ body-parser@1<span class="number">.15</span><span class="number">.2</span> </span><br><span class="line">│ ├── bytes@2<span class="number">.4</span><span class="number">.0</span> </span><br><span class="line">│ ├── content-type@1<span class="number">.0</span><span class="number">.2</span> </span><br><span class="line">│ ├── depd@1<span class="number">.1</span><span class="number">.0</span> </span><br><span class="line">│ ├─┬ http-errors@1<span class="number">.5</span><span class="number">.0</span> </span><br><span class="line">│ │ ├── inherits@2<span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">│ │ ├── setprototypeof@1<span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">│ │ └── statuses@1<span class="number">.3</span><span class="number">.0</span> </span><br><span class="line">│ ├── iconv-lite@0<span class="number">.4</span><span class="number">.13</span> </span><br><span class="line">│ ├─┬ on-finished@2<span class="number">.3</span><span class="number">.0</span> </span><br><span class="line">│ │ └── ee-first@1<span class="number">.1</span><span class="number">.1</span> </span><br><span class="line">│ ├── qs@6<span class="number">.2</span><span class="number">.0</span> </span><br><span class="line">│ ├─┬ raw-body@2<span class="number">.1</span><span class="number">.7</span> </span><br><span class="line">│ │ └── unpipe@1<span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">│ └─┬ type-is@1<span class="number">.6</span><span class="number">.13</span> </span><br><span class="line">│   ├── media-typer@0<span class="number">.3</span><span class="number">.0</span> </span><br><span class="line">│   └─┬ mime-types@2<span class="number">.1</span><span class="number">.11</span> </span><br><span class="line">│     └── mime-db@1<span class="number">.23</span><span class="number">.0</span> </span><br><span class="line">├─┬ cookie-parser@1<span class="number">.4</span><span class="number">.3</span> </span><br><span class="line">│ ├── cookie@0<span class="number">.3</span><span class="number">.1</span> </span><br><span class="line">│ └── cookie-signature@1<span class="number">.0</span><span class="number">.6</span> </span><br><span class="line">├─┬ debug@2<span class="number">.2</span><span class="number">.0</span> </span><br><span class="line">│ └── ms@0<span class="number">.7</span><span class="number">.1</span> </span><br><span class="line">├─┬ express@4<span class="number">.13</span><span class="number">.4</span> </span><br><span class="line">│ ├─┬ accepts@1<span class="number">.2</span><span class="number">.13</span> </span><br><span class="line">│ │ └── negotiator@0<span class="number">.5</span><span class="number">.3</span> </span><br><span class="line">│ ├── array-flatten@1<span class="number">.1</span><span class="number">.1</span> </span><br><span class="line">│ ├── content-disposition@0<span class="number">.5</span><span class="number">.1</span> </span><br><span class="line">│ ├── cookie@0<span class="number">.1</span><span class="number">.5</span> </span><br><span class="line">│ ├── escape-html@1<span class="number">.0</span><span class="number">.3</span> </span><br><span class="line">│ ├── etag@1<span class="number">.7</span><span class="number">.0</span> </span><br><span class="line">│ ├── finalhandler@0<span class="number">.4</span><span class="number">.1</span> </span><br><span class="line">│ ├── fresh@0<span class="number">.3</span><span class="number">.0</span> </span><br><span class="line">│ ├── merge-descriptors@1<span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">│ ├── methods@1<span class="number">.1</span><span class="number">.2</span> </span><br><span class="line">│ ├── parseurl@1<span class="number">.3</span><span class="number">.1</span> </span><br><span class="line">│ ├── path-to-regexp@0<span class="number">.1</span><span class="number">.7</span> </span><br><span class="line">│ ├─┬ proxy-addr@1<span class="number">.0</span><span class="number">.10</span> </span><br><span class="line">│ │ ├── forwarded@0<span class="number">.1</span><span class="number">.0</span> </span><br><span class="line">│ │ └── ipaddr.js@1<span class="number">.0</span><span class="number">.5</span> </span><br><span class="line">│ ├── qs@4<span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">│ ├── range-parser@1<span class="number">.0</span><span class="number">.3</span> </span><br><span class="line">│ ├─┬ send@0<span class="number">.13</span><span class="number">.1</span> </span><br><span class="line">│ │ ├── destroy@1<span class="number">.0</span><span class="number">.4</span> </span><br><span class="line">│ │ ├── http-errors@1<span class="number">.3</span><span class="number">.1</span> </span><br><span class="line">│ │ ├── mime@1<span class="number">.3</span><span class="number">.4</span> </span><br><span class="line">│ │ └── statuses@1<span class="number">.2</span><span class="number">.1</span> </span><br><span class="line">│ ├─┬ serve-static@1<span class="number">.10</span><span class="number">.3</span> </span><br><span class="line">│ │ └─┬ send@0<span class="number">.13</span><span class="number">.2</span> </span><br><span class="line">│ │   ├── http-errors@1<span class="number">.3</span><span class="number">.1</span> </span><br><span class="line">│ │   └── statuses@1<span class="number">.2</span><span class="number">.1</span> </span><br><span class="line">│ ├── utils-merge@1<span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">│ └── vary@1<span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">├─┬ jade@1<span class="number">.11</span><span class="number">.0</span> </span><br><span class="line">│ ├── <span class="keyword">character</span>-parser@1<span class="number">.2</span><span class="number">.1</span> </span><br><span class="line">│ ├─┬ clean-css@3<span class="number">.4</span><span class="number">.19</span> </span><br><span class="line">│ │ ├─┬ commander@2<span class="number">.8</span><span class="number">.1</span> </span><br><span class="line">│ │ │ └── graceful-readlink@1<span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">│ │ └─┬ <span class="keyword">source</span>-map@0<span class="number">.4</span><span class="number">.4</span> </span><br><span class="line">│ │   └── amdefine@1<span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">│ ├── commander@2<span class="number">.6</span><span class="number">.0</span> </span><br><span class="line">│ ├─┬ constantinople@3<span class="number">.0</span><span class="number">.2</span> </span><br><span class="line">│ │ └── acorn@2<span class="number">.7</span><span class="number">.0</span> </span><br><span class="line">│ ├─┬ jstransformer@0<span class="number">.0</span><span class="number">.2</span> </span><br><span class="line">│ │ ├── is-promise@2<span class="number">.1</span><span class="number">.0</span> </span><br><span class="line">│ │ └─┬ promise@6<span class="number">.1</span><span class="number">.0</span> </span><br><span class="line">│ │   └── asap@1<span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">│ ├─┬ mkdirp@0<span class="number">.5</span><span class="number">.1</span> </span><br><span class="line">│ │ └── minimist@0<span class="number">.0</span><span class="number">.8</span> </span><br><span class="line">│ ├─┬ transformers@2<span class="number">.1</span><span class="number">.0</span> </span><br><span class="line">│ │ ├─┬ css@1<span class="number">.0</span><span class="number">.8</span> </span><br><span class="line">│ │ │ ├── css-parse@1<span class="number">.0</span><span class="number">.4</span> </span><br><span class="line">│ │ │ └── css-stringify@1<span class="number">.0</span><span class="number">.5</span> </span><br><span class="line">│ │ ├─┬ promise@2<span class="number">.0</span><span class="number">.0</span> </span><br><span class="line">│ │ │ └── is-promise@1<span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">│ │ └─┬ uglify-js@2<span class="number">.2</span><span class="number">.5</span> </span><br><span class="line">│ │   ├─┬ optimist@0<span class="number">.3</span><span class="number">.7</span> </span><br><span class="line">│ │   │ └── wordwrap@0<span class="number">.0</span><span class="number">.3</span> </span><br><span class="line">│ │   └── <span class="keyword">source</span>-map@0<span class="number">.1</span><span class="number">.43</span> </span><br><span class="line">│ ├─┬ uglify-js@2<span class="number">.7</span><span class="number">.3</span> </span><br><span class="line">│ │ ├── async@0<span class="number">.2</span><span class="number">.10</span> </span><br><span class="line">│ │ ├── <span class="keyword">source</span>-map@0<span class="number">.5</span><span class="number">.6</span> </span><br><span class="line">│ │ ├── uglify-to-browserify@1<span class="number">.0</span><span class="number">.2</span> </span><br><span class="line">│ │ └─┬ yargs@3<span class="number">.10</span><span class="number">.0</span> </span><br><span class="line">│ │   ├── camelcase@1<span class="number">.2</span><span class="number">.1</span> </span><br><span class="line">│ │   ├─┬ cliui@2<span class="number">.1</span><span class="number">.0</span> </span><br><span class="line">│ │   │ ├─┬ center-<span class="keyword">align</span>@0<span class="number">.1</span><span class="number">.3</span> </span><br><span class="line">│ │   │ │ ├─┬ <span class="keyword">align</span>-<span class="keyword">text</span>@0<span class="number">.1</span><span class="number">.4</span> </span><br><span class="line">│ │   │ │ │ ├─┬ kind-of@3<span class="number">.0</span><span class="number">.4</span> </span><br><span class="line">│ │   │ │ │ │ └── is-buffer@1<span class="number">.1</span><span class="number">.4</span> </span><br><span class="line">│ │   │ │ │ ├── longest@1<span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">│ │   │ │ │ └── repeat-<span class="keyword">string</span>@1<span class="number">.5</span><span class="number">.4</span> </span><br><span class="line">│ │   │ │ └── lazy-cache@1<span class="number">.0</span><span class="number">.4</span> </span><br><span class="line">│ │   │ ├── right-<span class="keyword">align</span>@0<span class="number">.1</span><span class="number">.3</span> </span><br><span class="line">│ │   │ └── wordwrap@0<span class="number">.0</span><span class="number">.2</span> </span><br><span class="line">│ │   ├── decamelize@1<span class="number">.2</span><span class="number">.0</span> </span><br><span class="line">│ │   └── <span class="keyword">window</span>-<span class="keyword">size</span>@0<span class="number">.1</span><span class="number">.0</span> </span><br><span class="line">│ ├── void-elements@2<span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">│ └─┬ with@4<span class="number">.0</span><span class="number">.3</span> </span><br><span class="line">│   ├── acorn@1<span class="number">.2</span><span class="number">.2</span> </span><br><span class="line">│   └── acorn-globals@1<span class="number">.0</span><span class="number">.9</span> </span><br><span class="line">├─┬ morgan@1<span class="number">.7</span><span class="number">.0</span> </span><br><span class="line">│ ├── basic-auth@1<span class="number">.0</span><span class="number">.4</span> </span><br><span class="line">│ └── on-headers@1<span class="number">.0</span><span class="number">.1</span> </span><br><span class="line">└── serve-favicon@2<span class="number">.3</span><span class="number">.0</span> </span><br><span class="line"></span><br><span class="line">DingYusongdeMacBook-Pro:webapp Ding$ <span class="keyword">ls</span> -a</span><br><span class="line">.		..		app.js		bin		node_modules	package.json	public		routes		views</span><br></pre></td></tr></table></figure>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">DingYusongdeMacBook-Pro:webapp Ding$ npm <span class="literal">start</span></span><br><span class="line"></span><br><span class="line">&gt; webapp@<span class="number">0.0</span>.<span class="number">0</span> <span class="literal">start</span> /Users/Ding/Desktop/webapp</span><br><span class="line">&gt; <span class="keyword">node</span> <span class="title">./bin</span>/www</span><br><span class="line"></span><br><span class="line">GET / <span class="number">200</span> <span class="number">439.542</span> <span class="keyword">ms</span> <span class="title">- 170</span></span><br><span class="line">GET /stylesheets/style.css <span class="number">200</span> <span class="number">10.898</span> <span class="keyword">ms</span> <span class="title">- 111</span></span><br><span class="line">GET /favicon.ico <span class="number">404</span> <span class="number">39.194</span> <span class="keyword">ms</span> <span class="title">- 1075</span></span><br></pre></td></tr></table></figure>
+<h3 id="浏览器打开"><a href="#浏览器打开" class="headerlink" title="浏览器打开"></a>浏览器打开</h3><p><a href="http://0.0.0.0:3000/" target="_blank" rel="noopener">http://0.0.0.0:3000/</a></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>使用末班</p>
+<h2 id="相关参考"><a href="#相关参考" class="headerlink" title="相关参考"></a>相关参考</h2><p><a href="http://www.expressjs.com.cn/" target="_blank" rel="noopener">xpress入门指南</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/03/09/Git常用命令/" rel="next" title="Git常用命令">
+                <i class="fa fa-chevron-left"></i> Git常用命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/18/在已经存在的项目中添加React-Native/" rel="prev" title="在已经存在的项目中添加React Native">
+                在已经存在的项目中添加React Native <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="丁玉松" />
+            
+              <p class="site-author-name" itemprop="name">丁玉松</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用node生成"><span class="nav-number">1.</span> <span class="nav-text">使用node生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#node建立工程"><span class="nav-number">1.1.</span> <span class="nav-text">node建立工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装express"><span class="nav-number">1.2.</span> <span class="nav-text">安装express</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建helloWorld-修改入口文件"><span class="nav-number">1.3.</span> <span class="nav-text">创建helloWorld,修改入口文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动服务"><span class="nav-number">1.4.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#碰见的坑"><span class="nav-number">1.5.</span> <span class="nav-text">碰见的坑</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用模板生成器-express-generator"><span class="nav-number">2.</span> <span class="nav-text">使用模板生成器 express-generator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-express-generator"><span class="nav-number">2.1.</span> <span class="nav-text">安装 express-generator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用模板初始化生成app"><span class="nav-number">2.2.</span> <span class="nav-text">使用模板初始化生成app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.3.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行"><span class="nav-number">2.4.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器打开"><span class="nav-number">2.5.</span> <span class="nav-text">浏览器打开</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关参考"><span class="nav-number">4.</span> <span class="nav-text">相关参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">丁玉松</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.0.6</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.6"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.6"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://丁玉松.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://dingyusong.com/2016/03/17/node构建web项目/';
+        this.page.identifier = '2016/03/17/node构建web项目/';
+        this.page.title = 'node构建web项目';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://丁玉松.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7p8juaspb2i1bhmeohaaqf2298fghmsdr9nxaji5mkcvsyjj", "pqx6rgyacbk4i0k2yprx1fcsy7fgi90kjlm527z2m77qas2s");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var newcounter = new Counter();
+              /* Set ACL */
+              var acl = new AV.ACL();
+              acl.setPublicReadAccess(true);
+              acl.setPublicWriteAccess(true);
+              newcounter.setACL(acl);
+              /* End Set ACL */
+              newcounter.set("title", title);
+              newcounter.set("url", url);
+              newcounter.set("time", 1);
+              newcounter.save(null, {
+                success: function(newcounter) {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                },
+                error: function(newcounter, error) {
+                  console.log('Failed to create');
+                }
+              });
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

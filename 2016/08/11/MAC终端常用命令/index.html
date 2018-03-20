@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.6" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.0.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1.常用命令open 打开文件例如： 123open -a macdown MAC终端常用命令.md open . 以下摘录来自: 池建强 著. “MacTalk·人生元编程”。 123456789“open .#当然open也可以打开其他目录，比如open /Users#open还可以直接打开文件，打开程序，指定程序打开文件，打开网址等等，例如open a.txtopen -a Safariop">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MAC终端常用命令">
+<meta property="og:url" content="http://dingyusong.com/2016/08/11/MAC终端常用命令/index.html">
+<meta property="og:site_name" content="丁玉松的博客">
+<meta property="og:description" content="1.常用命令open 打开文件例如： 123open -a macdown MAC终端常用命令.md open . 以下摘录来自: 池建强 著. “MacTalk·人生元编程”。 123456789“open .#当然open也可以打开其他目录，比如open /Users#open还可以直接打开文件，打开程序，指定程序打开文件，打开网址等等，例如open a.txtopen -a Safariop">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-02-27T03:48:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MAC终端常用命令">
+<meta name="twitter:description" content="1.常用命令open 打开文件例如： 123open -a macdown MAC终端常用命令.md open . 以下摘录来自: 池建强 著. “MacTalk·人生元编程”。 123456789“open .#当然open也可以打开其他目录，比如open /Users#open还可以直接打开文件，打开程序，指定程序打开文件，打开网址等等，例如open a.txtopen -a Safariop">
+
+
+
+
+
+
+  <link rel="canonical" href="http://dingyusong.com/2016/08/11/MAC终端常用命令/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>MAC终端常用命令 | 丁玉松的博客</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0637faead87cced30bf0f958c98240e8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">丁玉松的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">把握当下，面对现实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+    
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dingyusong.com/2016/08/11/MAC终端常用命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="丁玉松">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丁玉松的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">MAC终端常用命令</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T16:21:56+08:00">2016-08-11</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/08/11/MAC终端常用命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/08/11/MAC终端常用命令/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/08/11/MAC终端常用命令/" class="leancloud_visitors" data-flag-title="MAC终端常用命令">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-常用命令"><a href="#1-常用命令" class="headerlink" title="1.常用命令"></a>1.常用命令</h2><h3 id="open-打开文件"><a href="#open-打开文件" class="headerlink" title="open 打开文件"></a>open 打开文件</h3><p>例如：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">open -<span class="selector-tag">a</span> macdown MAC终端常用命令<span class="selector-class">.md</span> </span><br><span class="line"></span><br><span class="line">open .</span><br></pre></td></tr></table></figure>
+<p>以下摘录来自: 池建强 著. “MacTalk·人生元编程”。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">“<span class="built_in">open</span> .</span><br><span class="line"><span class="comment">#当然open也可以打开其他目录，比如</span></span><br><span class="line"><span class="built_in">open</span> /Users</span><br><span class="line"></span><br><span class="line"><span class="comment">#open还可以直接打开文件，打开程序，指定程序打开文件，打开网址等等，例如</span></span><br><span class="line"><span class="built_in">open</span> <span class="keyword">a</span>.txt</span><br><span class="line"><span class="built_in">open</span> -<span class="keyword">a</span> Safari</span><br><span class="line"><span class="built_in">open</span> -<span class="keyword">a</span> TextMate <span class="keyword">a</span>.txt</span><br><span class="line"><span class="built_in">open</span> <span class="keyword">http</span>://news.sina.com.cn”</span><br></pre></td></tr></table></figure>
+<h3 id="mdfind-查找文件"><a href="#mdfind-查找文件" class="headerlink" title="mdfind 查找文件"></a>mdfind 查找文件</h3><p>例如：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">dingyusong:</span>_posts GoldWallet$ mdfind -name bundleId.sh</span><br><span class="line"><span class="regexp">/Users/</span>GoldWallet<span class="regexp">/Desktop/</span>bundleId.sh</span><br></pre></td></tr></table></figure>
+<p>摘录来自: 池建强 著. “MacTalk·人生元编程”。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mdfind是一个非常灵活的全局搜索命令，类似Spotlight的命令行模式，可以在任何目录执行文件名、文件内容进行检索，例如：</span><br><span class="line"></span><br><span class="line">mdfind 苹果操作系统</span><br><span class="line"><span class="string">//</span>搜索文件内容或文件名包含苹果操作系统的文件</span><br><span class="line">mdfind -onlyin ~<span class="string">/Desktop</span> 苹果操作系统</span><br><span class="line"><span class="string">//</span>在桌面上搜索文件内容或文件名包含苹果操作系统的文件</span><br><span class="line">mdfind -count -onlyin ~<span class="string">/Desktop</span> 苹果操作系统</span><br><span class="line"><span class="string">//</span>统计搜索到的结果</span><br><span class="line">mdfind -name 苹果操作系统</span><br><span class="line"><span class="string">//</span>搜索文件名包含苹果操作系统的文件</span><br></pre></td></tr></table></figure>
+<h3 id="mdls-查看文件详细信息"><a href="#mdls-查看文件详细信息" class="headerlink" title="mdls 查看文件详细信息"></a>mdls 查看文件详细信息</h3><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">dingyusong:_posts GoldWallet$ mdls MAC终端常用命令.md </span></span><br><span class="line">_kMDItemOwnerUserID            = 501</span><br><span class="line">kMDItemContentCreationDate     = 2016-08-26 02:19:17 +0000</span><br><span class="line">kMDItemContentModificationDate = 2016-11-02 02:55:34 +0000</span><br><span class="line">kMDItemContentType             = <span class="string">"net.daringfireball.markdown"</span></span><br><span class="line">kMDItemContentTypeTree         = (</span><br><span class="line">    <span class="string">"public.item"</span>,</span><br><span class="line">    <span class="string">"public.text"</span>,</span><br><span class="line">    <span class="string">"public.data"</span>,</span><br><span class="line">    <span class="string">"net.daringfireball.markdown"</span>,</span><br><span class="line">    <span class="string">"public.content"</span></span><br><span class="line">)</span><br><span class="line">kMDItemDateAdded               = 2016-11-02 02:55:34 +0000</span><br><span class="line">kMDItemDisplayName             = <span class="string">"MAC终端常用命令.md"</span></span><br><span class="line">kMDItemFSContentChangeDate     = 2016-11-02 02:55:34 +0000</span><br><span class="line">kMDItemFSCreationDate          = 2016-08-26 02:19:17 +0000</span><br><span class="line">kMDItemFSCreatorCode           = <span class="string">""</span></span><br><span class="line">kMDItemFSFinderFlags           = 0</span><br><span class="line">kMDItemFSHasCustomIcon         = (null)</span><br><span class="line">kMDItemFSInvisible             = 0</span><br><span class="line">kMDItemFSIsExtensionHidden     = 0</span><br><span class="line">kMDItemFSIsStationery          = (null)</span><br><span class="line">kMDItemFSLabel                 = 0</span><br><span class="line">kMDItemFSName                  = <span class="string">"MAC终端常用命令.md"</span></span><br><span class="line">kMDItemFSNodeCount             = (null)</span><br><span class="line">kMDItemFSOwnerGroupID          = 20</span><br><span class="line">kMDItemFSOwnerUserID           = 501</span><br><span class="line">kMDItemFSSize                  = 1259</span><br><span class="line">kMDItemFSTypeCode              = <span class="string">""</span></span><br><span class="line">kMDItemKind                    = <span class="string">"Markdown"</span></span><br><span class="line">kMDItemLogicalSize             = 1259</span><br><span class="line">kMDItemPhysicalSize            = 4096</span><br><span class="line">kMDItemUserModifiedDate        = (</span><br><span class="line">    <span class="string">"2016-11-02 02:47:29 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:47:36 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:47:39 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:47:40 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:51:50 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:51:57 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:52:24 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:52:40 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:53:06 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:53:08 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:53:11 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:53:15 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:55:14 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:55:17 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:55:20 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:55:24 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:55:27 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:55:30 +0000"</span>,</span><br><span class="line">    <span class="string">"2016-11-02 02:55:34 +0000"</span></span><br><span class="line">)</span><br><span class="line">kMDItemUserModifiedUserHandle  = (</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501,</span><br><span class="line">    501</span><br><span class="line">)</span><br><span class="line"><span class="section">dingyusong:_posts GoldWallet$</span></span><br></pre></td></tr></table></figure>
+<h4 id="cat-查看"><a href="#cat-查看" class="headerlink" title="cat 查看"></a>cat 查看</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">dingyusong:_posts GoldWallet$ cat <span class="regexp">/etc/</span>shells</span><br><span class="line"><span class="comment"># List of acceptable shells for chpass(1).</span></span><br><span class="line"><span class="comment"># Ftpd will not allow users to connect who are not using</span></span><br><span class="line"><span class="comment"># one of these shells.</span></span><br><span class="line"></span><br><span class="line"><span class="regexp">/bin/</span>bash</span><br><span class="line"><span class="regexp">/bin/</span>csh</span><br><span class="line"><span class="regexp">/bin/</span>ksh</span><br><span class="line"><span class="regexp">/bin/</span>sh</span><br><span class="line"><span class="regexp">/bin/</span>tcsh</span><br><span class="line"><span class="regexp">/bin/</span>zsh</span><br><span class="line">dingyusong:_posts GoldWallet$</span><br></pre></td></tr></table></figure>
+<h4 id="查看某个命令在什么地方"><a href="#查看某个命令在什么地方" class="headerlink" title="查看某个命令在什么地方"></a>查看某个命令在什么地方</h4><p><a href="http://www.th7.cn/system/mac/201411/75454.shtml" target="_blank" rel="noopener">Mac下查看某个命令的路径</a></p>
+<p><a href="http://www.2cto.com/os/201308/235081.html" target="_blank" rel="noopener">Linux /bin, /sbin, /usr/bin, /usr/sbin区别</a></p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">➜  <span class="keyword">bin </span>which hexo</span><br><span class="line">/usr/local/<span class="keyword">bin/hexo</span></span><br><span class="line"><span class="keyword">➜ </span> <span class="keyword">bin</span></span><br></pre></td></tr></table></figure>
+<p>‘/bin’ ‘/sbin’ ‘/usr/bin’ ‘/usr/sbin’ ‘/usr/local/bin’ </p>
+<h4 id="usr-bin"><a href="#usr-bin" class="headerlink" title="/usr/bin"></a>/usr/bin</h4><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br></pre></td><td class="code"><pre><span class="line">➜  bin cd /usr/bin</span><br><span class="line">➜  bin ls</span><br><span class="line"><span class="number">2</span>to3                        fixproc                     memory_pressure             sdx</span><br><span class="line"><span class="number">2</span>to3-                       flex                        mesg                        security</span><br><span class="line"><span class="number">2</span>to3<span class="number">-2.7</span>                    flex++                      mib2c                       sed</span><br><span class="line"><span class="number">2</span>to32<span class="number">.6</span>                     fmt                         mib2c-update                seeksize.d</span><br><span class="line">AssetCacheLocatorUtil       fold                        mig                         segedit</span><br><span class="line">BuildStrings                fontrestore                 mkbom                       seq</span><br><span class="line">CpMac                       footprint                   mkdep                       serialver</span><br><span class="line">DeRez                       format-sql                  mkfifo                      servertool</span><br><span class="line">GetFileInfo                 format-sql5<span class="number">.16</span>              mklocale                    setregion</span><br><span class="line">IOAccelMemory               format-sql5<span class="number">.18</span>              mktemp                      setuids.d</span><br><span class="line">MergePef                    from                        mmroff                      sfltool</span><br><span class="line">MvMac                       fs_usage                    mnthome                     sftp</span><br><span class="line">ResMerger                   ftp                         moo-outdated                shar</span><br><span class="line">Rez                         funzip                      moo-outdated5<span class="number">.18</span>            shasum</span><br><span class="line">RezDet                      fuser                       moose-outdated              shasum5<span class="number">.16</span></span><br><span class="line">RezWack                     fwkdp                       moose-outdated5<span class="number">.16</span>          shasum5<span class="number">.18</span></span><br><span class="line">SetFile                     fwkpfv                      moose-outdated5<span class="number">.18</span>          shlock</span><br><span class="line">SplitForks                  g++                         more                        showmount</span><br><span class="line">UnRezWack                   gatherheaderdoc             mp2bug                      sigdist.d</span><br><span class="line">a2p                         gcc                         msgs                        sips</span><br><span class="line">a2p5<span class="number">.16</span>                     gcore                       nano                        size</span><br><span class="line">a2p5<span class="number">.18</span>                     gcov                        nasm                        slogin</span><br><span class="line">addftinfo                   gdiffmk                     native2ascii                smbutil</span><br><span class="line">afclip                      gem                         nbdst                       smtpd.py</span><br><span class="line">afconvert                   gen_bridge_metadata         nc                          smtpd2<span class="number">.6</span>.py</span><br><span class="line">afhash                      gencat                      ncal                        smtpd2<span class="number">.7</span>.py</span><br><span class="line">afida                       genstrings                  ncctl                       snfsdefrag</span><br><span class="line">afinfo                      getconf                     ncdestroy                   snmp-bridge-mib</span><br><span class="line">afmtodit                    getopt                      ncinit                      snmpbulkget</span><br><span class="line">afplay                      getopts                     nclist                      snmpbulkwalk</span><br><span class="line">afscexpand                  git                         ncurses5<span class="number">.4</span>-config           snmpconf</span><br><span class="line">agentxtrap                  git-cvsserver               ndisasm                     snmpdelta</span><br><span class="line">agvtool                     git-receive-pack            neqn                        snmpdf</span><br><span class="line">alias                       git-shell                   net-server                  snmpget</span><br><span class="line">applesingle                 git-upload-archive          net-server5<span class="number">.16</span>              snmpgetnext</span><br><span class="line">appletviewer                git-upload-pack             net-server5<span class="number">.18</span>              snmpinform</span><br><span class="line">apply                       gm4                         net-snmp-cert               snmpnetstat</span><br><span class="line">apropos                     gnuattach                   net-snmp-config             snmpset</span><br><span class="line">apt                         gnuclient                   net-snmp-create-v3-user     snmpstatus</span><br><span class="line">ar                          gnudoit                     nettop                      snmptable</span><br><span class="line">arch                        gnumake                     newaliases                  snmptest</span><br><span class="line">as                          gnuserv                     newgrp                      snmptranslate</span><br><span class="line">asa                         gperf                       newproc.d                   snmptrap</span><br><span class="line">asctl                       grep                        nfsstat                     snmpusm</span><br><span class="line">assetutil                   grn                         nice                        snmpvacm</span><br><span class="line">at                          grodvi                      nl                          snmpwalk</span><br><span class="line">atos                        groff                       nm                          sntp</span><br><span class="line">atq                         groffer                     nmedit                      soelim</span><br><span class="line">atrm                        grog                        nohup                       sort</span><br><span class="line">atsutil                     grolbp                      notifyutil                  spfd</span><br><span class="line">automator                   grolj4                      nroff                       spfd5<span class="number">.16</span></span><br><span class="line">auval                       grops                       nscurl                      spfd5<span class="number">.18</span></span><br><span class="line">auvaltool                   grotty                      nslookup                    spfquery</span><br><span class="line">avbdiagnose                 groups                      nsupdate                    spfquery5<span class="number">.16</span></span><br><span class="line">avbutil                     gunzip                      ntp-keygen                  spfquery5<span class="number">.18</span></span><br><span class="line">avconvert                   gzcat                       ntpq                        splain</span><br><span class="line">avmetareadwrite             gzexe                       objdump                     splain5<span class="number">.16</span></span><br><span class="line">awk                         gzip                        od                          splain5<span class="number">.18</span></span><br><span class="line">banner                      h2ph                        odutil                      split</span><br><span class="line">base64                      h2ph5<span class="number">.16</span>                    open                        sqlite3</span><br><span class="line">basename                    h2ph5<span class="number">.18</span>                    opendiff                    ssh</span><br><span class="line">bashbug                     h2xs                        opensnoop                   ssh-add</span><br><span class="line">batch                       h2xs5<span class="number">.16</span>                    openssl                     ssh-agent</span><br><span class="line">bc                          h2xs5<span class="number">.18</span>                    orbd                        ssh-copy-id</span><br><span class="line">bg                          hash                        osacompile                  ssh-keygen</span><br><span class="line">biff                        hdid                        osadecompile                ssh-keyscan</span><br><span class="line">binhex                      hdiutil                     osalang                     stat</span><br><span class="line">binhex.pl                   hdxml2manxml                osascript                   stringdups</span><br><span class="line">binhex5<span class="number">.18</span>.pl               head                        otool                       stringdups32</span><br><span class="line">bioutil                     headerdoc2html              pack200                     strings</span><br><span class="line">bison                       heap                        package-stash-conflicts     strip</span><br><span class="line">bitesize.d                  heap32                      package-stash-conflicts5<span class="number">.16</span> stty.pl</span><br><span class="line">brctl                       hexdump                     package-stash-conflicts5<span class="number">.18</span> stty5<span class="number">.16</span>.pl</span><br><span class="line">bsdtar                      hidutil                     pagesize                    stty5<span class="number">.18</span>.pl</span><br><span class="line">bspatch                     hiutil                      pagestuff                   su</span><br><span class="line">btmmdiagnose                host                        par.pl                      sudo</span><br><span class="line">bunzip2                     hostinfo                    par5<span class="number">.16</span>.pl                  sum</span><br><span class="line">bzcat                       hotspot.d                   par5<span class="number">.18</span>.pl                  svn</span><br><span class="line">bzcmp                       hpftodit                    parl                        svnadmin</span><br><span class="line">bzdiff                      htmltree                    parl5<span class="number">.16</span>                    svndumpfilter</span><br><span class="line">bzegrep                     htmltree5<span class="number">.16</span>                parl5<span class="number">.18</span>                    svnlook</span><br><span class="line">bzfgrep                     htmltree5<span class="number">.18</span>                parldyn                     svnserve</span><br><span class="line">bzgrep                      httpdstat.d                 parldyn5<span class="number">.16</span>                 svnsync</span><br><span class="line">bzip2                       ibtool                      parldyn5<span class="number">.18</span>                 svnversion</span><br><span class="line">bzip2recover                iconutil                    passwd                      sw_vers</span><br><span class="line">bzless                      iconv                       paste                       swift</span><br><span class="line">bzmore                      ictool                      patch                       swiftc</span><br><span class="line">c++                         id                          pathchk                     symbols</span><br><span class="line">c++filt                     idle                        pathopens.d                 symbolscache</span><br><span class="line">c2ph                        idle2<span class="number">.6</span>                     pbcopy                      syscallbypid.d</span><br><span class="line">c2ph5<span class="number">.16</span>                    idle2<span class="number">.7</span>                     pbpaste                     syscallbyproc.d</span><br><span class="line">c2ph5<span class="number">.18</span>                    idlj                        pcap-config                 syscallbysysc.d</span><br><span class="line">c89                         imptrace                    pcsctest                    sysdiagnose</span><br><span class="line">c99                         indent                      perl                        syslog</span><br><span class="line">c_rehash                    indxbib                     perl5<span class="number">.16</span>                    tab2space</span><br><span class="line">caffeinate                  info                        perl5<span class="number">.18</span>                    tabs</span><br><span class="line">cal                         infocmp                     perlbug                     tail</span><br><span class="line">calendar                    infokey                     perlbug5<span class="number">.16</span>                 tailspin</span><br><span class="line">cancel                      infotocap                   perlbug5<span class="number">.18</span>                 talk</span><br><span class="line">cap_mkdb                    install                     perldoc                     tar</span><br><span class="line">captoinfo                   install-info                perldoc5<span class="number">.16</span>                 taskinfo</span><br><span class="line">cc                          install_name_tool           perldoc5<span class="number">.18</span>                 tbl</span><br><span class="line">cd                          instmodsh                   perlivp                     tccutil</span><br><span class="line">certtool                    instmodsh5<span class="number">.16</span>               perlivp5<span class="number">.16</span>                 tclsh</span><br><span class="line">checknr                     instmodsh5<span class="number">.18</span>               perlivp5<span class="number">.18</span>                 tclsh8<span class="number">.4</span></span><br><span class="line">chflags                     instruments                 perlthanks                  tclsh8<span class="number">.5</span></span><br><span class="line">chfn                        iofile.d                    perlthanks5<span class="number">.16</span>              tee</span><br><span class="line">chgrp                       iofileb.d                   perlthanks5<span class="number">.18</span>              telnet</span><br><span class="line">chpass                      iopattern                   pfbtops                     testrb</span><br><span class="line">chsh                        iopending                   pgrep                       texi2dvi</span><br><span class="line">cksum                       iosnoop                     phar                        texi2pdf</span><br><span class="line">clang                       iotop                       phar.phar                   texindex</span><br><span class="line">clang++                     ip2cc                       php                         textutil</span><br><span class="line">clear                       ip2cc5<span class="number">.16</span>                   php-config                  tfmtodit</span><br><span class="line">cmp                         ip2cc5<span class="number">.18</span>                   phpize                      tftp</span><br><span class="line">cmpdylib                    ipcount                     pic                         thermal</span><br><span class="line">codesign                    ipcount5<span class="number">.16</span>                 pico                        tic</span><br><span class="line">codesign_allocate           ipcount5<span class="number">.18</span>                 piconv                      tidy</span><br><span class="line">col                         ipcrm                       piconv5<span class="number">.16</span>                  tiff2icns</span><br><span class="line">colcrt                      ipcs                        piconv5<span class="number">.18</span>                  tiffutil</span><br><span class="line">colldef                     ippfind                     pidpersec.d                 time</span><br><span class="line">colrm                       ipptool                     pkgbuild                    timer_analyser.d</span><br><span class="line">column                      iprofiler                   pkill                       timerfires</span><br><span class="line">comm                        iptab                       pl                          tkcon</span><br><span class="line">command                     iptab5<span class="number">.16</span>                   pl2pm                       tkmib</span><br><span class="line">compress                    iptab5<span class="number">.18</span>                   pl2pm5<span class="number">.16</span>                   tkpp</span><br><span class="line">config_data                 irb                         pl2pm5<span class="number">.18</span>                   tkpp5<span class="number">.16</span></span><br><span class="line">config_data5<span class="number">.16</span>             jar                         plockstat                   tkpp5<span class="number">.18</span></span><br><span class="line">config_data5<span class="number">.18</span>             jarsigner                   pluginkit                   tmdiagnose</span><br><span class="line">corelist                    java                        plutil                      tmutil</span><br><span class="line">corelist5<span class="number">.16</span>                javac                       pmset                       tnameserv</span><br><span class="line">corelist5<span class="number">.18</span>                javadoc                     pod2html                    toe</span><br><span class="line">cpan                        javah                       pod2html5<span class="number">.16</span>                top</span><br><span class="line">cpan2dist                   javap                       pod2html5<span class="number">.18</span>                tops</span><br><span class="line">cpan2dist5<span class="number">.16</span>               javapackager                pod2latex                   topsyscall</span><br><span class="line">cpan2dist5<span class="number">.18</span>               javaws                      pod2latex5<span class="number">.16</span>               topsysproc</span><br><span class="line">cpan5<span class="number">.16</span>                    jcmd                        pod2latex5<span class="number">.18</span>               <span class="section">touch</span></span><br><span class="line">cpan5<span class="number">.18</span>                    jconsole                    pod2man                     tput</span><br><span class="line">cpanp                       jcontrol                    pod2man5<span class="number">.16</span>                 tr</span><br><span class="line">cpanp-run-perl              jdb                         pod2man5<span class="number">.18</span>                 trace</span><br><span class="line">cpanp-run-perl5<span class="number">.16</span>          jdeps                       pod2readme                  traptoemail</span><br><span class="line">cpanp-run-perl5<span class="number">.18</span>          jhat                        pod2readme5<span class="number">.16</span>              treereg</span><br><span class="line">cpanp5<span class="number">.16</span>                   jhsdb                       pod2readme5<span class="number">.18</span>              treereg5<span class="number">.16</span></span><br><span class="line">cpanp5<span class="number">.18</span>                   jimage                      pod2text                    treereg5<span class="number">.18</span></span><br><span class="line">cpio                        jinfo                       pod2text5<span class="number">.16</span>                trimforce</span><br><span class="line">cpp                         jjs                         pod2text5<span class="number">.18</span>                troff</span><br><span class="line">cpu_profiler.d              jmap                        pod2usage                   true</span><br><span class="line">cpuwalk.d                   jmc                         pod2usage5<span class="number">.16</span>               tset</span><br><span class="line">crc32                       jobs                        pod2usage5<span class="number">.18</span>               tsort</span><br><span class="line">crc325<span class="number">.16</span>                   join                        podchecker                  tty</span><br><span class="line">crc325<span class="number">.18</span>                   jot                         podchecker5<span class="number">.16</span>              type</span><br><span class="line">creatbyproc.d               jps                         podchecker5<span class="number">.18</span>              ul</span><br><span class="line">crlrefresh                  jrunscript                  podselect                   ulimit</span><br><span class="line">crontab                     jsadebugd                   podselect5<span class="number">.16</span>               umask</span><br><span class="line">csdiagnose                  jshell                      podselect5<span class="number">.18</span>               unalias</span><br><span class="line">csgather                    json_pp                     policytool                  uname</span><br><span class="line">csplit                      json_pp5<span class="number">.16</span>                 post-grohtml                uncompress</span><br><span class="line">csreq                       json_pp5<span class="number">.18</span>                 power_report.sh             unexpand</span><br><span class="line">csrutil                     jstack                      powermetrics                unifdef</span><br><span class="line">ctags                       jstat                       pp                          unifdefall</span><br><span class="line">ctf_insert                  jstatd                      pp5<span class="number">.16</span>                      uniq</span><br><span class="line">cu                          jvisualvm                   pp5<span class="number">.18</span>                      units</span><br><span class="line">cups-config                 kcc                         ppdc                        unpack200</span><br><span class="line">cupstestdsc                 kdestroy                    ppdhtml                     unvis</span><br><span class="line">cupstestppd                 kextutil                    ppdi                        unzip</span><br><span class="line">curl                        keytool                     ppdmerge                    unzipsfx</span><br><span class="line">curl-config                 kgetcred                    ppdpo                       update_dyld_shared_cache</span><br><span class="line">cut                         kill.d                      pr                          uptime</span><br><span class="line">cvaffinity                  killall                     pre-grohtml                 usbkdp</span><br><span class="line">cvcp                        kinit                       priclass.d                  users</span><br><span class="line">cvmkdir                     klist                       pridist.d                   uucp</span><br><span class="line">cvmkfile                    kpasswd                     printenv                    uudecode</span><br><span class="line">dappprof                    krb5-config                 printf                      uuencode</span><br><span class="line">dapptrace                   kswitch                     procsystime                 uuidgen</span><br><span class="line">darwinup                    lam                         productbuild                uulog</span><br><span class="line">db_archive                  last                        productsign                 uuname</span><br><span class="line">db_checkpoint               lastcomm                    profiles                    uupick</span><br><span class="line">db_codegen                  lastwords                   prove                       uustat</span><br><span class="line">db_deadlock                 latency                     prove5<span class="number">.16</span>                   uuto</span><br><span class="line">db_dump                     layerutil                   prove5<span class="number">.18</span>                   uux</span><br><span class="line">db_hotbackup                ld                          psed                        vi</span><br><span class="line">db_load                     ldapadd                     psed5<span class="number">.16</span>                    view</span><br><span class="line">db_printlog                 ldapcompare                 psed5<span class="number">.18</span>                    vim</span><br><span class="line">db_recover                  ldapdelete                  pstopdf                     vimdiff</span><br><span class="line">db_stat                     ldapexop                    pstruct                     vimtutor</span><br><span class="line">db_upgrade                  ldapmodify                  pstruct5<span class="number">.16</span>                 vis</span><br><span class="line">db_verify                   ldapmodrdn                  pstruct5<span class="number">.18</span>                 vm_stat</span><br><span class="line">dbicadmin                   ldappasswd                  ptar                        vmmap</span><br><span class="line">dbicadmin5<span class="number">.16</span>               ldapsearch                  ptar5<span class="number">.16</span>                    vmmap32</span><br><span class="line">dbicadmin5<span class="number">.18</span>               ldapurl                     ptar5<span class="number">.18</span>                    w</span><br><span class="line">dbilogstrip                 ldapwhoami                  ptardiff                    wait</span><br><span class="line">dbilogstrip5<span class="number">.16</span>             leaks                       ptardiff5<span class="number">.16</span>                wall</span><br><span class="line">dbilogstrip5<span class="number">.18</span>             leaks32                     ptardiff5<span class="number">.18</span>                wc</span><br><span class="line">dbiprof                     leave                       ptargrep                    wdutil</span><br><span class="line">dbiprof5<span class="number">.16</span>                 less                        ptargrep5<span class="number">.16</span>                weblatency.d</span><br><span class="line">dbiprof5<span class="number">.18</span>                 lessecho                    ptargrep5<span class="number">.18</span>                what</span><br><span class="line">dbiproxy                    lex                         pubsub                      whatis</span><br><span class="line">dbiproxy5<span class="number">.16</span>                libnetcfg                   pwhich                      whereis</span><br><span class="line">dbiproxy5<span class="number">.18</span>                libnetcfg5<span class="number">.16</span>               pwhich5<span class="number">.16</span>                  which</span><br><span class="line">dc                          libnetcfg5<span class="number">.18</span>               pwhich5<span class="number">.18</span>                  who</span><br><span class="line">debinhex.pl                 libtool                     pwpolicy                    whoami</span><br><span class="line">debinhex5<span class="number">.18</span>.pl             lipo                        pydoc                       whois</span><br><span class="line">defaults                    lkbib                       pydoc2<span class="number">.6</span>                    wish</span><br><span class="line">desdp                       lldb                        pydoc2<span class="number">.7</span>                    wish8<span class="number">.4</span></span><br><span class="line">diff                        llvm-g++                    python                      wish8<span class="number">.5</span></span><br><span class="line">diff3                       llvm-gcc                    python-config               write</span><br><span class="line">diffstat                    loads.d                     python2<span class="number">.6</span>                   wsgen</span><br><span class="line">dig                         locale                      python2<span class="number">.6</span>-config            wsimport</span><br><span class="line">dirname                     localedef                   python2<span class="number">.7</span>                   xar</span><br><span class="line">diskhits                    locate                      python2<span class="number">.7</span>-config            xargs</span><br><span class="line">dispqlen.d                  lockstat                    pythonw                     xattr</span><br><span class="line">ditto                       log                         pythonw2<span class="number">.6</span>                  xattr<span class="number">-2.6</span></span><br><span class="line">dns-sd                      logger                      pythonw2<span class="number">.7</span>                  xattr<span class="number">-2.7</span></span><br><span class="line">drutil                      login                       qc2movie                    xcode-select</span><br><span class="line">dscacheutil                 logname                     qlmanage                    xcodebuild</span><br><span class="line">dscl                        look                        qtdefaults                  xcrun</span><br><span class="line">dserr                       lookbib                     qtmodernizer                xcscontrol</span><br><span class="line">dsexport                    lorder                      quota                       xcsdiagnose</span><br><span class="line">dsimport                    lp                          rails                       xed</span><br><span class="line">dsmemberutil                lpoptions                   rake                        xgettext.pl</span><br><span class="line">dsymutil                    lpq                         ranlib                      xgettext5<span class="number">.16</span>.pl</span><br><span class="line">dtruss                      lpr                         rdoc                        xgettext5<span class="number">.18</span>.pl</span><br><span class="line">du                          lprm                        read                        xip</span><br><span class="line">dwarfdump                   lpstat                      readlink                    xjc</span><br><span class="line">easy_install                lsappinfo                   rebase                      xml2-config</span><br><span class="line">easy_install<span class="number">-2.6</span>            lsbom                       redo_prebinding             xml2man</span><br><span class="line">easy_install<span class="number">-2.7</span>            lskq                        refer                       xmlcatalog</span><br><span class="line">egrep                       lsm                         renice                      xmllint</span><br><span class="line">emacs                       lsmp                        reset                       xpath</span><br><span class="line">emacs-undumped              lsvfs                       resolveLinks                xpath5<span class="number">.16</span></span><br><span class="line">emacsclient                 lwp-download                rev                         xpath5<span class="number">.18</span></span><br><span class="line">enc2xs                      lwp-download5<span class="number">.16</span>            ri                          xslt-config</span><br><span class="line">enc2xs5<span class="number">.16</span>                  lwp-download5<span class="number">.18</span>            rmic                        xsltproc</span><br><span class="line">enc2xs5<span class="number">.18</span>                  lwp-dump                    rmid                        xsubpp</span><br><span class="line">encode_keychange            lwp-dump5<span class="number">.16</span>                rmiregistry                 xsubpp5<span class="number">.16</span></span><br><span class="line">env                         lwp-dump5<span class="number">.18</span>                rpcgen                      xsubpp5<span class="number">.18</span></span><br><span class="line">eqn                         lwp-mirror                  rs                          xxd</span><br><span class="line">erb                         lwp-mirror5<span class="number">.16</span>              rsync                       yacc</span><br><span class="line">errinfo                     lwp-mirror5<span class="number">.18</span>              ruby                        yes</span><br><span class="line">etags                       lwp-request                 runocc.d                    ypcat</span><br><span class="line">ex                          lwp-request5<span class="number">.16</span>             rvictl                      ypmatch</span><br><span class="line">execsnoop                   lwp-request5<span class="number">.18</span>             rview                       ypwhich</span><br><span class="line">expand                      m4                          rvim                        zcat</span><br><span class="line">expect                      macbinary                   rwbypid.d                   zcmp</span><br><span class="line">extcheck                    macerror                    rwbytype.d                  zdiff</span><br><span class="line">eyapp                       macerror5<span class="number">.16</span>                rwsnoop                     zegrep</span><br><span class="line">eyapp5<span class="number">.16</span>                   macerror5<span class="number">.18</span>                s2p                         zfgrep</span><br><span class="line">eyapp5<span class="number">.18</span>                   machine                     s2p5<span class="number">.16</span>                     zforce</span><br><span class="line">false                       mail                        s2p5<span class="number">.18</span>                     zgrep</span><br><span class="line">fc                          mailq                       safaridriver                zip</span><br><span class="line">fddist                      mailx                       sample                      zipcloak</span><br><span class="line">fdesetup                    make                        sampleproc                  zipdetails</span><br><span class="line">fg                          makeinfo                    sandbox-exec                zipdetails5<span class="number">.16</span></span><br><span class="line">fgrep                       malloc_history              say                         zipdetails5<span class="number">.18</span></span><br><span class="line">file                        malloc_history32            sc_usage                    zipgrep</span><br><span class="line">filebyproc.d                man                         scandeps.pl                 zipinfo</span><br><span class="line">filtercalltree              manpath                     scandeps5<span class="number">.16</span>.pl             zipnote</span><br><span class="line">find                        mcxquery                    scandeps5<span class="number">.18</span>.pl             zipsplit</span><br><span class="line">find2perl                   mcxrefresh                  schemagen                   zless</span><br><span class="line">find2perl5<span class="number">.16</span>               mddiagnose                  scp                         zmore</span><br><span class="line">find2perl5<span class="number">.18</span>               mdfind                      screen                      znew</span><br><span class="line">findrule                    mdimport                    script                      zprint</span><br><span class="line">findrule5<span class="number">.16</span>                mdimport32                  sdef</span><br><span class="line">findrule5<span class="number">.18</span>                mdls                        sdiff</span><br><span class="line">finger                      mdutil                      sdp</span><br></pre></td></tr></table></figure>
+<h4 id="usr-local-bin"><a href="#usr-local-bin" class="headerlink" title="/usr/local/bin"></a>/usr/local/bin</h4><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">➜  bin <span class="keyword">cd</span> /usr/<span class="keyword">local</span>/bin</span><br><span class="line">➜  bin <span class="keyword">ls</span></span><br><span class="line">brew          gitbook       <span class="keyword">lv</span>-svr        npm           prl_convert   prlcore2dmp   prlsrvctl     weex</span><br><span class="line">cnpm          hexo          <span class="keyword">n</span>             npm-check     prl_disk_tool prlctl        rougify       xcodeproj</span><br><span class="line">fuzzy_match   <span class="keyword">lv</span>            node          pod           prl_perf_ctl  prlexec       sandbox-pod   xcpretty</span><br><span class="line">➜  bin</span><br></pre></td></tr></table></figure>
+<h4 id="bin"><a href="#bin" class="headerlink" title="/bin"></a>/bin</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  bin <span class="keyword">cd</span> /bin</span><br><span class="line">➜  /bin <span class="keyword">ls</span></span><br><span class="line">[          <span class="keyword">cp</span>         df         expr       launchctl  <span class="built_in">mkdir</span>      <span class="keyword">pwd</span>        <span class="keyword">sleep</span>      test</span><br><span class="line">bash       csh        domainname <span class="built_in">hostname</span>   link       mv         rm         stty       unlink</span><br><span class="line"><span class="keyword">cat</span>        date       <span class="keyword">echo</span>       kill       <span class="keyword">ln</span>         pax        rmdir      <span class="keyword">sync</span>       wait4path</span><br><span class="line">chmod      dd         ed         ksh        <span class="keyword">ls</span>         <span class="keyword">ps</span>         <span class="keyword">sh</span>         tcsh       zsh</span><br><span class="line">➜  /bin</span><br></pre></td></tr></table></figure>
+<h4 id="sbin"><a href="#sbin" class="headerlink" title="/sbin"></a>/sbin</h4><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">➜  /bin cd /sbin </span><br><span class="line">➜  /sbin ls</span><br><span class="line">apfs_hfs_convert fsck_cs          fstyp_udf        mount_acfs       mount_hfs        newfs_exfat      ping6</span><br><span class="line">autodiskmount    fsck_exfat       halt             mount_afp        mount_msdos      newfs_hfs        quotacheck</span><br><span class="line">disklabel        fsck_hfs         ifconfig         mount_apfs       mount_nfs        newfs_msdos      reboot</span><br><span class="line">dmesg            fsck_msdos       kextload         mount_cd9660     mount_ntfs       newfs_udf        route</span><br><span class="line">dynamic_pager    fsck_udf         kextunload       mount_cddafs     mount_smbfs      nfsd             rtsol</span><br><span class="line">emond            fstyp            launchd          mount_devfs      mount_udf        nfsiod           shutdown</span><br><span class="line">fibreconfig      fstyp_hfs        md5              mount_exfat      mount_webdav     nologin          umount</span><br><span class="line">fsck             fstyp_msdos      mknod            mount_fdesc      mpioutil         pfctl</span><br><span class="line">fsck_apfs        fstyp_ntfs       mount            mount_ftp        newfs_apfs       ping</span><br><span class="line">➜  /sbin</span><br></pre></td></tr></table></figure>
+<h4 id="usr-sbin"><a href="#usr-sbin" class="headerlink" title="/usr/sbin"></a>/usr/sbin</h4><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">➜  <span class="string">bin </span><span class="string">cd </span>/<span class="string">usr/</span><span class="string">sbin</span></span><br><span class="line"><span class="string">➜</span>  <span class="string">sbin </span><span class="string">ls</span></span><br><span class="line"><span class="string">AppleFileServer </span>      <span class="string">cvfsck </span>               <span class="string">kdcsetup </span>             <span class="string">postmulti </span>            <span class="string">sncfgvalidate</span></span><br><span class="line"><span class="string">BootCacheControl </span>     <span class="string">cvfsdb </span>               <span class="string">kextcache </span>            <span class="string">postqueue </span>            <span class="string">sndiskmove</span></span><br><span class="line"><span class="string">DevToolsSecurity </span>     <span class="string">cvfsid </span>               <span class="string">kextfind </span>             <span class="string">postsuper </span>            <span class="string">snmpd</span></span><br><span class="line"><span class="string">DirectoryService </span>     <span class="string">cvgather </span>             <span class="string">kextlibs </span>             <span class="string">pppd </span>                 <span class="string">snmptrapd</span></span><br><span class="line"><span class="string">FileStatsAgent </span>       <span class="string">cvlabel </span>              <span class="string">kextstat </span>             <span class="string">praudit </span>              <span class="string">softwareupdate</span></span><br><span class="line"><span class="string">KernelEventAgent </span>     <span class="string">cvmkfs </span>               <span class="string">krbservicesetup </span>      <span class="string">purge </span>                <span class="string">spctl</span></span><br><span class="line"><span class="string">NetBootClientStatus </span>  <span class="string">cvupdatefs </span>           <span class="string">ktutil </span>               <span class="string">pwd_mkdb </span>             <span class="string">spindump</span></span><br><span class="line"><span class="string">PasswordService </span>      <span class="string">cvversions </span>           <span class="string">languagesetup </span>        <span class="string">quotaoff </span>             <span class="string">spray</span></span><br><span class="line"><span class="string">WirelessRadioManagerd </span><span class="string">dbmmanage </span>            <span class="string">localemanager </span>        <span class="string">quotaon </span>              <span class="string">sshd</span></span><br><span class="line"><span class="string">ab </span>                   <span class="string">ddns-confgen </span>         <span class="string">logresolve </span>           <span class="string">racoon </span>               <span class="string">sso_util</span></span><br><span class="line"><span class="string">ac </span>                   <span class="string">defragcli </span>            <span class="string">lpadmin </span>              <span class="string">raidutil </span>             <span class="string">sysadminctl</span></span><br><span class="line"><span class="string">accept </span>               <span class="string">dev_mkdb </span>             <span class="string">lpc </span>                  <span class="string">rarpd </span>                <span class="string">sysctl</span></span><br><span class="line"><span class="string">accton </span>               <span class="string">disktool </span>             <span class="string">lpinfo </span>               <span class="string">reject </span>               <span class="string">syslogd</span></span><br><span class="line"><span class="string">amt </span>                  <span class="string">diskutil </span>             <span class="string">lpmove </span>               <span class="string">repairHomePermissions </span><span class="string">system_profiler</span></span><br><span class="line"><span class="string">apachectl </span>            <span class="string">distnoted </span>            <span class="string">lsof </span>                 <span class="string">repquota </span>             <span class="string">systemkeychain</span></span><br><span class="line"><span class="string">appsleepd </span>            <span class="string">dnctl </span>                <span class="string">mDNSResponder </span>        <span class="string">rotatelogs </span>           <span class="string">systemsetup</span></span><br><span class="line"><span class="string">apxs </span>                 <span class="string">dnsextd </span>              <span class="string">mDNSResponderHelper </span>  <span class="string">rpc.</span><span class="string">lockd </span>            <span class="string">systemsoundserverd</span></span><br><span class="line"><span class="string">arp </span>                  <span class="string">dot_clean </span>            <span class="string">mkextunpack </span>          <span class="string">rpc.</span><span class="string">statd </span>            <span class="string">systemstats</span></span><br><span class="line"><span class="string">aslmanager </span>           <span class="keyword">dsconfigad</span>            <span class="string">mkfile </span>               <span class="string">rpcbind </span>              <span class="string">taskpolicy</span></span><br><span class="line"><span class="string">asr </span>                  <span class="keyword">dsconfigldap</span>          <span class="string">mkpassdb </span>             <span class="string">rpcinfo </span>              <span class="string">tcpdump</span></span><br><span class="line"><span class="string">audit </span>                <span class="string">dseditgroup </span>          <span class="string">mtree </span>                <span class="string">rtadvd </span>               <span class="string">timed</span></span><br><span class="line"><span class="string">auditd </span>               <span class="string">dsenableroot </span>         <span class="string">ndp </span>                  <span class="string">rtsold </span>               <span class="string">timedc</span></span><br><span class="line"><span class="string">auditreduce </span>          <span class="string">dtrace </span>               <span class="string">netbiosd </span>             <span class="string">sa </span>                   <span class="string">traceroute</span></span><br><span class="line"><span class="string">authserver </span>           <span class="string">edquota </span>              <span class="string">netstat </span>              <span class="string">sc_auth </span>              <span class="string">traceroute6</span></span><br><span class="line"><span class="string">automount </span>            <span class="string">envvars </span>              <span class="string">networksetup </span>         <span class="string">screencapture </span>        <span class="string">uasysdiagnose</span></span><br><span class="line"><span class="string">avbdeviced </span>           <span class="string">envvars-std </span>          <span class="string">newsyslog </span>            <span class="string">scselect </span>             <span class="string">universalaccessd</span></span><br><span class="line"><span class="string">bless </span>                <span class="string">fcgistarter </span>          <span class="string">nfs4mapid </span>            <span class="string">scutil </span>               <span class="string">unsetpassword</span></span><br><span class="line"><span class="string">blued </span>                <span class="string">fdisk </span>                <span class="string">nlcontrol </span>            <span class="string">securityd </span>            <span class="string">usernoted</span></span><br><span class="line"><span class="string">bluetoothaudiod </span>      <span class="string">filecoordinationd </span>    <span class="string">notifyd </span>              <span class="string">sendmail </span>             <span class="string">uuchk</span></span><br><span class="line"><span class="string">bnepd </span>                <span class="string">firmwarepasswd </span>       <span class="string">ntpd </span>                 <span class="string">serverinfo </span>           <span class="string">uucico</span></span><br><span class="line"><span class="string">cfprefsd </span>             <span class="string">gpt </span>                  <span class="string">ntpdate </span>              <span class="string">setkey </span>               <span class="string">uuconv</span></span><br><span class="line"><span class="string">chat </span>                 <span class="string">graphicssession </span>      <span class="string">ntpdc </span>                <span class="string">setquota </span>             <span class="string">uusched</span></span><br><span class="line"><span class="string">checkgid </span>             <span class="string">gssd </span>                 <span class="string">ntptrace </span>             <span class="string">sharing </span>              <span class="string">uuxqt</span></span><br><span class="line"><span class="string">chown </span>                <span class="string">hdik </span>                 <span class="string">nvram </span>                <span class="string">slapacl </span>              <span class="string">vifs</span></span><br><span class="line"><span class="string">chroot </span>               <span class="string">htcacheclean </span>         <span class="string">ocspd </span>                <span class="string">slapadd </span>              <span class="string">vipw</span></span><br><span class="line"><span class="string">coreaudiod </span>           <span class="string">htdbm </span>                <span class="string">pdisk </span>                <span class="string">slapauth </span>             <span class="string">visudo</span></span><br><span class="line"><span class="string">createhomedir </span>        <span class="string">htdigest </span>             <span class="string">periodic </span>             <span class="string">slapcat </span>              <span class="string">vpnd</span></span><br><span class="line"><span class="string">cron </span>                 <span class="string">htpasswd </span>             <span class="string">php-fpm </span>              <span class="string">slapconfig </span>           <span class="string">vsdbutil</span></span><br><span class="line"><span class="string">cupsaccept </span>           <span class="string">httpd </span>                <span class="string">pictd </span>                <span class="string">slapdn </span>               <span class="string">weakpass_edit</span></span><br><span class="line"><span class="string">cupsaddsmb </span>           <span class="string">httpd-wrapper </span>        <span class="string">pkgutil </span>              <span class="string">slapindex </span>            <span class="string">wirelessproxd</span></span><br><span class="line"><span class="string">cupsctl </span>              <span class="string">httxt2dbm </span>            <span class="string">postalias </span>            <span class="string">slappasswd </span>           <span class="string">xartutil</span></span><br><span class="line"><span class="string">cupsd </span>                <span class="string">installer </span>            <span class="string">postcat </span>              <span class="string">slapschema </span>           <span class="string">xsanctl</span></span><br><span class="line"><span class="string">cupsdisable </span>          <span class="string">ioalloccount </span>         <span class="string">postconf </span>             <span class="string">slaptest </span>             <span class="string">xscertadmin</span></span><br><span class="line"><span class="string">cupsenable </span>           <span class="string">ioclasscount </span>         <span class="string">postdrop </span>             <span class="string">smbd </span>                 <span class="string">ypbind</span></span><br><span class="line"><span class="string">cupsfilter </span>           <span class="string">ioreg </span>                <span class="string">postfix </span>              <span class="string">smbdiagnose </span>          <span class="string">yppoll</span></span><br><span class="line"><span class="string">cupsreject </span>           <span class="string">iostat </span>               <span class="string">postkick </span>             <span class="string">sncfginstall </span>         <span class="string">ypset</span></span><br><span class="line"><span class="string">cvadmin </span>              <span class="string">ipconfig </span>             <span class="string">postlock </span>             <span class="string">sncfgquery </span>           <span class="string">zdump</span></span><br><span class="line"><span class="string">cvdb </span>                 <span class="string">kadmin </span>               <span class="string">postlog </span>              <span class="string">sncfgremove </span>          <span class="string">zic</span></span><br><span class="line"><span class="string">cvdbset </span>              <span class="string">kadmin.</span><span class="string">local </span>         <span class="string">postmap </span>              <span class="string">sncfgtemplate</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/11/hexo常用命令/" rel="next" title="hexo常用命令">
+                <i class="fa fa-chevron-left"></i> hexo常用命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/11/Swift项目点滴积累/" rel="prev" title="Swift项目点滴积累">
+                Swift项目点滴积累 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="丁玉松" />
+            
+              <p class="site-author-name" itemprop="name">丁玉松</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-常用命令"><span class="nav-number">1.</span> <span class="nav-text">1.常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#open-打开文件"><span class="nav-number">1.1.</span> <span class="nav-text">open 打开文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mdfind-查找文件"><span class="nav-number">1.2.</span> <span class="nav-text">mdfind 查找文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mdls-查看文件详细信息"><span class="nav-number">1.3.</span> <span class="nav-text">mdls 查看文件详细信息</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cat-查看"><span class="nav-number">1.3.1.</span> <span class="nav-text">cat 查看</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看某个命令在什么地方"><span class="nav-number">1.3.2.</span> <span class="nav-text">查看某个命令在什么地方</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#usr-bin"><span class="nav-number">1.3.3.</span> <span class="nav-text">/usr/bin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#usr-local-bin"><span class="nav-number">1.3.4.</span> <span class="nav-text">/usr/local/bin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bin"><span class="nav-number">1.3.5.</span> <span class="nav-text">/bin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sbin"><span class="nav-number">1.3.6.</span> <span class="nav-text">/sbin</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#usr-sbin"><span class="nav-number">1.3.7.</span> <span class="nav-text">/usr/sbin</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">丁玉松</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.0.6</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.6"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.6"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://丁玉松.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://dingyusong.com/2016/08/11/MAC终端常用命令/';
+        this.page.identifier = '2016/08/11/MAC终端常用命令/';
+        this.page.title = 'MAC终端常用命令';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://丁玉松.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7p8juaspb2i1bhmeohaaqf2298fghmsdr9nxaji5mkcvsyjj", "pqx6rgyacbk4i0k2yprx1fcsy7fgi90kjlm527z2m77qas2s");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var newcounter = new Counter();
+              /* Set ACL */
+              var acl = new AV.ACL();
+              acl.setPublicReadAccess(true);
+              acl.setPublicWriteAccess(true);
+              newcounter.setACL(acl);
+              /* End Set ACL */
+              newcounter.set("title", title);
+              newcounter.set("url", url);
+              newcounter.set("time", 1);
+              newcounter.save(null, {
+                success: function(newcounter) {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                },
+                error: function(newcounter, error) {
+                  console.log('Failed to create');
+                }
+              });
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

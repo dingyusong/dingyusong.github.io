@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.6" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.0.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="iOSKoa没有高深的理论！以最快的速度跑起来一个‘Hello World’。 我的第一反应是想找一个项目生成器，后来发现官网并不提供，GitHub上有一个作者提供了。 koa-generator就索性把两种方法都搞一搞。 探索：直接执行 npm install 会报错。 123456789101112131415161718192021222324252627282930313233343536">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从前端到后端再到数据库(iOS+Koa+MySql)感受一下整个系统打通的快感">
+<meta property="og:url" content="http://dingyusong.com/2017/02/23/从前端到后端再到数据库-iOS-Koa-MySql-感受一下整个系统打通的快感/index.html">
+<meta property="og:site_name" content="丁玉松的博客">
+<meta property="og:description" content="iOSKoa没有高深的理论！以最快的速度跑起来一个‘Hello World’。 我的第一反应是想找一个项目生成器，后来发现官网并不提供，GitHub上有一个作者提供了。 koa-generator就索性把两种方法都搞一搞。 探索：直接执行 npm install 会报错。 123456789101112131415161718192021222324252627282930313233343536">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-02-24T03:06:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从前端到后端再到数据库(iOS+Koa+MySql)感受一下整个系统打通的快感">
+<meta name="twitter:description" content="iOSKoa没有高深的理论！以最快的速度跑起来一个‘Hello World’。 我的第一反应是想找一个项目生成器，后来发现官网并不提供，GitHub上有一个作者提供了。 koa-generator就索性把两种方法都搞一搞。 探索：直接执行 npm install 会报错。 123456789101112131415161718192021222324252627282930313233343536">
+
+
+
+
+
+
+  <link rel="canonical" href="http://dingyusong.com/2017/02/23/从前端到后端再到数据库-iOS-Koa-MySql-感受一下整个系统打通的快感/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>从前端到后端再到数据库(iOS+Koa+MySql)感受一下整个系统打通的快感 | 丁玉松的博客</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0637faead87cced30bf0f958c98240e8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">丁玉松的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">把握当下，面对现实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+    
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dingyusong.com/2017/02/23/从前端到后端再到数据库-iOS-Koa-MySql-感受一下整个系统打通的快感/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="丁玉松">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丁玉松的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从前端到后端再到数据库(iOS+Koa+MySql)感受一下整个系统打通的快感</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-23T15:45:45+08:00">2017-02-23</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/02/23/从前端到后端再到数据库-iOS-Koa-MySql-感受一下整个系统打通的快感/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/02/23/从前端到后端再到数据库-iOS-Koa-MySql-感受一下整个系统打通的快感/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/02/23/从前端到后端再到数据库-iOS-Koa-MySql-感受一下整个系统打通的快感/" class="leancloud_visitors" data-flag-title="从前端到后端再到数据库(iOS+Koa+MySql)感受一下整个系统打通的快感">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="iOS"><a href="#iOS" class="headerlink" title="iOS"></a>iOS</h2><h2 id="Koa"><a href="#Koa" class="headerlink" title="Koa"></a>Koa</h2><p>没有高深的理论！以最快的速度跑起来一个‘Hello World’。</p>
+<p>我的第一反应是想找一个项目生成器，后来发现官网并不提供，GitHub上有一个作者提供了。 <a href="https://github.com/17koa/koa-generator" target="_blank" rel="noopener">koa-generator</a><br>就索性把两种方法都搞一搞。</p>
+<p>探索：<br>直接执行 npm install 会报错。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">➜  koa-demo1 npm install koa  </span><br><span class="line">/Users/goldwallet/Desktop/Demo/Node/koa-demo1</span><br><span class="line">└─┬ <span class="symbol">koa@</span><span class="number">1.2</span><span class="number">.5</span> </span><br><span class="line">  ├─┬ <span class="symbol">accepts@</span><span class="number">1.3</span><span class="number">.3</span> </span><br><span class="line">  │ └── <span class="symbol">negotiator@</span><span class="number">0.6</span><span class="number">.1</span> </span><br><span class="line">  ├── <span class="symbol">co@</span><span class="number">4.6</span><span class="number">.0</span> </span><br><span class="line">  ├─┬ <span class="symbol">composition@</span><span class="number">2.3</span><span class="number">.0</span> </span><br><span class="line">  │ └── any-<span class="symbol">promise@</span><span class="number">1.3</span><span class="number">.0</span> </span><br><span class="line">  ├── content-<span class="symbol">disposition@</span><span class="number">0.5</span><span class="number">.2</span> </span><br><span class="line">  ├── content-<span class="symbol">type@</span><span class="number">1.0</span><span class="number">.2</span> </span><br><span class="line">  ├─┬ <span class="symbol">cookies@</span><span class="number">0.6</span><span class="number">.2</span> </span><br><span class="line">  │ ├── <span class="symbol">depd@</span><span class="number">1.1</span><span class="number">.0</span> </span><br><span class="line">  │ └── <span class="symbol">keygrip@</span><span class="number">1.0</span><span class="number">.1</span> </span><br><span class="line">  ├─┬ <span class="symbol">debug@</span><span class="number">2.6</span><span class="number">.1</span> </span><br><span class="line">  │ └── <span class="symbol">ms@</span><span class="number">0.7</span><span class="number">.2</span> </span><br><span class="line">  ├── <span class="symbol">delegates@</span><span class="number">1.0</span><span class="number">.0</span> </span><br><span class="line">  ├── <span class="symbol">destroy@</span><span class="number">1.0</span><span class="number">.4</span> </span><br><span class="line">  ├── error-<span class="symbol">inject@</span><span class="number">1.0</span><span class="number">.0</span> </span><br><span class="line">  ├── escape-<span class="symbol">html@</span><span class="number">1.0</span><span class="number">.3</span> </span><br><span class="line">  ├── <span class="symbol">fresh@</span><span class="number">0.3</span><span class="number">.0</span> </span><br><span class="line">  ├─┬ http-<span class="symbol">assert@</span><span class="number">1.2</span><span class="number">.0</span> </span><br><span class="line">  │ ├── deep-<span class="symbol">equal@</span><span class="number">1.0</span><span class="number">.1</span> </span><br><span class="line">  │ └─┬ http-<span class="symbol">errors@</span><span class="number">1.4</span><span class="number">.0</span> </span><br><span class="line">  │   └── <span class="symbol">inherits@</span><span class="number">2.0</span><span class="number">.1</span> </span><br><span class="line">  ├─┬ http-<span class="symbol">errors@</span><span class="number">1.6</span><span class="number">.1</span> </span><br><span class="line">  │ ├── <span class="symbol">inherits@</span><span class="number">2.0</span><span class="number">.3</span> </span><br><span class="line">  │ └── <span class="symbol">setprototypeof@</span><span class="number">1.0</span><span class="number">.3</span> </span><br><span class="line">  ├── koa-<span class="symbol">compose@</span><span class="number">2.5</span><span class="number">.1</span> </span><br><span class="line">  ├── koa-<span class="keyword">is</span>-<span class="symbol">json@</span><span class="number">1.0</span><span class="number">.0</span> </span><br><span class="line">  ├─┬ mime-<span class="symbol">types@</span><span class="number">2.1</span><span class="number">.14</span> </span><br><span class="line">  │ └── mime-<span class="symbol">db@</span><span class="number">1.26</span><span class="number">.0</span> </span><br><span class="line">  ├─┬ on-<span class="symbol">finished@</span><span class="number">2.3</span><span class="number">.0</span> </span><br><span class="line">  │ └── ee-<span class="symbol">first@</span><span class="number">1.1</span><span class="number">.1</span> </span><br><span class="line">  ├── <span class="symbol">only@</span><span class="number">0.0</span><span class="number">.2</span> </span><br><span class="line">  ├── <span class="symbol">parseurl@</span><span class="number">1.3</span><span class="number">.1</span> </span><br><span class="line">  ├── <span class="symbol">statuses@</span><span class="number">1.3</span><span class="number">.1</span> </span><br><span class="line">  ├─┬ type-<span class="symbol">is@</span><span class="number">1.6</span><span class="number">.14</span> </span><br><span class="line">  │ └── media-<span class="symbol">typer@</span><span class="number">0.3</span><span class="number">.0</span> </span><br><span class="line">  └── <span class="symbol">vary@</span><span class="number">1.1</span><span class="number">.0</span> </span><br><span class="line"></span><br><span class="line">npm WARN enoent ENOENT: no such file or directory, <span class="keyword">open</span> <span class="string">'/Users/goldwallet/Desktop/Demo/Node/koa-demo1/package.json'</span></span><br><span class="line">npm WARN koa-demo1 No description</span><br><span class="line">npm WARN koa-demo1 No repository field.</span><br><span class="line">npm WARN koa-demo1 No README <span class="keyword">data</span></span><br><span class="line">npm WARN koa-demo1 No license field.</span><br><span class="line">➜  koa-demo1 ls</span><br><span class="line">node_modules</span><br><span class="line">➜  koa-demo1 npm install <span class="symbol">koa@</span><span class="number">2</span></span><br><span class="line">- <span class="symbol">composition@</span><span class="number">2.3</span><span class="number">.0</span> node_modules/composition</span><br><span class="line">/Users/goldwallet/Desktop/Demo/Node/koa-demo1</span><br><span class="line">└─┬ <span class="symbol">koa@</span><span class="number">2.0</span><span class="number">.0</span> </span><br><span class="line">  ├── <span class="keyword">is</span>-generator-<span class="symbol">function@</span><span class="number">1.0</span><span class="number">.6</span> </span><br><span class="line">  ├── koa-<span class="symbol">compose@</span><span class="number">3.2</span><span class="number">.1</span> </span><br><span class="line">  └── koa-<span class="symbol">convert@</span><span class="number">1.2</span><span class="number">.0</span> </span><br><span class="line"></span><br><span class="line">npm WARN enoent ENOENT: no such file or directory, <span class="keyword">open</span> <span class="string">'/Users/goldwallet/Desktop/Demo/Node/koa-demo1/package.json'</span></span><br><span class="line">npm WARN koa-demo1 No description</span><br><span class="line">npm WARN koa-demo1 No repository field.</span><br><span class="line">npm WARN koa-demo1 No README <span class="keyword">data</span></span><br><span class="line">npm WARN koa-demo1 No license field.</span><br></pre></td></tr></table></figure>
+<p>执行完成之后只有一个文件夹如下：<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  koa-dem<span class="meta">o2</span> ls</span><br><span class="line"><span class="symbol">node_modules</span></span><br></pre></td></tr></table></figure></p>
+<p>执行 npm init 只生成了一个package.json</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line">➜  koa-demo2 npm init</span><br><span class="line">This utility will walk you through creating <span class="keyword">a</span> package.json <span class="keyword">file</span>.</span><br><span class="line">It <span class="keyword">only</span> covers the most common <span class="built_in">items</span>, <span class="built_in">and</span> tries <span class="keyword">to</span> guess sensible defaults.</span><br><span class="line"></span><br><span class="line">See `npm <span class="keyword">help</span> json` <span class="keyword">for</span> definitive documentation <span class="keyword">on</span> these fields</span><br><span class="line"><span class="built_in">and</span> exactly what they <span class="keyword">do</span>.</span><br><span class="line"></span><br><span class="line">Use `npm install <span class="symbol">&lt;pkg&gt;</span> --save` afterwards <span class="keyword">to</span> install <span class="keyword">a</span> package <span class="built_in">and</span></span><br><span class="line">save it <span class="keyword">as</span> <span class="keyword">a</span> dependency in the package.json <span class="keyword">file</span>.</span><br><span class="line"></span><br><span class="line">Press ^C at any time <span class="keyword">to</span> <span class="keyword">quit</span>.</span><br><span class="line">name: (koa-demo2) </span><br><span class="line"><span class="keyword">version</span>: (<span class="number">1.0</span>.<span class="number">0</span>) </span><br><span class="line">description: 测试</span><br><span class="line">entry poin<span class="variable">t:</span> (<span class="built_in">index</span>.js) </span><br><span class="line">test <span class="keyword">command</span>: test</span><br><span class="line">git repository: </span><br><span class="line">keyword<span class="variable">s:</span> </span><br><span class="line">author: 丁玉松</span><br><span class="line">license: (ISC) </span><br><span class="line">About <span class="keyword">to</span> <span class="keyword">write</span> <span class="keyword">to</span> /Users/goldwallet/Desktop/Demo/Node/koa-demo2/package.json:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"koa-demo2"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">"测试"</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="string">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"koa"</span>: <span class="string">"^2.0.0-alpha.8"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"devDependencies"</span>: &#123;&#125;,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"test"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"author"</span>: <span class="string">"丁玉松"</span>,</span><br><span class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Is this ok? (yes) </span><br><span class="line">➜  koa-demo2 <span class="keyword">ls</span> -<span class="keyword">a</span></span><br><span class="line">.            ..           node_modules package.json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">➜  Node <span class="built_in">mkdir</span> koa-demo3</span><br><span class="line">➜  Node <span class="keyword">cd</span> koa-demo3 </span><br><span class="line">➜  koa-demo3 npm init       </span><br><span class="line">This utility will walk you through creating <span class="keyword">a</span> package.json <span class="keyword">file</span>.</span><br><span class="line">It <span class="keyword">only</span> covers the most common <span class="built_in">items</span>, <span class="built_in">and</span> tries <span class="keyword">to</span> guess sensible defaults.</span><br><span class="line"></span><br><span class="line">See `npm <span class="keyword">help</span> json` <span class="keyword">for</span> definitive documentation <span class="keyword">on</span> these fields</span><br><span class="line"><span class="built_in">and</span> exactly what they <span class="keyword">do</span>.</span><br><span class="line"></span><br><span class="line">Use `npm install <span class="symbol">&lt;pkg&gt;</span> --save` afterwards <span class="keyword">to</span> install <span class="keyword">a</span> package <span class="built_in">and</span></span><br><span class="line">save it <span class="keyword">as</span> <span class="keyword">a</span> dependency in the package.json <span class="keyword">file</span>.</span><br><span class="line"></span><br><span class="line">Press ^C at any time <span class="keyword">to</span> <span class="keyword">quit</span>.</span><br><span class="line">name: (koa-demo3) </span><br><span class="line"><span class="keyword">version</span>: (<span class="number">1.0</span>.<span class="number">0</span>) </span><br><span class="line">description: </span><br><span class="line">entry poin<span class="variable">t:</span> (<span class="built_in">index</span>.js) </span><br><span class="line">test <span class="keyword">command</span>: </span><br><span class="line">git repository: </span><br><span class="line">keyword<span class="variable">s:</span> </span><br><span class="line">author: </span><br><span class="line">license: (ISC) </span><br><span class="line">About <span class="keyword">to</span> <span class="keyword">write</span> <span class="keyword">to</span> /Users/goldwallet/Desktop/Demo/Node/koa-demo3/package.json:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"koa-demo3"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Is this ok? (yes) </span><br><span class="line">➜  koa-demo3 <span class="keyword">ls</span></span><br><span class="line">package.json</span><br><span class="line">➜  koa-demo3 <span class="keyword">ls</span> -<span class="keyword">a</span></span><br><span class="line">.            ..           package.json</span><br></pre></td></tr></table></figure>
+<p>直接在项目文件夹里面执行 cnpm install koa@next package.json没有koa的以来，而且index.js也跑不起来！</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">➜  koa-demo3 cnpm install koa<span class="meta">@next</span></span><br><span class="line">✔ Installed <span class="number">1</span> packages</span><br><span class="line">✔ Linked <span class="number">35</span> latest versions</span><br><span class="line">✔ Run <span class="number">0</span> scripts</span><br><span class="line">✔ All packages installed (<span class="number">38</span> packages installed from npm registry, used <span class="number">3</span>s, speed <span class="number">156.02</span>kB/s, json <span class="number">43</span>(<span class="number">233.02</span>kB), tarball <span class="number">205.1</span>kB)</span><br><span class="line">Recently updated (since <span class="number">2017</span><span class="number">-02</span><span class="number">-17</span>): <span class="number">2</span> packages (detail see file <span class="regexp">/Users/</span>goldwallet<span class="regexp">/Desktop/</span>Demo<span class="regexp">/Node/</span>koa-demo3<span class="regexp">/node_modules/</span>.recently_updates.txt)</span><br><span class="line">➜  koa-demo3 ls -a</span><br><span class="line">.            ..           node_modules <span class="keyword">package</span>.json</span><br><span class="line">➜  koa-demo3 cat <span class="keyword">package</span>.json </span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"koa-demo3"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span></span><br><span class="line">&#125;</span><br><span class="line">➜  koa-demo3 vi index.js</span><br><span class="line">➜  koa-demo3 node index.js </span><br><span class="line"><span class="regexp">/Users/</span>goldwallet<span class="regexp">/Desktop/</span>Demo<span class="regexp">/Node/</span>koa-demo3/index.<span class="string">js:</span><span class="number">2</span></span><br><span class="line">var app = koa();</span><br><span class="line">          ^</span><br><span class="line"></span><br><span class="line"><span class="string">TypeError:</span> Class constructor Application cannot be invoked without <span class="string">'new'</span></span><br><span class="line">    at Object.&lt;anonymous&gt; (<span class="regexp">/Users/</span>goldwallet<span class="regexp">/Desktop/</span>Demo<span class="regexp">/Node/</span>koa-demo3/index.<span class="string">js:</span><span class="number">2</span>:<span class="number">11</span>)</span><br><span class="line">    at Module._compile (module.<span class="string">js:</span><span class="number">571</span>:<span class="number">32</span>)</span><br><span class="line">    at Object.Module._extensions..js (module.<span class="string">js:</span><span class="number">580</span>:<span class="number">10</span>)</span><br><span class="line">    at Module.load (module.<span class="string">js:</span><span class="number">488</span>:<span class="number">32</span>)</span><br><span class="line">    at tryModuleLoad (module.<span class="string">js:</span><span class="number">447</span>:<span class="number">12</span>)</span><br><span class="line">    at Function.Module._load (module.<span class="string">js:</span><span class="number">439</span>:<span class="number">3</span>)</span><br><span class="line">    at Module.runMain (module.<span class="string">js:</span><span class="number">605</span>:<span class="number">10</span>)</span><br><span class="line">    at run (bootstrap_node.<span class="string">js:</span><span class="number">418</span>:<span class="number">7</span>)</span><br><span class="line">    at startup (bootstrap_node.<span class="string">js:</span><span class="number">139</span>:<span class="number">9</span>)</span><br><span class="line">    at bootstrap_node.<span class="string">js:</span><span class="number">533</span>:<span class="number">3</span></span><br><span class="line">➜  koa-demo3 cat index.js </span><br><span class="line">var koa = require(<span class="string">'koa'</span>);</span><br><span class="line">var app = koa();</span><br><span class="line"></span><br><span class="line">app.use(function *()&#123;</span><br><span class="line">  <span class="keyword">this</span>.body = <span class="string">'Hello World'</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>);</span><br><span class="line">➜  koa-demo3 vi index.js  </span><br><span class="line">➜  koa-demo3 node index.js</span><br><span class="line"><span class="regexp">/Users/</span>goldwallet<span class="regexp">/Desktop/</span>Demo<span class="regexp">/Node/</span>koa-demo3/index.<span class="string">js:</span><span class="number">8</span></span><br><span class="line">app.use(async (ctx, next) =&gt; &#123;</span><br><span class="line">              ^</span><br><span class="line"><span class="string">SyntaxError:</span> Unexpected token (</span><br><span class="line">    at Object.exports.runInThisContext (vm.<span class="string">js:</span><span class="number">73</span>:<span class="number">16</span>)</span><br><span class="line">    at Module._compile (module.<span class="string">js:</span><span class="number">543</span>:<span class="number">28</span>)</span><br><span class="line">    at Object.Module._extensions..js (module.<span class="string">js:</span><span class="number">580</span>:<span class="number">10</span>)</span><br><span class="line">    at Module.load (module.<span class="string">js:</span><span class="number">488</span>:<span class="number">32</span>)</span><br><span class="line">    at tryModuleLoad (module.<span class="string">js:</span><span class="number">447</span>:<span class="number">12</span>)</span><br><span class="line">    at Function.Module._load (module.<span class="string">js:</span><span class="number">439</span>:<span class="number">3</span>)</span><br><span class="line">    at Module.runMain (module.<span class="string">js:</span><span class="number">605</span>:<span class="number">10</span>)</span><br><span class="line">    at run (bootstrap_node.<span class="string">js:</span><span class="number">418</span>:<span class="number">7</span>)</span><br><span class="line">    at startup (bootstrap_node.<span class="string">js:</span><span class="number">139</span>:<span class="number">9</span>)</span><br><span class="line">    at bootstrap_node.<span class="string">js:</span><span class="number">533</span>:<span class="number">3</span></span><br><span class="line">➜  koa-demo3</span><br></pre></td></tr></table></figure>
+<p>加 –save 参数之后 以来会出现在package.json 里面<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">➜  koa-demo3 cnpm install koa@next --<span class="keyword">save</span></span><br><span class="line">✔ Installed 1 packages</span><br><span class="line">✔ Linked 0 latest versions</span><br><span class="line">✔ <span class="keyword">Run</span> 0 scripts</span><br><span class="line">✔ All packages installed (used 253ms, speed 83.27kB/s, json 1(21.07kB), tarball 0B)</span><br><span class="line">➜  koa-demo3 <span class="keyword">cat</span> package.json </span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"koa-demo3"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"echo \"</span><span class="keyword">Error</span>: <span class="keyword">no</span> <span class="keyword">test</span> specified\<span class="string">" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span>,</span><br><span class="line">  <span class="string">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="string">"koa"</span>: <span class="string">"^2.0.0-alpha.8"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最简单的，这样就能跑起来！ 但是dependencies 里面没有KOA 在仓库管理的时候，node_modules 会被忽略，执行npm install 显然不会包含koa，故正确的做法是cnpm install koa@next –save 将他添加到package.json 的dependencies里面，在仓库管理的时候就具有很好的一致性了，其他的库依赖也是这样。不在dependencies 里面的，也就是npm install 直接安装的只是一些基础库！切记，切记！</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">➜  Node cd koa-demo4</span><br><span class="line">➜  koa-demo4 npm init</span><br><span class="line">This utility will walk you <span class="keyword">through</span> creating a package.json <span class="built_in">file</span>.</span><br><span class="line">It only covers <span class="keyword">the</span> most common items, <span class="keyword">and</span> tries <span class="keyword">to</span> guess sensible defaults.</span><br><span class="line"></span><br><span class="line">See `npm help json` <span class="keyword">for</span> definitive documentation <span class="keyword">on</span> these fields</span><br><span class="line"><span class="keyword">and</span> exactly what they do.</span><br><span class="line"></span><br><span class="line">Use `npm install &lt;pkg&gt; <span class="comment">--save` afterwards to install a package and</span></span><br><span class="line">save <span class="keyword">it</span> <span class="keyword">as</span> a dependency <span class="keyword">in</span> <span class="keyword">the</span> package.json <span class="built_in">file</span>.</span><br><span class="line"></span><br><span class="line">Press ^C <span class="keyword">at</span> any <span class="built_in">time</span> <span class="keyword">to</span> quit.</span><br><span class="line"><span class="built_in">name</span>: (koa-demo4) </span><br><span class="line"><span class="built_in">version</span>: (<span class="number">1.0</span><span class="number">.0</span>) </span><br><span class="line">description: I'm a koa demo</span><br><span class="line">entry point: (index.js) </span><br><span class="line">test command: </span><br><span class="line">git repository: </span><br><span class="line">keywords: koa</span><br><span class="line">author: 丁玉松</span><br><span class="line">license: (ISC) </span><br><span class="line">About <span class="keyword">to</span> <span class="built_in">write</span> <span class="keyword">to</span> /Users/goldwallet/Desktop/Demo/Node/koa-demo4/package.json:</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"koa-demo4"</span>,</span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="string">"description"</span>: <span class="string">"I'm a koa demo"</span>,</span><br><span class="line">  <span class="string">"main"</span>: <span class="string">"index.js"</span>,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"keywords"</span>: [</span><br><span class="line">    <span class="string">"koa"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">"author"</span>: <span class="string">"丁玉松"</span>,</span><br><span class="line">  <span class="string">"license"</span>: <span class="string">"ISC"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Is this ok? (yes) </span><br><span class="line">➜  koa-demo4 cnpm install koa@next       </span><br><span class="line">✔ Installed <span class="number">1</span> packages</span><br><span class="line">✔ Linked <span class="number">35</span> latest versions</span><br><span class="line">✔ Run <span class="number">0</span> scripts</span><br><span class="line">✔ All packages installed (<span class="number">38</span> packages installed <span class="keyword">from</span> npm registry, used <span class="number">1</span>s, speed <span class="number">179.11</span>kB/s, json <span class="number">43</span>(<span class="number">233.02</span>kB), tarball <span class="number">0</span>B)</span><br><span class="line">Recently updated (<span class="keyword">since</span> <span class="number">2017</span><span class="number">-02</span><span class="number">-17</span>): <span class="number">2</span> packages (detail see <span class="built_in">file</span> /Users/goldwallet/Desktop/Demo/Node/koa-demo4/node_modules/.recently_updates.txt)</span><br><span class="line">➜  koa-demo4 cp ../koa-demo3/index.js index.js</span><br><span class="line">➜  koa-demo4 ls -a</span><br><span class="line">.            ..           index.js     node_modules package.json</span><br><span class="line">➜  koa-demo4 node index.js</span><br></pre></td></tr></table></figure>
+<p>添加运行脚本</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"start"</span>: <span class="string">"node start.js"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p> 然后就可以执行</p>
+ <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">npm</span> start</span><br></pre></td></tr></table></figure>
+<p>来启动了！</p>
+<h2 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h2><p>首先你需要现在一个MySql<br><a href="https://dev.mysql.com/downloads/mysql/" target="_blank" rel="noopener">官方下载地址</a></p>
+<p>最好再下载一个客户端图形界面管理工具，有很多，例如Navicat <a href="https://dev.mysql.com/downloads/workbench/" target="_blank" rel="noopener">Workbench</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/20/JavaScript学习/" rel="next" title="JavaScript学习">
+                <i class="fa fa-chevron-left"></i> JavaScript学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/02/服务器设置ssh自动登录/" rel="prev" title="服务器设置ssh自动登录">
+                服务器设置ssh自动登录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="丁玉松" />
+            
+              <p class="site-author-name" itemprop="name">丁玉松</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS"><span class="nav-number">1.</span> <span class="nav-text">iOS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Koa"><span class="nav-number">2.</span> <span class="nav-text">Koa</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySql"><span class="nav-number">3.</span> <span class="nav-text">MySql</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">丁玉松</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.0.6</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.6"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.6"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://丁玉松.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://dingyusong.com/2017/02/23/从前端到后端再到数据库-iOS-Koa-MySql-感受一下整个系统打通的快感/';
+        this.page.identifier = '2017/02/23/从前端到后端再到数据库-iOS-Koa-MySql-感受一下整个系统打通的快感/';
+        this.page.title = '从前端到后端再到数据库(iOS+Koa+MySql)感受一下整个系统打通的快感';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://丁玉松.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7p8juaspb2i1bhmeohaaqf2298fghmsdr9nxaji5mkcvsyjj", "pqx6rgyacbk4i0k2yprx1fcsy7fgi90kjlm527z2m77qas2s");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var newcounter = new Counter();
+              /* Set ACL */
+              var acl = new AV.ACL();
+              acl.setPublicReadAccess(true);
+              acl.setPublicWriteAccess(true);
+              newcounter.setACL(acl);
+              /* End Set ACL */
+              newcounter.set("title", title);
+              newcounter.set("url", url);
+              newcounter.set("time", 1);
+              newcounter.save(null, {
+                success: function(newcounter) {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                },
+                error: function(newcounter, error) {
+                  console.log('Failed to create');
+                }
+              });
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

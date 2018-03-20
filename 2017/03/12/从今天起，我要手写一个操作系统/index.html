@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.0.6" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.0.6">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.0.6">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.0.6" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.0.6',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="基础知识储备：  编译和链接编译和链接那点事&amp;lt;上&amp;gt;  nasm: Command not found 安装 nasm 包管理器yumwhereis wget 1[dys@localhost bin]$ cd ~ [dys@localhost ~]$ whereis yumyum: /bin/yum /usr/bin/yum /etc/yum /etc/yum.conf /usr/s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从今天起，我要手写一个操作系统">
+<meta property="og:url" content="http://dingyusong.com/2017/03/12/从今天起，我要手写一个操作系统/index.html">
+<meta property="og:site_name" content="丁玉松的博客">
+<meta property="og:description" content="基础知识储备：  编译和链接编译和链接那点事&amp;lt;上&amp;gt;  nasm: Command not found 安装 nasm 包管理器yumwhereis wget 1[dys@localhost bin]$ cd ~ [dys@localhost ~]$ whereis yumyum: /bin/yum /usr/bin/yum /etc/yum /etc/yum.conf /usr/s">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-04-01T10:11:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从今天起，我要手写一个操作系统">
+<meta name="twitter:description" content="基础知识储备：  编译和链接编译和链接那点事&amp;lt;上&amp;gt;  nasm: Command not found 安装 nasm 包管理器yumwhereis wget 1[dys@localhost bin]$ cd ~ [dys@localhost ~]$ whereis yumyum: /bin/yum /usr/bin/yum /etc/yum /etc/yum.conf /usr/s">
+
+
+
+
+
+
+  <link rel="canonical" href="http://dingyusong.com/2017/03/12/从今天起，我要手写一个操作系统/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>从今天起，我要手写一个操作系统 | 丁玉松的博客</title>
+  
+
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0637faead87cced30bf0f958c98240e8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"> 
+
+<div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">丁玉松的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">把握当下，面对现实</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+          
+  <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />关于</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+</li>
+
+      
+        
+        
+          
+  <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+</li>
+
+      
+
+      
+    </ul>
+  
+
+  
+    
+
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+
+  
+
+  
+</nav>
+
+
+  
+
+
+
+ </div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://dingyusong.com/2017/03/12/从今天起，我要手写一个操作系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="丁玉松">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="丁玉松的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">从今天起，我要手写一个操作系统</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-12T11:17:52+08:00">2017-03-12</time>
+            
+
+            
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/12/从今天起，我要手写一个操作系统/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/03/12/从今天起，我要手写一个操作系统/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/03/12/从今天起，我要手写一个操作系统/" class="leancloud_visitors" data-flag-title="从今天起，我要手写一个操作系统">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>基础知识储备：</p>
+<ul>
+<li>编译和链接<br><a href="http://0xffffff.org/2013/04/05/16-complier-and-linker-1/" target="_blank" rel="noopener">编译和链接那点事&lt;上&gt;</a></li>
+</ul>
+<p>nasm: Command not found</p>
+<p>安装 nasm</p>
+<h3 id="包管理器yum"><a href="#包管理器yum" class="headerlink" title="包管理器yum"></a>包管理器yum</h3><p>whereis</p>
+<p>wget</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dys@localhost bin]$ cd ~ [dys@localhost ~]$ whereis yumyum: /bin/yum /usr/bin/yum /etc/yum /etc/yum.conf /usr/share/man/man8/yum.8.gz[dys@localhost ~]$ yum <span class="keyword">install</span> wgetYou need <span class="keyword">to</span> be root <span class="keyword">to</span> perform this command.[dys@localhost ~]$ sudo yum <span class="keyword">install</span> wgetWe trust you have received the usual lecture <span class="keyword">from</span> the <span class="keyword">local</span> <span class="keyword">System</span>Administrator. It usually boils down <span class="keyword">to</span> these three things:    #<span class="number">1</span>) <span class="keyword">Respect</span> the privacy <span class="keyword">of</span> others.    #<span class="number">2</span>) Think <span class="keyword">before</span> you type.    #<span class="number">3</span>) <span class="keyword">With</span> great <span class="keyword">power</span> comes great responsibility.[sudo] <span class="keyword">password</span> <span class="keyword">for</span> dys: Sorry, try again.[sudo] <span class="keyword">password</span> <span class="keyword">for</span> dys: fedora/<span class="number">18</span>/x86_64/metalink                                | <span class="number">3.9</span> kB     <span class="number">00</span>:<span class="number">00</span>     updates/<span class="number">18</span>/x86_64/metalink                               | <span class="number">3.6</span> kB     <span class="number">00</span>:<span class="number">00</span>     Resolving Dependencies<span class="comment">--&gt; Running transaction check</span><span class="comment">---&gt; Package wget.x86_64 0:1.14-5.fc18 will be installed</span><span class="comment">--&gt; Finished Dependency Resolution</span>Dependencies Resolved================================================================================ <span class="keyword">Package</span>        Arch             <span class="keyword">Version</span>                Repository         <span class="keyword">Size</span>================================================================================Installing: wget           x86_64           <span class="number">1.14</span><span class="number">-5.</span>fc18            updates           <span class="number">542</span> k<span class="keyword">Transaction</span> Summary================================================================================<span class="keyword">Install</span>  <span class="number">1</span> <span class="keyword">Package</span>Total download <span class="keyword">size</span>: <span class="number">542</span> kInstalled <span class="keyword">size</span>: <span class="number">2.0</span> M<span class="keyword">Is</span> this ok [y/N]: yDownloading Packages:wget<span class="number">-1.14</span><span class="number">-5.</span>fc18.x86_64.rpm                                | <span class="number">542</span> kB   <span class="number">00</span>:<span class="number">06</span>     Running <span class="keyword">Transaction</span> <span class="keyword">Check</span>Running <span class="keyword">Transaction</span> <span class="keyword">Test</span><span class="keyword">Transaction</span> <span class="keyword">Test</span> SucceededRunning <span class="keyword">Transaction</span>  Installing : wget<span class="number">-1.14</span><span class="number">-5.</span>fc18.x86_64                                      <span class="number">1</span>/<span class="number">1</span>   Verifying  : wget<span class="number">-1.14</span><span class="number">-5.</span>fc18.x86_64                                      <span class="number">1</span>/<span class="number">1</span> Installed:  wget.x86_64 <span class="number">0</span>:<span class="number">1.14</span><span class="number">-5.</span>fc18                                                     <span class="keyword">Complete</span>![dys@localhost ~]$ whereis wgetwget: /<span class="keyword">bin</span>/wget /usr/<span class="keyword">bin</span>/wget /usr/<span class="keyword">share</span>/man/man1/wget<span class="number">.1</span>.gz[dys@localhost ~]$ yum <span class="keyword">install</span> nasmYou need <span class="keyword">to</span> be root <span class="keyword">to</span> perform this command.[dys@localhost ~]$ sudo yum <span class="keyword">install</span> nasmResolving Dependencies<span class="comment">--&gt; Running transaction check</span><span class="comment">---&gt; Package nasm.x86_64 0:2.10.07-1.fc18 will be installed</span><span class="comment">--&gt; Finished Dependency Resolution</span>Dependencies Resolved================================================================================ <span class="keyword">Package</span>       Arch            <span class="keyword">Version</span>                   Repository        <span class="keyword">Size</span>================================================================================Installing: nasm          x86_64          <span class="number">2.10</span><span class="number">.07</span><span class="number">-1.</span>fc18            updates          <span class="number">405</span> k<span class="keyword">Transaction</span> Summary================================================================================<span class="keyword">Install</span>  <span class="number">1</span> <span class="keyword">Package</span>Total download <span class="keyword">size</span>: <span class="number">405</span> kInstalled <span class="keyword">size</span>: <span class="number">1.4</span> M<span class="keyword">Is</span> this ok [y/N]: yDownloading Packages:nasm<span class="number">-2.10</span><span class="number">.07</span><span class="number">-1.</span>fc18.x86_64.rpm                             | <span class="number">405</span> kB   <span class="number">00</span>:<span class="number">05</span>     Running <span class="keyword">Transaction</span> <span class="keyword">Check</span>Running <span class="keyword">Transaction</span> <span class="keyword">Test</span><span class="keyword">Transaction</span> <span class="keyword">Test</span> SucceededRunning <span class="keyword">Transaction</span>  Installing : nasm<span class="number">-2.10</span><span class="number">.07</span><span class="number">-1.</span>fc18.x86_64                                   <span class="number">1</span>/<span class="number">1</span>   Verifying  : nasm<span class="number">-2.10</span><span class="number">.07</span><span class="number">-1.</span>fc18.x86_64                                   <span class="number">1</span>/<span class="number">1</span> Installed:  nasm.x86_64 <span class="number">0</span>:<span class="number">2.10</span><span class="number">.07</span><span class="number">-1.</span>fc18                                                  <span class="keyword">Complete</span>![dys@localhost ~]$ whereis nasmnasm: /<span class="keyword">bin</span>/nasm /usr/<span class="keyword">bin</span>/nasm /usr/<span class="keyword">share</span>/man/man1/nasm<span class="number">.1</span>.gz[dys@localhost ~]$ cd Desktop/Dos/[dys@localhost Dos]$ makeç¼è¯æ±ç¼æä»¶ boot/boot.s ...nasm -f elf -g -F stabs boot/boot.sç¼è¯ä»£ç æä»¶ init/entry.c ...gcc -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector -I <span class="keyword">include</span> init/entry.c -o init/entry.oé¾æ¥åæ ¸æä»¶...ld -T scripts/kernel.ld -m elf_i386 -nostdlib  ./boot/boot.o  ./init/entry.o -o hx_kernelsudo <span class="keyword">mount</span> floppy.img /mnt/kernel[sudo] <span class="keyword">password</span> <span class="keyword">for</span> dys: <span class="keyword">mount</span>: <span class="keyword">mount</span> point /mnt/kernel does <span class="keyword">not</span> existmake: *** [update_image] <span class="keyword">Error</span> <span class="number">32</span>[dys@localhost Dos]$ cd /mmedia/ mnt/   [dys@localhost Dos]$ cd /mmedia/ mnt/   [dys@localhost Dos]$ cd /mnt/[dys@localhost mnt]$ lssysimage[dys@localhost mnt]$</span><br></pre></td></tr></table></figure>
+<p>挂载出错 则需要自己建立挂载点kernel</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kernel</span><br><span class="line"></span><br><span class="line">[dys<span class="variable">@localhost</span> Dos]<span class="variable">$ </span>cd /mnt/[dys<span class="variable">@localhost</span> mnt]<span class="variable">$ </span>lssysimage[dys<span class="variable">@localhost</span> mnt]<span class="variable">$ </span>mkdir kernel<span class="symbol">mkdir:</span> cannot create directory <span class="string">'kernel'</span>: Permission denied[dys<span class="variable">@localhost</span> mnt]<span class="variable">$ </span>sudo mkdir kernel [sudo] password <span class="keyword">for</span> <span class="symbol">dys:</span> [dys<span class="variable">@localhost</span> mnt]<span class="variable">$ </span>lskernel  sysimage[dys<span class="variable">@localhost</span> mnt]<span class="variable">$ </span>cd ~<span class="regexp">/Desktop/</span>Dos/[dys<span class="variable">@localhost</span> Dos]<span class="variable">$ </span>makeé¾æ¥åæ ¸æä»¶...ld -T scripts/kernel.ld -m elf_i386 -nostdlib  ./boot/boot.o  ./init/entry.o -o hx_kernelsudo mount floppy.img /mnt/kernelsudo cp hx_kernel /mnt/kernel/hx_kernelsleep <span class="number">1</span>sudo umount /mnt/kernel[dys<span class="variable">@localhost</span> Dos]<span class="variable">$ </span>cd /    [dys<span class="variable">@localhost</span> /]<span class="variable">$ </span>lsbin   dev  home  lib64       media  opt   root  sbin  sys  usrboot  etc  lib   lost+found  mnt    proc  run   srv   tmp  var[dys<span class="variable">@localhost</span> /]<span class="variable">$ </span>cd mnt/[dys<span class="variable">@localhost</span> mnt]<span class="variable">$ </span>lskernel  sysimage[dys<span class="variable">@localhost</span> mnt]<span class="variable">$ </span>cd kernel/[dys<span class="variable">@localhost</span> kernel]<span class="variable">$ </span>ls[dys<span class="variable">@localhost</span> kernel]<span class="variable">$ </span>ls -a.  ..[dys<span class="variable">@localhost</span> kernel]<span class="variable">$ </span>cd ~<span class="regexp">/Desktop/</span>Dos [dys<span class="variable">@localhost</span> Dos]<span class="variable">$ </span>lsboot  floppy.img  hx_kernel  <span class="keyword">include</span>  init  Makefile  scripts[dys<span class="variable">@localhost</span> Dos]<span class="variable">$ </span>make qemuqemu -fda floppy.img -boot a<span class="symbol">make:</span> <span class="symbol">qemu:</span> Command <span class="keyword">not</span> found<span class="symbol">make:</span> *** [qemu] Error <span class="number">127</span></span><br></pre></td></tr></table></figure>
+<p>安装qemu</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[dys<span class="variable">@localhost</span> Dos]<span class="variable">$ </span>sudo yum install qemuResolving Dependencies--&gt; Running transaction check---&gt; Package qemu.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed--&gt; Processing <span class="symbol">Dependency:</span> qemu-user = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-xtensa = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-x86 = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-unicore32 = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-sparc = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-sh4 = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-s390x = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-ppc = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-or32 = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-mips = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-microblaze = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-m68k = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-lm32 = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-cris = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-arm = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-alpha = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> qemu-img = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Running transaction check---&gt; Package qemu-img.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18 will be updated---&gt; Package qemu-img.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be an update--&gt; Processing <span class="symbol">Dependency:</span> libiscsi.so.<span class="number">1</span>()(<span class="number">64</span>bit) <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-img-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64---&gt; Package qemu-system-alpha.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed--&gt; Processing <span class="symbol">Dependency:</span> qemu-common = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-system-alpha-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64---&gt; Package qemu-system-arm.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed--&gt; Processing <span class="symbol">Dependency:</span> libfdt.so.<span class="number">1</span>(LIBFDT_1.<span class="number">2</span>)(<span class="number">64</span>bit) <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-system-arm-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> libfdt.so.<span class="number">1</span>()(<span class="number">64</span>bit) <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-system-arm-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64---&gt; Package qemu-system-cris.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed---&gt; Package qemu-system-lm32.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed---&gt; Package qemu-system-m68k.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed---&gt; Package qemu-system-microblaze.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed---&gt; Package qemu-system-mips.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed---&gt; Package qemu-system-or32.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed---&gt; Package qemu-system-ppc.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed--&gt; Processing <span class="symbol">Dependency:</span> SLOF = <span class="number">0</span>.<span class="number">1</span>.git20120731 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-system-ppc-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64--&gt; Processing <span class="symbol">Dependency:</span> openbios <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-system-ppc-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64---&gt; Package qemu-system-s390x.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed---&gt; Package qemu-system-sh4.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed---&gt; Package qemu-system-sparc.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed---&gt; Package qemu-system-unicore32.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed---&gt; Package qemu-system-x86.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18 will be updated--&gt; Processing <span class="symbol">Dependency:</span> qemu-system-x86 = <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18 <span class="keyword">for</span> <span class="symbol">package:</span> <span class="number">2</span><span class="symbol">:qemu-kvm-</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18.x86_64---&gt; Package qemu-system-x86.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be an update---&gt; Package qemu-system-xtensa.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed---&gt; Package qemu-user.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be installed--&gt; Running transaction check---&gt; Package SLOF.noarch <span class="number">0</span><span class="symbol">:</span><span class="number">0</span>.<span class="number">1</span>.git20120731-<span class="number">1</span>.fc18 will be installed---&gt; Package libfdt.x86_64 <span class="number">0</span><span class="symbol">:</span><span class="number">1.4</span>.<span class="number">0</span>-<span class="number">1</span>.fc18 will be installed---&gt; Package libiscsi.x86_64 <span class="number">0</span><span class="symbol">:</span><span class="number">1.7</span>.<span class="number">0</span>-<span class="number">4</span>.fc18 will be installed---&gt; Package openbios.noarch <span class="number">0</span><span class="symbol">:</span><span class="number">1.0</span>.svn1063-<span class="number">1</span>.fc18 will be installed---&gt; Package qemu-common.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18 will be updated---&gt; Package qemu-common.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be an update---&gt; Package qemu-kvm.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18 will be updated---&gt; Package qemu-kvm.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18 will be an update--&gt; Finished Dependency ResolutionDependencies Resolved================================================================================ Package                   Arch      Version                   Repository  Size================================================================================<span class="symbol">Installing:</span> qemu                      x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates     <span class="number">38</span> kInstalling <span class="keyword">for</span> <span class="symbol">dependencies:</span> SLOF                      noarch    <span class="number">0</span>.<span class="number">1</span>.git20120731-<span class="number">1</span>.fc18    fedora     <span class="number">463</span> k libfdt                    x86_64    <span class="number">1.4</span>.<span class="number">0</span>-<span class="number">1</span>.fc18              updates     <span class="number">23</span> k libiscsi                  x86_64    <span class="number">1.7</span>.<span class="number">0</span>-<span class="number">4</span>.fc18              updates     <span class="number">52</span> k openbios                  noarch    <span class="number">1.0</span>.svn1063-<span class="number">1</span>.fc18        fedora     <span class="number">244</span> k qemu-system-alpha         x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">1.2</span> M qemu-system-arm           x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">1.5</span> M qemu-system-cris          x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">912</span> k qemu-system-lm32          x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">895</span> k qemu-system-m68k          x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">1.1</span> M qemu-system-microblaze    x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">1.7</span> M qemu-system-mips          x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">5.2</span> M qemu-system-or32          x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">877</span> k qemu-system-ppc           x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">4.3</span> M qemu-system-s390x         x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">954</span> k qemu-system-sh4           x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">2.2</span> M qemu-system-sparc         x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">2.1</span> M qemu-system-unicore32     x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">874</span> k qemu-system-xtensa        x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">1.7</span> M qemu-user                 x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">6.3</span> MUpdating <span class="keyword">for</span> <span class="symbol">dependencies:</span> qemu-common               x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">210</span> k qemu-img                  x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">344</span> k qemu-kvm                  x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates     <span class="number">37</span> k qemu-system-x86           x86_64    <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           updates    <span class="number">4.2</span> MTransaction Summary================================================================================Install  <span class="number">1</span> Package  (+<span class="number">19</span> Dependent packages)Upgrade             (  <span class="number">4</span> Dependent packages)Total <span class="symbol">size:</span> <span class="number">37</span> MTotal download <span class="symbol">size:</span> <span class="number">32</span> MIs this ok [y/N]: yDownloading <span class="symbol">Packages:</span>(<span class="number">1</span>/<span class="number">19</span>): libfdt-<span class="number">1.4</span>.<span class="number">0</span>-<span class="number">1</span>.fc18.x86_64.rpm                     |  <span class="number">23</span> kB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">2</span>/<span class="number">19</span>): SLOF-<span class="number">0</span>.<span class="number">1</span>.git20120731-<span class="number">1</span>.fc18.noarch.rpm             | <span class="number">463</span> kB   <span class="number">00</span><span class="symbol">:</span><span class="number">01</span>     (<span class="number">3</span>/<span class="number">19</span>): openbios-<span class="number">1.0</span>.svn1063-<span class="number">1</span>.fc18.noarch.rpm             | <span class="number">244</span> kB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">4</span>/<span class="number">19</span>): qemu-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm                      |  <span class="number">38</span> kB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">5</span>/<span class="number">19</span>): qemu-system-alpha-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm         | <span class="number">1.2</span> MB   <span class="number">00</span><span class="symbol">:</span><span class="number">01</span>     (<span class="number">6</span>/<span class="number">19</span>): qemu-system-arm-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm           | <span class="number">1.5</span> MB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">7</span>/<span class="number">19</span>): qemu-system-cris-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm          | <span class="number">912</span> kB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">8</span>/<span class="number">19</span>): qemu-system-lm32-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm          | <span class="number">895</span> kB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">9</span>/<span class="number">19</span>): qemu-system-m68k-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm          | <span class="number">1.1</span> MB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">10</span>/<span class="number">19</span>): qemu-system-microblaze-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm   | <span class="number">1.7</span> MB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">11</span>/<span class="number">19</span>): qemu-system-mips-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm         | <span class="number">5.2</span> MB   <span class="number">00</span><span class="symbol">:</span><span class="number">02</span>     (<span class="number">12</span>/<span class="number">19</span>): qemu-system-or32-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm         | <span class="number">877</span> kB   <span class="number">00</span><span class="symbol">:</span><span class="number">01</span>     (<span class="number">13</span>/<span class="number">19</span>): qemu-system-ppc-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm          | <span class="number">4.3</span> MB   <span class="number">00</span><span class="symbol">:</span><span class="number">01</span>     (<span class="number">14</span>/<span class="number">19</span>): qemu-system-s390x-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm        | <span class="number">954</span> kB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">15</span>/<span class="number">19</span>): qemu-system-sh4-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm          | <span class="number">2.2</span> MB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">16</span>/<span class="number">19</span>): qemu-system-sparc-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm        | <span class="number">2.1</span> MB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">17</span>/<span class="number">19</span>): qemu-system-unicore32-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm    | <span class="number">874</span> kB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">18</span>/<span class="number">19</span>): qemu-system-xtensa-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm       | <span class="number">1.7</span> MB   <span class="number">00</span><span class="symbol">:</span><span class="number">00</span>     (<span class="number">19</span>/<span class="number">19</span>): qemu-user-<span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64.rpm                | <span class="number">6.3</span> MB   <span class="number">00</span><span class="symbol">:</span><span class="number">02</span>     --------------------------------------------------------------------------------Total                                           <span class="number">2.1</span> MB/s |  <span class="number">32</span> MB     <span class="number">00</span><span class="symbol">:</span><span class="number">15</span>     Running Transaction CheckRunning Transaction TestTransaction Test SucceededRunning Transaction  Installing : libiscsi-<span class="number">1.7</span>.<span class="number">0</span>-<span class="number">4</span>.fc18.x86_64                                <span class="number">1</span>/<span class="number">28</span>   Updating   : <span class="number">2</span><span class="symbol">:qemu-common-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                          <span class="number">2</span>/<span class="number">28</span>   Installing : libfdt-<span class="number">1.4</span>.<span class="number">0</span>-<span class="number">1</span>.fc18.x86_64                                  <span class="number">3</span>/<span class="number">28</span>   Updating   : <span class="number">2</span><span class="symbol">:qemu-system-x86-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                      <span class="number">4</span>/<span class="number">28</span>   Installing : openbios-<span class="number">1.0</span>.svn1063-<span class="number">1</span>.fc18.noarch                          <span class="number">5</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-sparc-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                    <span class="number">6</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-arm-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                      <span class="number">7</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-microblaze-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64               <span class="number">8</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-user-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                            <span class="number">9</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-mips-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                    <span class="number">10</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-lm32-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                    <span class="number">11</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-cris-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                    <span class="number">12</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-or32-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                    <span class="number">13</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-unicore32-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64               <span class="number">14</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-s390x-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                   <span class="number">15</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-sh4-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                     <span class="number">16</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-alpha-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                   <span class="number">17</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-m68k-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                    <span class="number">18</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-xtensa-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                  <span class="number">19</span>/<span class="number">28</span>   Updating   : <span class="number">2</span><span class="symbol">:qemu-img-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                            <span class="number">20</span>/<span class="number">28</span>   Installing : SLOF-<span class="number">0</span>.<span class="number">1</span>.git20120731-<span class="number">1</span>.fc18.noarch                         <span class="number">21</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-system-ppc-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                     <span class="number">22</span>/<span class="number">28</span>   Installing : <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                                <span class="number">23</span>/<span class="number">28</span>   Updating   : <span class="number">2</span><span class="symbol">:qemu-kvm-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                            <span class="number">24</span>/<span class="number">28</span>   Cleanup    : <span class="number">2</span><span class="symbol">:qemu-kvm-</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18.x86_64                            <span class="number">25</span>/<span class="number">28</span>   Cleanup    : <span class="number">2</span><span class="symbol">:qemu-system-x86-</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18.x86_64                     <span class="number">26</span>/<span class="number">28</span>   Cleanup    : <span class="number">2</span><span class="symbol">:qemu-common-</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18.x86_64                         <span class="number">27</span>/<span class="number">28</span>   Cleanup    : <span class="number">2</span><span class="symbol">:qemu-img-</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18.x86_64                            <span class="number">28</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-user-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                            <span class="number">1</span>/<span class="number">28</span>   Verifying  : SLOF-<span class="number">0</span>.<span class="number">1</span>.git20120731-<span class="number">1</span>.fc18.noarch                          <span class="number">2</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-x86-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                      <span class="number">3</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-mips-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                     <span class="number">4</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-kvm-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                             <span class="number">5</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-lm32-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                     <span class="number">6</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-arm-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                      <span class="number">7</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-cris-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                     <span class="number">8</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-or32-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                     <span class="number">9</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-unicore32-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64               <span class="number">10</span>/<span class="number">28</span>   Verifying  : libiscsi-<span class="number">1.7</span>.<span class="number">0</span>-<span class="number">4</span>.fc18.x86_64                               <span class="number">11</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-microblaze-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64              <span class="number">12</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-sparc-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                   <span class="number">13</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-common-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                         <span class="number">14</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-s390x-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                   <span class="number">15</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-sh4-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                     <span class="number">16</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-alpha-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                   <span class="number">17</span>/<span class="number">28</span>   Verifying  : openbios-<span class="number">1.0</span>.svn1063-<span class="number">1</span>.fc18.noarch                         <span class="number">18</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-ppc-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                     <span class="number">19</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-img-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                            <span class="number">20</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-m68k-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                    <span class="number">21</span>/<span class="number">28</span>   Verifying  : libfdt-<span class="number">1.4</span>.<span class="number">0</span>-<span class="number">1</span>.fc18.x86_64                                 <span class="number">22</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                                <span class="number">23</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-xtensa-</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18.x86_64                  <span class="number">24</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-common-</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18.x86_64                         <span class="number">25</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-kvm-</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18.x86_64                            <span class="number">26</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-system-x86-</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18.x86_64                     <span class="number">27</span>/<span class="number">28</span>   Verifying  : <span class="number">2</span><span class="symbol">:qemu-img-</span><span class="number">1.2</span>.<span class="number">0</span>-<span class="number">23</span>.fc18.x86_64                            <span class="number">28</span>/<span class="number">28</span> <span class="symbol">Installed:</span>  qemu.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                                   Dependency <span class="symbol">Installed:</span>  SLOF.noarch <span class="number">0</span><span class="symbol">:</span><span class="number">0</span>.<span class="number">1</span>.git20120731-<span class="number">1</span>.fc18                                            libfdt.x86_64 <span class="number">0</span><span class="symbol">:</span><span class="number">1.4</span>.<span class="number">0</span>-<span class="number">1</span>.fc18                                                    libiscsi.x86_64 <span class="number">0</span><span class="symbol">:</span><span class="number">1.7</span>.<span class="number">0</span>-<span class="number">4</span>.fc18                                                  openbios.noarch <span class="number">0</span><span class="symbol">:</span><span class="number">1.0</span>.svn1063-<span class="number">1</span>.fc18                                            qemu-system-alpha.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                        qemu-system-arm.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                          qemu-system-cris.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                         qemu-system-lm32.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                         qemu-system-m68k.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                         qemu-system-microblaze.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                   qemu-system-mips.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                         qemu-system-or32.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                         qemu-system-ppc.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                          qemu-system-s390x.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                        qemu-system-sh4.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                          qemu-system-sparc.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                        qemu-system-unicore32.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                    qemu-system-xtensa.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                       qemu-user.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18                                              Dependency <span class="symbol">Updated:</span>  qemu-common.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18   qemu-img.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18           qemu-kvm.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18      qemu-system-x86.x86_64 <span class="number">2</span><span class="symbol">:</span><span class="number">1.2</span>.<span class="number">2</span>-<span class="number">14</span>.fc18  Complete!</span><br></pre></td></tr></table></figure>
+<p>bash: qemu: command not found…<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dys<span class="meta">@localhost</span> Dos]$ lsboot  floppy.img  hx_kernel  include  init  Makefile  scripts[dys<span class="meta">@localhost</span> Dos]$ make qemuqemu -fda floppy.img -boot a<span class="string">make:</span> <span class="string">qemu:</span> Command not found<span class="string">make:</span> *** [qemu] Error <span class="number">127</span>[dys<span class="meta">@localhost</span> Dos]$ whereis qemu<span class="string">qemu:</span> <span class="regexp">/etc/</span>qemu <span class="regexp">/usr/</span>share<span class="regexp">/qemu /</span>usr<span class="regexp">/share/</span>man<span class="regexp">/man1/</span>qemu<span class="number">.1</span>.gz[dys<span class="meta">@localhost</span> Dos]$</span><br></pre></td></tr></table></figure></p>
+<p>从上边很显然 命令可以看出安装完成之后再bin类可执行文件中没有发现。实际应该选择bin类可执行中的一个。<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dys@localhost Dos]<span class="symbol">$</span> cd /bin/[dys@localhost bin]<span class="symbol">$</span> qemu-qemu-alpha                qemu-ppc64abi32           qemu-<span class="keyword">system</span>-mips64elqemu-arm                  qemu-s390x                qemu-<span class="keyword">system</span>-mipselqemu-armeb                qemu-sh4                  qemu-<span class="keyword">system</span>-or32qemu-cris                 qemu-sh4eb                qemu-<span class="keyword">system</span>-ppcqemu-i386                 qemu-sparc                qemu-<span class="keyword">system</span>-ppc64qemu-img                  qemu-sparc32plus          qemu-<span class="keyword">system</span>-ppcembqemu-io                   qemu-sparc64              qemu-<span class="keyword">system</span>-s390xqemu-kvm                  qemu-<span class="keyword">system</span>-alpha         qemu-<span class="keyword">system</span>-sh4qemu-m68k                 qemu-<span class="keyword">system</span>-arm           qemu-<span class="keyword">system</span>-sh4ebqemu-microblaze           qemu-<span class="keyword">system</span>-cris          qemu-<span class="keyword">system</span>-sparcqemu-microblazeel         qemu-<span class="keyword">system</span>-i386          qemu-<span class="keyword">system</span>-sparc64qemu-mips                 qemu-<span class="keyword">system</span>-lm32          qemu-<span class="keyword">system</span>-unicore32qemu-mipsel               qemu-<span class="keyword">system</span>-m68k          qemu-<span class="keyword">system</span>-x86_64qemu-nbd                  qemu-<span class="keyword">system</span>-microblaze    qemu-<span class="keyword">system</span>-xtensaqemu-or32                 qemu-<span class="keyword">system</span>-microblazeel  qemu-<span class="keyword">system</span>-xtensaebqemu-ppc                  qemu-<span class="keyword">system</span>-mips          qemu-unicore32qemu-ppc64                qemu-<span class="keyword">system</span>-mips64        qemu-x86_64</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://www.07net01.com/linux/Ubuntuxiazhaobudaoqemumingling_72378_1361770989.html" target="_blank" rel="noopener">解决安装之后不能运行的问题</a></p>
+<p><a href="http://www.jb51.net/LINUXjishu/150570.html" target="_blank" rel="noopener">linux软链接和硬链接</a></p>
+<p>建立软链接启动之后出现了这个<br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">error </span>13 invalid or unsupported executable format</span><br><span class="line">```取消软链接</span><br></pre></td></tr></table></figure></p>
+<p>sudo unlink qemu<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">再次查看bin目录就没有了</span><br></pre></td></tr></table></figure></p>
+<p>/usr/bin  ls<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">重新连接到一个执行文件</span><br></pre></td></tr></table></figure></p>
+<p>[dys@localhost bin]$ sudo ln -s qemu-system-x86_64 qemu<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">结果还是报这个错误：</span><br></pre></td></tr></table></figure></p>
+<p> Error 13: Invalid Or Unsupported Executable Format<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">目前我找的这个软盘不能使用，而文章中说的那个floppy.img 这个地址也已经失效了</span><br><span class="line">[<span class="string">jamesmolloy.co.uk</span>](<span class="link">http://www.jamesmolloy.co.uk/tutorial_html/floppy.img</span>)</span><br><span class="line"></span><br><span class="line">后来发现了[<span class="string">这个网站</span>](<span class="link">http://www.osdever.net/bkerndev/index.php</span>)</span><br><span class="line"></span><br><span class="line">换了这个网站的镜像文件之后虚拟机就可以跑起来了！但是和我们期望的不一样！</span><br></pre></td></tr></table></figure></p>
+<p>[dys@localhost Downloads]$ cp dev_kernel_grub.img ~/Desktop/Dos/<br>[dys@localhost Downloads]$ cd ~/Desktop/Dos/<br>[dys@localhost Dos]$ ls<br>boot                 floppy.img  include  Makefile<br>dev_kernel_grub.img  hx_kernel   init     scripts<br>[dys@localhost Dos]$ mv floppy.img floppy2.img<br>[dys@localhost Dos]$ ls<br>boot                 floppy2.img  include  Makefile<br>dev_kernel_grub.img  hx_kernel    init     scripts<br>[dys@localhost Dos]$ mv dev_kernel_grub.img floppy.img<br>[dys@localhost Dos]$ make clean<br>rm -f  ./boot/boot.o  ./init/entry.o hx_kernel<br>[dys@localhost Dos]$ ls<br>boot  floppy2.img  floppy.img  include  init  Makefile  scripts<br>[dys@localhost Dos]$ make<br>ç¼è¯æ±ç¼æä»¶ boot/boot.s …<br>nasm -f elf -g -F stabs boot/boot.s<br>ç¼è¯ä»£ç æä»¶ init/entry.c …<br>gcc -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protector -I include init/entry.c -o init/entry.o<br>é¾æ¥åæ ¸æä»¶…<br>ld -T scripts/kernel.ld -m elf_i386 -nostdlib  ./boot/boot.o  ./init/entry.o -o hx_kernel<br>sudo mount floppy.img /mnt/kernel<br>[sudo] password for dys:<br>sudo cp hx_kernel /mnt/kernel/hx_kernel<br>sleep 1<br>sudo umount /mnt/kernel<br>[dys@localhost Dos]$ make qemu<br>qemu -fda floppy.img -boot a<br>[dys@localhost Dos]$ ls<br>boot  floppy2.img  floppy.img  hx_kernel  include  init  Makefile  scripts<br><code>`</code></p>
+<h3 id="下一步的目标（弄一个引导盘出来）"><a href="#下一步的目标（弄一个引导盘出来）" class="headerlink" title="下一步的目标（弄一个引导盘出来）"></a>下一步的目标（弄一个引导盘出来）</h3><p><a href="http://blog.csdn.net/liyuanbhu/article/details/7559953" target="_blank" rel="noopener">创建软盘镜像</a></p>
+<ul>
+<li>在Linux下制作一个1.44MB软盘的技术太简单了，甚至dd命令也可以做一个出来。不过在这个软盘镜像上安装一个GRUB稍有难度，所以大家直接可以使用我提供的已经安装好了GRUB的软盘镜像。</li>
+</ul>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dd <span class="attribute">if</span>=/dev/zero <span class="attribute">bs</span>=512 <span class="attribute">count</span>=2880 <span class="attribute">of</span>=floppy.img</span><br><span class="line"></span><br><span class="line">dys@localhost softWare]$ dd <span class="attribute">if</span>=/dev/zero <span class="attribute">bs</span>=512 <span class="attribute">count</span>=2880 <span class="attribute">of</span>=floppy.img2880+0 records <span class="keyword">in</span>2880+0 records out1474560 bytes (1.5 MB) copied, 0.00531234 s, 278 MB/s[dys@localhost softWare]$ lsfloppy.img[dys@localhost softWare]$</span><br></pre></td></tr></table></figure>
+<p>这样就制作了一个软盘，显然难点在于在软盘镜像上安装GRUB。</p>
+<h4 id="dd-命令"><a href="#dd-命令" class="headerlink" title="dd 命令"></a>dd 命令</h4><p><a href="http://www.runoob.com/linux/linux-comm-dd.html" target="_blank" rel="noopener">Linux dd命令</a></p>
+<ul>
+<li>关于 /dev/zero</li>
+</ul>
+<p><a href="http://blog.csdn.net/pi9nc/article/details/18257593" target="_blank" rel="noopener">Linux 下的两个特殊的文件 – /dev/null 和 /dev/zero 简介及对比</a><br><a href="http://blog.chinaunix.net/uid-21101205-id-1830633.html" target="_blank" rel="noopener">/dev/null与/dev/zero详解</a></p>
+<ul>
+<li>bs/ibs/obs</li>
+</ul>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ibs=<span class="built_in">bytes</span>：一次读入<span class="built_in">bytes</span>个字节，即指定一个块大小为<span class="built_in">bytes</span>个字节。</span><br><span class="line">obs=<span class="built_in">bytes</span>：一次输出<span class="built_in">bytes</span>个字节，即指定一个块大小为<span class="built_in">bytes</span>个字节。</span><br><span class="line">bs=<span class="built_in">bytes</span>：同时设置读入/输出的块大小为<span class="built_in">bytes</span>个字节。</span><br></pre></td></tr></table></figure>
+<ul>
+<li>count</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">count</span>=blocks：仅拷贝blocks个块，块大小等于ibs指定的字节数。</span><br></pre></td></tr></table></figure>
+<h4 id="losetup-命令"><a href="#losetup-命令" class="headerlink" title="losetup 命令"></a>losetup 命令</h4><p><a href="http://www.runoob.com/linux/linux-comm-losetup.html" target="_blank" rel="noopener">Linux losetup命令</a><br>连接作用，经常和mount（挂载一起使用）</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">在一个目录上挂载包含包含文件系统的文件的步骤：</span><br><span class="line"><span class="number">1</span>. 使用一个循环设备（<span class="regexp">/dev/</span>loop）连接文件（使用命令 losetup）</span><br><span class="line"><span class="number">2</span>. 在目录上挂载该循环设备（使用命令 mount）</span><br><span class="line"> </span><br><span class="line">例如：有一个包含文件系统的文件 sample.img，<span class="regexp">/mnt/</span>point 为目录，如果将 sample.img 挂载到 <span class="regexp">/mnt/</span>point 上可以使用下列命令</span><br><span class="line">[plain] </span><br><span class="line">losetup <span class="regexp">/dev/</span>loop0 sample.img  </span><br><span class="line">mount <span class="regexp">/dev/</span>loop0 <span class="regexp">/mnt/</span>point  </span><br><span class="line"><span class="comment"># 可以使用一条mount命令替换以上两条命令  </span></span><br><span class="line">mount -o loop sample.img <span class="regexp">/mnt/</span>point  </span><br><span class="line">  </span><br><span class="line"><span class="comment"># 卸载  </span></span><br><span class="line">umount <span class="regexp">/mnt/</span>point  </span><br><span class="line"><span class="comment"># 查看所有与文件相关联的 loop 设备  </span></span><br><span class="line"><span class="comment"># losetup -a  </span></span><br><span class="line">losetup -d <span class="regexp">/dev/</span>loop0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>关于/dev/loop</li>
+</ul>
+<p><a href="http://www.2cto.com/os/201310/248311.html" target="_blank" rel="noopener">Linux循环设备/dev/loop解惑</a></p>
+<h3 id="Ubuntu-使用zsh"><a href="#Ubuntu-使用zsh" class="headerlink" title="Ubuntu 使用zsh"></a>Ubuntu 使用zsh</h3><p>？？ curl 和 wget 的区别<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sh -c <span class="string">"<span class="variable">$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)</span>"</span></span><br></pre></td></tr></table></figure></p>
+<p>sc -c 这种语法。</p>
+<h4 id="mkfs-ext2-格式化"><a href="#mkfs-ext2-格式化" class="headerlink" title="mkfs.ext2 格式化"></a>mkfs.ext2 格式化</h4><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dys<span class="meta">@localhost</span> softWare]$ sudo losetup <span class="regexp">/dev/</span>loop7 floppy.img [sudo] password <span class="keyword">for</span> <span class="string">dys:</span></span><br></pre></td></tr></table></figure>
+<p>mount -o loop </p>
+<p><a href="http://www.cnblogs.com/itech/archive/2009/08/07/1541061.html" target="_blank" rel="noopener">mount命令（用来挂载硬盘或镜像等）</a></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">一 <span class="selector-tag">mount</span>命令（用来挂载硬盘或镜像等）</span><br><span class="line">用法：<span class="selector-tag">mount</span> <span class="selector-attr">[-t vfstype]</span> <span class="selector-attr">[-o options]</span> <span class="selector-tag">device</span> <span class="selector-tag">dir</span></span><br><span class="line">1<span class="selector-class">.-t</span> <span class="selector-tag">vfstype</span> 指定文件系统的类型，通常不必指定。<span class="selector-tag">mount</span> 会自动选择正确的类型。常用类型有：</span><br><span class="line"><span class="selector-tag">DOS</span> <span class="selector-tag">fat16</span>文件系统：<span class="selector-tag">msdos</span></span><br><span class="line"><span class="selector-tag">Windows</span> 9<span class="selector-tag">x</span> <span class="selector-tag">fat32</span>文件系统：<span class="selector-tag">vfat</span></span><br><span class="line"><span class="selector-tag">Windows</span> <span class="selector-tag">NT</span> <span class="selector-tag">ntfs</span>文件系统：<span class="selector-tag">ntfs</span></span><br><span class="line"><span class="selector-tag">Windows</span>网络文件共享：<span class="selector-tag">smbfs</span> （默认的<span class="selector-tag">windows</span>系统都支持的）</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">windows</span>网络共享文件：<span class="selector-tag">cifs</span> （<span class="selector-tag">cifs</span>是<span class="selector-tag">smbfs</span>的升级版，默认的<span class="selector-tag">windows</span>系统都支持的，首先推荐）</span><br><span class="line"></span><br><span class="line">光盘或光盘镜像：<span class="selector-tag">iso9660</span></span><br><span class="line"><span class="selector-tag">UNIX</span>(<span class="selector-tag">LINUX</span>) 文件网络共享：<span class="selector-tag">nfs</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2<span class="selector-class">.-o</span> <span class="selector-tag">options</span> 主要用来描述设备或档案的挂接方式。常用的参数有：</span><br><span class="line"><span class="selector-tag">loop</span>：用来把一个文件当成硬盘分区挂接上系统</span><br><span class="line"><span class="selector-tag">ro</span>：采用只读方式挂接设备</span><br><span class="line"><span class="selector-tag">rw</span>：采用读写方式挂接设备</span><br><span class="line"><span class="selector-tag">iocharset</span>：指定访问文件系统所用字符集</span><br><span class="line">3<span class="selector-class">.device</span> 要挂接(<span class="selector-tag">mount</span>)的设备。</span><br><span class="line">4<span class="selector-class">.dir</span>设备在系统上的挂接点(<span class="selector-tag">mount</span> <span class="selector-tag">point</span>)。</span><br></pre></td></tr></table></figure>
+<p>直接挂载报了如下的错误，应该是没有格式化！mkfs</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dys@localhost softWare]$ mount -o loop /dev/loop7 /mnt/mount: only root can <span class="keyword">use</span> <span class="string">"--options"</span> <span class="keyword">option</span>[dys@localhost softWare]$ sudo <span class="keyword">mount</span> -o <span class="keyword">loop</span> /dev/loop7 /mnt/<span class="keyword">mount</span>: wrong fs <span class="keyword">type</span>, bad <span class="keyword">option</span>, bad superblock <span class="keyword">on</span> /dev/loop0,       <span class="keyword">missing</span> codepage <span class="keyword">or</span> helper program, <span class="keyword">or</span> other <span class="keyword">error</span>       <span class="keyword">In</span> <span class="keyword">some</span> cases useful info <span class="keyword">is</span> <span class="keyword">found</span> <span class="keyword">in</span> syslog - try       dmesg | tail <span class="keyword">or</span> so</span><br></pre></td></tr></table></figure>
+<h4 id="mkfs命令"><a href="#mkfs命令" class="headerlink" title="mkfs命令"></a>mkfs命令</h4><p><a href="http://www.cnblogs.com/nerxious/archive/2013/01/14/2859493.html" target="_blank" rel="noopener">简明Linux命令行笔记：mkfs</a></p>
+<p><a href="http://www.runoob.com/linux/linux-comm-mkdosfs.html" target="_blank" rel="noopener">Linux mkdosfs命令</a></p>
+<p><a href="http://www.ithov.com/linux/110003.shtml" target="_blank" rel="noopener">Linux命令大全磁盘维护: mkfs.msdos</a></p>
+<p><a href="http://www.richud.com/wiki/Ubuntu_Create_Floppy_Image" target="_blank" rel="noopener">Ubuntu_Create_Floppy_Image</a></p>
+<p>查看磁盘格式<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dys<span class="variable">@localhost</span> softWare]<span class="variable">$ </span>fdisk -l floppy.img</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-F 指定 FAT 表的大小，通常是 <span class="number">12</span> 或是 <span class="number">16</span> 个位元组。<span class="number">12</span> 位元组通常用于磁碟片，<span class="number">16</span> 位元组用于一般硬盘的分割区，也就是所谓的 FAT16 格式。这个值通常系统会自己选定适当的值。在磁碟片上用 FAT16 通常不会发生作用，反之在硬盘上用 FAT12 亦然。</span><br></pre></td></tr></table></figure>
+<p>格式化完成：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dys@localhost softWare]$ mkfs.ext2 floppy.img mke2fs 1.42.5 (29-Jul-2012)floppy.img is <span class="keyword">not</span> a block special device.Proceed anyway? (y,n) yDiscarding device blocks: done                            Filesystem label=OS type: LinuxBlock <span class="attribute">size</span>=1024 (<span class="attribute">log</span>=0)Fragment <span class="attribute">size</span>=1024 (<span class="attribute">log</span>=0)<span class="attribute">Stride</span>=0 blocks, Stripe <span class="attribute">width</span>=0 blocks184 inodes, 1440 blocks72 blocks (5.00%) reserved <span class="keyword">for</span> the super<span class="built_in"> user</span>First data <span class="attribute">block</span>=1Maximum filesystem <span class="attribute">blocks</span>=15728641 block<span class="built_in"> group</span>8192 blocks per group, 8192 fragments per<span class="built_in"> group</span>184 inodes per<span class="built_in"> group</span>Allocating<span class="built_in"> group </span>tables: done                            Writing inode tables: done                            Writing superblocks <span class="keyword">and</span> filesystem<span class="built_in"> accounting </span>information: done[dys@localhost softWare]$ fdisk -l floppy.img Disk floppy.img: 1 MB, 1474560 bytes, 2880 sectorsUnits = sectors of 1 * 512 = 512 bytesSector size (logical/physical): 512 bytes / 512 bytesI/O size (minimum/optimal): 512 bytes / 512 bytes[dys@localhost softWare]$</span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dys<span class="meta">@localhost</span> softWare]$ sudo mount -o loop <span class="regexp">/dev/</span>loop7 <span class="regexp">/mnt/</span>[sudo] password <span class="keyword">for</span> <span class="string">dys:</span> [dys<span class="meta">@localhost</span> softWare]$</span><br></pre></td></tr></table></figure>
+<p>我进入/boot/发现目前用的已经是grub2了，O(∩_∩)O哈！，这肿么办？<br>再安装一个？</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dys@localhost softWare]$ cd /boot/[dys@localhost boot]$ lsconfig-<span class="number">3.6</span>.<span class="number">10</span>-<span class="number">4</span><span class="selector-class">.fc18</span><span class="selector-class">.x86_64</span>         lost+foundgrub2                               System<span class="selector-class">.map-3</span>.<span class="number">6.10</span>-<span class="number">4</span><span class="selector-class">.fc18</span><span class="selector-class">.x86_64</span>initramfs-<span class="number">3.6</span>.<span class="number">10</span>-<span class="number">4</span><span class="selector-class">.fc18</span><span class="selector-class">.x86_64</span><span class="selector-class">.img</span>  vmlinuz-<span class="number">3.6</span>.<span class="number">10</span>-<span class="number">4</span><span class="selector-class">.fc18</span><span class="selector-class">.x86_64</span>initrd-plymouth<span class="selector-class">.img</span>[dys@localhost boot]$ cd grub2/[dys@localhost grub2]$ lsdevice<span class="selector-class">.map</span>  fonts  grub<span class="selector-class">.cfg</span>  grubenv  i386-pc  locale  themes[dys@localhost grub2]$ cd ..[dys@localhost boot]$ lsconfig-<span class="number">3.6</span>.<span class="number">10</span>-<span class="number">4</span><span class="selector-class">.fc18</span><span class="selector-class">.x86_64</span>         lost+foundgrub2                               System<span class="selector-class">.map-3</span>.<span class="number">6.10</span>-<span class="number">4</span><span class="selector-class">.fc18</span><span class="selector-class">.x86_64</span>initramfs-<span class="number">3.6</span>.<span class="number">10</span>-<span class="number">4</span><span class="selector-class">.fc18</span><span class="selector-class">.x86_64</span><span class="selector-class">.img</span>  vmlinuz-<span class="number">3.6</span>.<span class="number">10</span>-<span class="number">4</span><span class="selector-class">.fc18</span><span class="selector-class">.x86_64</span>initrd-plymouth<span class="selector-class">.img</span>[dys@localhost boot]$</span><br></pre></td></tr></table></figure>
+<p>再装一个感觉这个事情比较坑，回头再研究。后来发现Ubuntu用的是Grub</p>
+<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels@ubuntu:/$ cd boot/parallels@ubuntu:/boot$ lsabi<span class="string">-3</span>.13.0<span class="string">-24</span>-generic         memtest86+.binabi<span class="string">-3</span>.13.0<span class="string">-34</span>-generic         memtest86+.elfconfig<span class="string">-3</span>.13.0<span class="string">-24</span>-generic      memtest86+_multiboot.binconfig<span class="string">-3</span>.13.0<span class="string">-34</span>-generic      System.map<span class="string">-3</span>.13.0<span class="string">-24</span>-genericgrub                          System.map<span class="string">-3</span>.13.0<span class="string">-34</span>-genericinitrd.img<span class="string">-3</span>.13.0<span class="string">-24</span>-generic  vmlinuz<span class="string">-3</span>.13.0<span class="string">-24</span>-genericinitrd.img<span class="string">-3</span>.13.0<span class="string">-34</span>-generic  vmlinuz<span class="string">-3</span>.13.0<span class="string">-34</span>-generic</span><br></pre></td></tr></table></figure>
+<p>所以决定转战Ubuntu平台。<br>发现Ubuntu也没有<a href="http://blog.csdn.net/liyuanbhu/article/details/7559953" target="_blank" rel="noopener">文章</a>中说的cp /boot/grub/stage1 /mnt/boot/grub</p>
+<p>故找到最原始的制作gun文档试一试。<br><a href="https://www.gnu.org/software/grub/manual/legacy/Creating-a-GRUB-boot-floppy.html" target="_blank" rel="noopener">Creating-a-GRUB-boot-floppy</a><br><a href="http://linux-sxs.org/administration/grubflop.html" target="_blank" rel="noopener">grubflop</a></p>
+<p>显然还是google给力啊！</p>
+<p>目前还没有发下一个可以解决问题的文案？</p>
+<p>或者转换一下思路，使用磁盘镜像？？？？</p>
+<p><a href="http://blog.sina.com.cn/s/blog_70dd169101013gcw.html" target="_blank" rel="noopener">制作可用grub引导Linux系统的磁盘映像文件</a></p>
+<p>进一步思考。。。之前总想着从系统copy 但是copy不到难道不能直接下载吗？<br>思路转换为直接下载！找到stage1 stage2<br><a href="http://cn.linux.vbird.org/linux_basic/0510osloader_3.php" target="_blank" rel="noopener">第二十章、启动流程、模块管理与 Loader</a></p>
+<p>我看鸟哥的私房菜都是stage1 stage2，哎，太老了。</p>
+<p>看来得研究一下grub2了。</p>
+<p><a href="https://www.gnu.org/software/grub/manual/html_node/" target="_blank" rel="noopener">GRUB2.0官方文档</a></p>
+<p>fedora grub-install 总是报command not found<br>后来发现原来是 升级到了grub2-install。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">device.map  fonts  grub.cfg  grubenv  i386-pc  locale  themes[dys<span class="meta">@localhost</span> grub2]$ whereis grub-installgrub-<span class="string">install:</span>[dys<span class="meta">@localhost</span> grub2]$ whereis grub2-installgrub2-<span class="string">install:</span> <span class="regexp">/sbin/</span>grub2-install <span class="regexp">/usr/</span>sbin/grub2-install[dys<span class="meta">@localhost</span> grub2]$</span><br></pre></td></tr></table></figure>
+<p>ubuntu 有grub-install</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels<span class="meta">@ubuntu</span>:~$ whereis grub2-installgrub2-<span class="string">install:</span>parallels<span class="meta">@ubuntu</span>:~$ whereis grub-installgrub-<span class="string">install:</span> <span class="regexp">/usr/</span>sbin<span class="regexp">/grub-install /</span>usr<span class="regexp">/share/</span>man<span class="regexp">/man8/</span>grub-install<span class="number">.8</span>.gzparallels<span class="meta">@ubuntu</span>:~$</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels@ubuntu<span class="symbol">:~/Desktop</span>$ lsDemo  Parallels Shared Foldersparallels@ubuntu<span class="symbol">:~/Desktop</span>$ mkdir floparallels@ubuntu<span class="symbol">:~/Desktop</span>$ cd flo/parallels@ubuntu<span class="symbol">:~/Desktop/flo</span>$ dd <span class="keyword">if</span>=<span class="regexp">/dev/zero</span> bs=<span class="number">512</span> count=<span class="number">2880</span> of=floppy.img<span class="number">2880</span>+<span class="number">0</span> records <span class="keyword">in</span><span class="number">2880</span>+<span class="number">0</span> records out<span class="number">1474560</span> bytes (<span class="number">1.5</span> MB) copied, <span class="number">0</span>.<span class="number">00606156</span> s, <span class="number">243</span> MB/sparallels@ubuntu<span class="symbol">:~/Desktop/flo</span>$ lsfloppy.imgparallels@ubuntu<span class="symbol">:~/Desktop/flo</span>$ losetup /dev/loop7 floppy.img/dev/<span class="symbol">loop7:</span> Permission deniedparallels@ubuntu<span class="symbol">:~/Desktop/flo</span>$ sudo losetup /dev/loop7 floppy.img[sudo] password <span class="keyword">for</span> <span class="symbol">parallels:</span> parallels@ubuntu<span class="symbol">:~/Desktop/flo</span>$ mke2fs /dev/loop7 mke2fs <span class="number">1.42</span>.<span class="number">9</span> (<span class="number">4</span>-Feb-<span class="number">2014</span>)<span class="symbol">mke2fs:</span> Permission denied <span class="keyword">while</span> trying to determine filesystem sizeparallels@ubuntu<span class="symbol">:~/Desktop/flo</span>$ sudo mke2fs /dev/loop7 mke2fs <span class="number">1.42</span>.<span class="number">9</span> (<span class="number">4</span>-Feb-<span class="number">2014</span>)Discarding device <span class="symbol">blocks:</span> done                            Filesystem label=OS <span class="symbol">type:</span> LinuxBlock size=<span class="number">1024</span> (log=<span class="number">0</span>)Fragment size=<span class="number">1024</span> (log=<span class="number">0</span>)Stride=<span class="number">0</span> blocks, Stripe width=<span class="number">0</span> blocks<span class="number">184</span> inodes, <span class="number">1440</span> blocks<span class="number">72</span> blocks (<span class="number">5.00</span>%) reserved <span class="keyword">for</span> the <span class="keyword">super</span> userFirst data block=<span class="number">1</span>Maximum filesystem blocks=<span class="number">1572864</span><span class="number">1</span> block group<span class="number">8192</span> blocks per group, <span class="number">8192</span> fragments per group<span class="number">184</span> inodes per groupAllocating group <span class="symbol">tables:</span> done                            Writing inode <span class="symbol">tables:</span> done                            Writing superblocks <span class="keyword">and</span> filesystem accounting <span class="symbol">information:</span> doneparallels@ubuntu<span class="symbol">:~/Desktop/flo</span>$ sudo mount -t ext2 /dev/loop7 /mntparallels@ubuntu<span class="symbol">:~/Desktop/flo</span>$ sudo mkdir /mnt/bootparallels@ubuntu<span class="symbol">:~/Desktop/flo</span>$ sudo grub-install --boot-directory=<span class="regexp">/mnt/boot</span> /dev/loop7Installing <span class="keyword">for</span> i386-pc platform.grub-<span class="symbol">install:</span> <span class="symbol">error:</span> cannot open <span class="string">`/mnt/boot/grub/i386-pc/cs5536.mod': No space left on device.parallels@ubuntu:~/Desktop/flo$</span></span><br></pre></td></tr></table></figure>
+<p><a href="http://www.cnblogs.com/adolfmc/archive/2013/02/16/2913801.html" target="_blank" rel="noopener">查看磁盘使用空间</a></p>
+<p>进入mnt里面查看是有东西的，而且loop7空间已经用完了</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels@ubuntu:~/Desktop/flo$ <span class="keyword">cd</span> /mnt/parallels@ubuntu:/mnt$ <span class="keyword">ls</span>boot  lost+foundparallels@ubuntu:/mnt$ <span class="keyword">cd</span> boot/parallels@ubuntu:/mnt/boot$ <span class="keyword">ls</span>grubparallels@ubuntu:/mnt/boot$ <span class="keyword">cd</span> grub/parallels@ubuntu:/mnt/boot/grub$ <span class="keyword">ls</span>i386-<span class="keyword">pc</span>  localeparallels@ubuntu:/mnt/boot/grub$ <span class="keyword">cd</span> i386-<span class="keyword">pc</span>/parallels@ubuntu:/mnt/boot/grub/i386-<span class="keyword">pc</span>$ <span class="keyword">ls</span><span class="number">915</span>resolution.<span class="keyword">mod</span>  ehci.<span class="keyword">mod</span>                gptsync.<span class="keyword">mod</span>      minix_be.<span class="keyword">mod</span>         raid6rec.<span class="keyword">mod</span>        udf.<span class="keyword">mod</span>acpi.<span class="keyword">mod</span>           <span class="built_in">eval</span>.<span class="keyword">mod</span>                gzio.<span class="keyword">mod</span>         minix.<span class="keyword">mod</span>            <span class="keyword">read</span>.<span class="keyword">mod</span>            ufs1_be.<span class="keyword">mod</span>ahci.<span class="keyword">mod</span>           exfctest.<span class="keyword">mod</span>            halt.<span class="keyword">mod</span>         mmap.<span class="keyword">mod</span>             regexp.<span class="keyword">mod</span>          ufs1.<span class="keyword">mod</span>all_video.<span class="keyword">mod</span>      ext2.<span class="keyword">mod</span>                hashsum.<span class="keyword">mod</span>      morse.<span class="keyword">mod</span>            reiserfs.<span class="keyword">mod</span>        uhci.<span class="keyword">mod</span>aout.<span class="keyword">mod</span>           extcmd.<span class="keyword">mod</span>              hdparm.<span class="keyword">mod</span>       msdospart.<span class="keyword">mod</span>        romfs.<span class="keyword">mod</span>           usb_keyboard.<span class="keyword">mod</span>archelp.<span class="keyword">mod</span>        fat.<span class="keyword">mod</span>                 hello.<span class="keyword">mod</span>        nativedisk.<span class="keyword">mod</span>       scsi.<span class="keyword">mod</span>            usb.<span class="keyword">mod</span>ata.<span class="keyword">mod</span>            freedos.<span class="keyword">mod</span>             <span class="keyword">help</span>.<span class="keyword">mod</span>         nilfs2.<span class="keyword">mod</span>           search_fs_file.<span class="keyword">mod</span>  usbms.<span class="keyword">mod</span>at_keyboard.<span class="keyword">mod</span>    fshelp.<span class="keyword">mod</span>              hfspluscomp.<span class="keyword">mod</span>  <span class="keyword">normal</span>.<span class="keyword">mod</span>           <span class="built_in">search</span>.<span class="keyword">mod</span>          usbserial_common.<span class="keyword">mod</span>bfs.<span class="keyword">mod</span>            functional_test.<span class="keyword">mod</span>     hwmatch.<span class="keyword">mod</span>      ntfscomp.<span class="keyword">mod</span>         sendkey.<span class="keyword">mod</span>         usbserial_ftdi.<span class="keyword">mod</span>biosdisk.<span class="keyword">mod</span>       gcry_blowfish.<span class="keyword">mod</span>       iorw.<span class="keyword">mod</span>         part_acorn.<span class="keyword">mod</span>       serial.<span class="keyword">mod</span>          usbserial_usbdebug.<span class="keyword">mod</span>bitmap_scale.<span class="keyword">mod</span>   gcry_crc.<span class="keyword">mod</span>            jfs.<span class="keyword">mod</span>          part_amiga.<span class="keyword">mod</span>       setjmp.<span class="keyword">mod</span>          usbtest.<span class="keyword">mod</span>bsd.<span class="keyword">mod</span>            gcry_idea.<span class="keyword">mod</span>           keylayouts.<span class="keyword">mod</span>   part_apple.<span class="keyword">mod</span>       setjmp_test.<span class="keyword">mod</span>     verify.<span class="keyword">mod</span>btrfs.<span class="keyword">mod</span>          gcry_md4.<span class="keyword">mod</span>            keystatus.<span class="keyword">mod</span>    part_bsd.<span class="keyword">mod</span>         setpci.<span class="keyword">mod</span>          vga.<span class="keyword">mod</span>bufio.<span class="keyword">mod</span>          gcry_md5.<span class="keyword">mod</span>            ldm.<span class="keyword">mod</span>          part_dfly.<span class="keyword">mod</span>        sfs.<span class="keyword">mod</span>             vga_text.<span class="keyword">mod</span><span class="keyword">cat</span>.<span class="keyword">mod</span>            gcry_rfc2268.<span class="keyword">mod</span>        legacycfg.<span class="keyword">mod</span>    part_dvh.<span class="keyword">mod</span>         signature_test.<span class="keyword">mod</span>  video_bochs.<span class="keyword">mod</span>cbls.<span class="keyword">mod</span>           gcry_rsa.<span class="keyword">mod</span>            linux16.<span class="keyword">mod</span>      part_plan.<span class="keyword">mod</span>        sleep_test.<span class="keyword">mod</span>      video_cirrus.<span class="keyword">mod</span>cbtable.<span class="keyword">mod</span>        gcry_serpent.<span class="keyword">mod</span>        loopback.<span class="keyword">mod</span>     part_sun.<span class="keyword">mod</span>         squash4.<span class="keyword">mod</span>         video_fb.<span class="keyword">mod</span>cbtime.<span class="keyword">mod</span>         gcry_sha1.<span class="keyword">mod</span>           lsapm.<span class="keyword">mod</span>        parttool.<span class="keyword">mod</span>         syslinuxcfg.<span class="keyword">mod</span>     videoinfo.<span class="keyword">mod</span>chain.<span class="keyword">mod</span>          gcry_sha256.<span class="keyword">mod</span>         lsmmap.<span class="keyword">mod</span>       password.<span class="keyword">mod</span>         tar.<span class="keyword">mod</span>             video.<span class="keyword">mod</span>cmosdump.<span class="keyword">mod</span>       gcry_tiger.<span class="keyword">mod</span>          luks.<span class="keyword">mod</span>         password_pbkdf2.<span class="keyword">mod</span>  terminal.<span class="keyword">mod</span>        xnu.<span class="keyword">mod</span>cmostest.<span class="keyword">mod</span>       gcry_twofish.<span class="keyword">mod</span>        lvm.<span class="keyword">mod</span>          pata.<span class="keyword">mod</span>             terminfo.<span class="keyword">mod</span>        xnu_uuid_test.<span class="keyword">mod</span>cmp.<span class="keyword">mod</span>            gcry_whirlpool.<span class="keyword">mod</span>      macbless.<span class="keyword">mod</span>     pbkdf2.<span class="keyword">mod</span>           testload.<span class="keyword">mod</span>        xzio.<span class="keyword">mod</span>cpio_be.<span class="keyword">mod</span>        gdb.<span class="keyword">mod</span>                 mda_text.<span class="keyword">mod</span>     pci.<span class="keyword">mod</span>              test.<span class="keyword">mod</span>            zfscrypt.<span class="keyword">mod</span>crc64.<span class="keyword">mod</span>          geli.<span class="keyword">mod</span>                mdraid09.<span class="keyword">mod</span>     plan9.<span class="keyword">mod</span>            testspeed.<span class="keyword">mod</span>       zfsinfo.<span class="keyword">mod</span>datehook.<span class="keyword">mod</span>       gettext.<span class="keyword">mod</span>             mdraid1x.<span class="keyword">mod</span>     play.<span class="keyword">mod</span>             tftp.<span class="keyword">mod</span>diskfilter.<span class="keyword">mod</span>     gfxmenu.<span class="keyword">mod</span>             memdisk.<span class="keyword">mod</span>      procfs.<span class="keyword">mod</span>           tga.<span class="keyword">mod</span>disk.<span class="keyword">mod</span>           gfxterm_background.<span class="keyword">mod</span>  minix2_be.<span class="keyword">mod</span>    progress.<span class="keyword">mod</span>         trig.<span class="keyword">mod</span>dm_nv.<span class="keyword">mod</span>          gfxterm_menu.<span class="keyword">mod</span>        minix3_be.<span class="keyword">mod</span>    pxechain.<span class="keyword">mod</span>         truecrypt.<span class="keyword">mod</span><span class="keyword">echo</span>.<span class="keyword">mod</span>           gfxterm.<span class="keyword">mod</span>             minix3.<span class="keyword">mod</span>       pxe.<span class="keyword">mod</span>              true.<span class="keyword">mod</span>parallels@ubuntu:/mnt/boot/grub/i386-<span class="keyword">pc</span>$ <span class="keyword">cd</span> ~/Desktop/flo/parallels@ubuntu:~/Desktop/flo$ <span class="keyword">ls</span>floppy.imgparallels@ubuntu:~/Desktop/flo$ df -hldf: ‘/media/psf/钉钉\\<span class="number">040</span>’: No such <span class="keyword">file</span> <span class="built_in">or</span> directoryFilesystem      Size  Used Avail Use% Mounted <span class="keyword">on</span>/dev/sda1        <span class="number">62</span>G  <span class="number">3.9</span>G   <span class="number">55</span>G   <span class="number">7</span>% /none            <span class="number">4.0</span>K     <span class="number">0</span>  <span class="number">4.0</span>K   <span class="number">0</span>% /sys/fs/cgroupudev            <span class="number">485</span>M  <span class="number">4.0</span>K  <span class="number">485</span>M   <span class="number">1</span>% /devtmpfs           <span class="number">100</span>M  <span class="number">932</span>K   <span class="number">99</span>M   <span class="number">1</span>% /runnone            <span class="number">5.0</span>M     <span class="number">0</span>  <span class="number">5.0</span>M   <span class="number">0</span>% /run/locknone            <span class="number">496</span>M  <span class="number">152</span>K  <span class="number">496</span>M   <span class="number">1</span>% /run/shmnone            <span class="number">100</span>M   <span class="number">60</span>K  <span class="number">100</span>M   <span class="number">1</span>% /run/userHome            <span class="number">233</span>G  <span class="number">152</span>G   <span class="number">82</span>G  <span class="number">66</span>% /media/psf/HomeiCloud          <span class="number">233</span>G  <span class="number">152</span>G   <span class="number">82</span>G  <span class="number">66</span>% /media/psf/iCloud/dev/sr0         <span class="number">86</span>M   <span class="number">86</span>M     <span class="number">0</span> <span class="number">100</span>% /media/parallels/CDROM/dev/loop7      <span class="number">1.4</span>M  <span class="number">1.4</span>M     <span class="number">0</span> <span class="number">100</span>% /mntparallels@ubuntu:~/Desktop/flo$</span><br></pre></td></tr></table></figure>
+<p>卸载之后看一看果然没有了<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels<span class="variable">@ubuntu</span><span class="symbol">:~/Desktop/flo</span><span class="variable">$ </span>umount /mnt<span class="symbol">umount:</span> /mnt is <span class="keyword">not</span> <span class="keyword">in</span> the fstab (<span class="keyword">and</span> you are <span class="keyword">not</span> root)parallels<span class="variable">@ubuntu</span><span class="symbol">:~/Desktop/flo</span><span class="variable">$ </span>sudo umount /mntparallels<span class="variable">@ubuntu</span><span class="symbol">:~/Desktop/flo</span><span class="variable">$ </span>cd /mmedia/ mnt/   parallels<span class="variable">@ubuntu</span><span class="symbol">:~/Desktop/flo</span><span class="variable">$ </span>cd /mnt/parallels<span class="variable">@ubuntu</span><span class="symbol">:/mnt</span><span class="variable">$ </span>lsparallels<span class="variable">@ubuntu</span><span class="symbol">:/mnt</span><span class="variable">$ </span>df -hl<span class="symbol">df:</span> ‘/media/psf/钉钉\\<span class="number">040</span>’: No such file <span class="keyword">or</span> directoryFilesystem      Size  Used Avail Use% Mounted on/dev/sda1        <span class="number">62</span>G  <span class="number">3.9</span>G   <span class="number">55</span>G   <span class="number">7</span>% <span class="regexp">/none            4.0K     0  4.0K   0% /sys</span><span class="regexp">/fs/cgroup</span>udev            <span class="number">485</span>M  <span class="number">4.0</span>K  <span class="number">485</span>M   <span class="number">1</span>% <span class="regexp">/devtmpfs           100M  932K   99M   1% /run</span>none            <span class="number">5.0</span>M     <span class="number">0</span>  <span class="number">5.0</span>M   <span class="number">0</span>% <span class="regexp">/run/lock</span>none            <span class="number">496</span>M  <span class="number">152</span>K  <span class="number">496</span>M   <span class="number">1</span>% <span class="regexp">/run/shm</span>none            <span class="number">100</span>M   <span class="number">60</span>K  <span class="number">100</span>M   <span class="number">1</span>% <span class="regexp">/run/user</span>Home            <span class="number">233</span>G  <span class="number">152</span>G   <span class="number">82</span>G  <span class="number">66</span>% <span class="regexp">/media/psf</span><span class="regexp">/HomeiCloud          233G  152G   82G  66% /media</span><span class="regexp">/psf/i</span>Cloud/dev/sr<span class="number">0</span>         <span class="number">86</span>M   <span class="number">86</span>M     <span class="number">0</span> <span class="number">100</span>% <span class="regexp">/media/parallels</span><span class="regexp">/CDROMparallels@ubuntu:/mnt</span>$</span><br></pre></td></tr></table></figure></p>
+<p>弄一个新的看一看空间：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels@ubuntu:~/Desktop/flo$ dd <span class="attribute">if</span>=/dev/zero <span class="attribute">bs</span>=512 <span class="attribute">count</span>=2880 <span class="attribute">of</span>=floppy.img2880+0 records <span class="keyword">in</span>2880+0 records out1474560 bytes (1.5 MB) copied, 0.00680582 s, 217 MB/sparallels@ubuntu:~/Desktop/flo$ sudo losetup /dev/loop7 floppy.imglosetup: /dev/loop7: device is busyparallels@ubuntu:~/Desktop/flo$ sudo losetup /dev/loop6 floppy.imgparallels@ubuntu:~/Desktop/flo$ df -hldf: ‘/media/psf/钉钉\\040’: <span class="literal">No</span> such file <span class="keyword">or</span> directoryFilesystem      Size  Used Avail Use% Mounted on/dev/sda1        62G  3.9G   55G   7% /none            4.0K     0  4.0K   0% /sys/fs/cgroupudev            485M  4.0K  485M   1% /devtmpfs           100M  932K   99M   1% /<span class="builtin-name">run</span>none            5.0M     0  5.0M   0% /run/locknone            496M  152K  496M   1% /run/shmnone            100M   60K  100M   1% /run<span class="built_in">/user</span>Home            233G  152G   82G  66% /media/psf/HomeiCloud          233G  152G   82G  66% /media/psf/iCloud/dev/sr0         86M   86M     0 100% /media/parallels/CDROMparallels@ubuntu:~/Desktop/flo$ sudo mke2fs /dev/loop6 mke2fs 1.42.9 (4-Feb-2014)Discarding device blocks: done                            Filesystem label=OS type: LinuxBlock <span class="attribute">size</span>=1024 (<span class="attribute">log</span>=0)Fragment <span class="attribute">size</span>=1024 (<span class="attribute">log</span>=0)<span class="attribute">Stride</span>=0 blocks, Stripe <span class="attribute">width</span>=0 blocks184 inodes, 1440 blocks72 blocks (5.00%) reserved <span class="keyword">for</span> the super<span class="built_in"> user</span>First data <span class="attribute">block</span>=1Maximum filesystem <span class="attribute">blocks</span>=15728641 block<span class="built_in"> group</span>8192 blocks per group, 8192 fragments per<span class="built_in"> group</span>184 inodes per<span class="built_in"> group</span>Allocating<span class="built_in"> group </span>tables: done                            Writing inode tables: done                            Writing superblocks <span class="keyword">and</span> filesystem<span class="built_in"> accounting </span>information: doneparallels@ubuntu:~/Desktop/flo$ sudo mount -t ext2 /dev/loop6 /mntparallels@ubuntu:~/Desktop/flo$ df -hldf: ‘/media/psf/钉钉\\040’: <span class="literal">No</span> such file <span class="keyword">or</span> directoryFilesystem      Size  Used Avail Use% Mounted on/dev/sda1        62G  3.9G   55G   7% /none            4.0K     0  4.0K   0% /sys/fs/cgroupudev            485M  4.0K  485M   1% /devtmpfs           100M  932K   99M   1% /<span class="builtin-name">run</span>none            5.0M     0  5.0M   0% /run/locknone            496M  152K  496M   1% /run/shmnone            100M   60K  100M   1% /run<span class="built_in">/user</span>Home            233G  152G   82G  66% /media/psf/HomeiCloud          233G  152G   82G  66% /media/psf/iCloud/dev/sr0         86M   86M     0 100% /media/parallels/CDROM/dev/loop6      1.4M   19K  1.3M   2% /mntparallels@ubuntu:~/Desktop/flo$</span><br></pre></td></tr></table></figure>
+<p>也失败了，不过这回失败的原因是这个。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels<span class="variable">@ubuntu</span><span class="symbol">:~</span><span class="variable">$ </span>df -hlFilesystem      Size  Used Avail Use% Mounted on/dev/sda1        <span class="number">62</span>G  <span class="number">3.9</span>G   <span class="number">55</span>G   <span class="number">7</span>% <span class="regexp">/none            4.0K     0  4.0K   0% /sys</span><span class="regexp">/fs/cgroup</span>udev            <span class="number">485</span>M  <span class="number">4.0</span>K  <span class="number">485</span>M   <span class="number">1</span>% <span class="regexp">/devtmpfs           100M  928K   99M   1% /run</span>none            <span class="number">5.0</span>M     <span class="number">0</span>  <span class="number">5.0</span>M   <span class="number">0</span>% <span class="regexp">/run/lock</span>none            <span class="number">496</span>M  <span class="number">152</span>K  <span class="number">496</span>M   <span class="number">1</span>% <span class="regexp">/run/shm</span>none            <span class="number">100</span>M   <span class="number">44</span>K  <span class="number">100</span>M   <span class="number">1</span>% <span class="regexp">/run/user</span>Home            <span class="number">233</span>G  <span class="number">152</span>G   <span class="number">82</span>G  <span class="number">66</span>% <span class="regexp">/media/psf</span><span class="regexp">/HomeiCloud          233G  152G   82G  66% /media</span><span class="regexp">/psf/i</span>Cloudparallels<span class="variable">@ubuntu</span><span class="symbol">:~</span><span class="variable">$ </span>clearparallels<span class="variable">@ubuntu</span><span class="symbol">:~</span><span class="variable">$ </span>sudo losetup /dev/loop6 floppy.img[sudo] password <span class="keyword">for</span> <span class="symbol">parallels:</span> floppy.<span class="symbol">img:</span> No such file <span class="keyword">or</span> directoryparallels<span class="variable">@ubuntu</span><span class="symbol">:~</span><span class="variable">$ </span>cd ~<span class="regexp">/Desktop/flo</span><span class="regexp">/parallels@ubuntu:~/</span>Desktop/flo<span class="variable">$ </span>sudo losetup /dev/loop6 floppy.imgparallels<span class="variable">@ubuntu</span><span class="symbol">:~/Desktop/flo</span><span class="variable">$ </span>sudo mount -t ext2 /dev/loop6 /mnt<span class="symbol">mount:</span> wrong fs type, bad option, bad superblock on /dev/loop6,       missing codepage <span class="keyword">or</span> helper program, <span class="keyword">or</span> other error       In some cases useful info is found <span class="keyword">in</span> syslog - try       dmesg | tail  <span class="keyword">or</span> soparallels<span class="variable">@ubuntu</span><span class="symbol">:~/Desktop/flo</span><span class="variable">$ </span>df -hlFilesystem      Size  Used Avail Use% Mounted on/dev/sda1        <span class="number">62</span>G  <span class="number">3.9</span>G   <span class="number">55</span>G   <span class="number">7</span>% <span class="regexp">/none            4.0K     0  4.0K   0% /sys</span><span class="regexp">/fs/cgroup</span>udev            <span class="number">485</span>M  <span class="number">4.0</span>K  <span class="number">485</span>M   <span class="number">1</span>% <span class="regexp">/devtmpfs           100M  916K   99M   1% /run</span>none            <span class="number">5.0</span>M     <span class="number">0</span>  <span class="number">5.0</span>M   <span class="number">0</span>% <span class="regexp">/run/lock</span>none            <span class="number">496</span>M  <span class="number">152</span>K  <span class="number">496</span>M   <span class="number">1</span>% <span class="regexp">/run/shm</span>none            <span class="number">100</span>M   <span class="number">44</span>K  <span class="number">100</span>M   <span class="number">1</span>% <span class="regexp">/run/user</span>Home            <span class="number">233</span>G  <span class="number">152</span>G   <span class="number">82</span>G  <span class="number">66</span>% <span class="regexp">/media/psf</span><span class="regexp">/HomeiCloud          233G  152G   82G  66% /media</span><span class="regexp">/psf/i</span>Cloudparallels<span class="variable">@ubuntu</span><span class="symbol">:~/Desktop/flo</span><span class="variable">$ </span>sudo mke2fs /dev/loop6 mke2fs <span class="number">1.42</span>.<span class="number">9</span> (<span class="number">4</span>-Feb-<span class="number">2014</span>)Discarding device <span class="symbol">blocks:</span> done                            Filesystem label=OS <span class="symbol">type:</span> LinuxBlock size=<span class="number">1024</span> (log=<span class="number">0</span>)Fragment size=<span class="number">1024</span> (log=<span class="number">0</span>)Stride=<span class="number">0</span> blocks, Stripe width=<span class="number">0</span> blocks<span class="number">3600</span> inodes, <span class="number">14400</span> blocks<span class="number">720</span> blocks (<span class="number">5.00</span>%) reserved <span class="keyword">for</span> the super userFirst data block=<span class="number">1</span>Maximum filesystem blocks=<span class="number">14942208</span><span class="number">2</span> block groups<span class="number">8192</span> blocks per group, <span class="number">8192</span> fragments per group<span class="number">1800</span> inodes per groupSuperblock backups stored on <span class="symbol">blocks:</span> 	<span class="number">8193</span>Allocating group <span class="symbol">tables:</span> done                            Writing inode <span class="symbol">tables:</span> done                            Writing superblocks <span class="keyword">and</span> filesystem accounting <span class="symbol">information:</span> doneparallels<span class="variable">@ubuntu</span><span class="symbol">:~/Desktop/flo</span><span class="variable">$ </span>sudo mount -t ext2 /dev/loop6 /mntparallels<span class="variable">@ubuntu</span><span class="symbol">:~/Desktop/flo</span><span class="variable">$ </span>sudo grub-install --boot-directory=<span class="regexp">/mnt/boot</span> /dev/loop6Installing <span class="keyword">for</span> i386-pc platform.grub-<span class="symbol">install:</span> <span class="symbol">warning:</span> File system `ext2<span class="string">' doesn'</span>t support embedding.grub-<span class="symbol">install:</span> <span class="symbol">warning:</span> Embedding is <span class="keyword">not</span> possible.  GRUB can only be installed <span class="keyword">in</span> this setup by using blocklists.  However, blocklists are UNRELIABLE <span class="keyword">and</span> their <span class="keyword">use</span> is discouraged..grub-<span class="symbol">install:</span> <span class="symbol">error:</span> will <span class="keyword">not</span> proceed with blocklists.parallels<span class="variable">@ubuntu</span><span class="symbol">:~/Desktop/flo</span><span class="variable">$ </span>df -hlFilesystem      Size  Used Avail Use% Mounted on/dev/sda1        <span class="number">62</span>G  <span class="number">3.9</span>G   <span class="number">55</span>G   <span class="number">7</span>% <span class="regexp">/none            4.0K     0  4.0K   0% /sys</span><span class="regexp">/fs/cgroup</span>udev            <span class="number">485</span>M  <span class="number">4.0</span>K  <span class="number">485</span>M   <span class="number">1</span>% <span class="regexp">/devtmpfs           100M  916K   99M   1% /run</span>none            <span class="number">5.0</span>M     <span class="number">0</span>  <span class="number">5.0</span>M   <span class="number">0</span>% <span class="regexp">/run/lock</span>none            <span class="number">496</span>M  <span class="number">152</span>K  <span class="number">496</span>M   <span class="number">1</span>% <span class="regexp">/run/shm</span>none            <span class="number">100</span>M   <span class="number">44</span>K  <span class="number">100</span>M   <span class="number">1</span>% <span class="regexp">/run/user</span>Home            <span class="number">233</span>G  <span class="number">152</span>G   <span class="number">82</span>G  <span class="number">66</span>% <span class="regexp">/media/psf</span><span class="regexp">/HomeiCloud          233G  152G   82G  66% /media</span><span class="regexp">/psf/i</span>Cloud/dev/loop6       <span class="number">14</span>M  <span class="number">4.5</span>M  <span class="number">8.5</span>M  <span class="number">35</span>% <span class="regexp">/mntparallels@ubuntu:~/</span>Desktop/flo$</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>官方文档，好好研究<br><a href="https://wiki.archlinux.org/index.php/GRUB_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87" target="_blank" rel="noopener">GRUB (简体中文)</a>)  </p>
+<p>添加一个–force参数就安装完成了。哈哈哈哈哈，终于取得了突破。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parallels<span class="variable">@ubuntu</span><span class="symbol">:/dev</span><span class="variable">$ </span>sudo grub-install --boot-directory=<span class="regexp">/mnt/boot</span> --force /dev/loop6[sudo] password <span class="keyword">for</span> <span class="symbol">parallels:</span> Installing <span class="keyword">for</span> i386-pc platform.grub-<span class="symbol">install:</span> <span class="symbol">warning:</span> File system `ext2<span class="string">' doesn'</span>t support embedding.grub-<span class="symbol">install:</span> <span class="symbol">warning:</span> Embedding is <span class="keyword">not</span> possible.  GRUB can only be installed <span class="keyword">in</span> this setup by using blocklists.  However, blocklists are UNRELIABLE <span class="keyword">and</span> their <span class="keyword">use</span> is discouraged..Installation finished. No error reported.parallels<span class="variable">@ubuntu</span><span class="symbol">:/dev</span>$</span><br></pre></td></tr></table></figure>
+<p>将一个文件夹复制到另一个地方</p>
+<p>如下，换成新制作的floppy.img就好了！！！能够启动了<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[dys@localhost Dos]$ lsboot  floppy2<span class="selector-class">.img</span>  floppy<span class="selector-class">.img</span>  include  init  Makefile  scripts[dys@localhost Dos]$ cp ~/Desktop/Parallels\ Shared\ Folders/Home/Documents/GitHub/OSExplore/DOS/floppyNew<span class="selector-class">.img</span> floppyNew<span class="selector-class">.img</span>[dys@localhost Dos]$ lsboot  floppy2<span class="selector-class">.img</span>  floppy<span class="selector-class">.img</span>  floppyNew<span class="selector-class">.img</span>  include  init  Makefile  scripts[dys@localhost Dos]$ mv floppy<span class="selector-class">.img</span> floppy1<span class="selector-class">.img</span>[dys@localhost Dos]$ mv floppyNew<span class="selector-class">.img</span> floppy<span class="selector-class">.img</span>[dys@localhost Dos]$ make qemuqemu -fda floppy<span class="selector-class">.img</span> -boot a</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/02/Static关键字/" rel="next" title="Static关键字">
+                <i class="fa fa-chevron-left"></i> Static关键字
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/31/MJRefersh源码解析/" rel="prev" title="MJRefersh源码解析">
+                MJRefersh源码解析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="丁玉松" />
+            
+              <p class="site-author-name" itemprop="name">丁玉松</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">5</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#包管理器yum"><span class="nav-number">1.</span> <span class="nav-text">包管理器yum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下一步的目标（弄一个引导盘出来）"><span class="nav-number">2.</span> <span class="nav-text">下一步的目标（弄一个引导盘出来）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#dd-命令"><span class="nav-number">2.1.</span> <span class="nav-text">dd 命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#losetup-命令"><span class="nav-number">2.2.</span> <span class="nav-text">losetup 命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ubuntu-使用zsh"><span class="nav-number">3.</span> <span class="nav-text">Ubuntu 使用zsh</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mkfs-ext2-格式化"><span class="nav-number">3.1.</span> <span class="nav-text">mkfs.ext2 格式化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mkfs命令"><span class="nav-number">3.2.</span> <span class="nav-text">mkfs命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">丁玉松</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Mist</a> v6.0.6</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.0.6"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.0.6"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.0.6"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.0.6"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.0.6"></script>
+
+
+
+  
+
+  
+    <script id="dsq-count-scr" src="https://丁玉松.disqus.com/count.js" async></script>
+  
+
+  
+    <script type="text/javascript">
+      var disqus_config = function () {
+        this.page.url = 'http://dingyusong.com/2017/03/12/从今天起，我要手写一个操作系统/';
+        this.page.identifier = '2017/03/12/从今天起，我要手写一个操作系统/';
+        this.page.title = '从今天起，我要手写一个操作系统';
+      };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://丁玉松.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("7p8juaspb2i1bhmeohaaqf2298fghmsdr9nxaji5mkcvsyjj", "pqx6rgyacbk4i0k2yprx1fcsy7fgi90kjlm527z2m77qas2s");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            
+            counter.save(null, {
+              success: function(counter) {
+                
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(counter.get('time'));
+                
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            
+              var newcounter = new Counter();
+              /* Set ACL */
+              var acl = new AV.ACL();
+              acl.setPublicReadAccess(true);
+              acl.setPublicWriteAccess(true);
+              newcounter.setACL(acl);
+              /* End Set ACL */
+              newcounter.set("title", title);
+              newcounter.set("url", url);
+              newcounter.set("time", 1);
+              newcounter.save(null, {
+                success: function(newcounter) {
+                  var $element = $(document.getElementById(url));
+                  $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+                },
+                error: function(newcounter, error) {
+                  console.log('Failed to create');
+                }
+              });
+            
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
