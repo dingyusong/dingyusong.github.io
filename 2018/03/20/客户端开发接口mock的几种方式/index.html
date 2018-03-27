@@ -99,27 +99,25 @@
 
 
 
-  <meta name="description" content="就写一写这个博客诞生的过程吧。 本文也可以叫做《如何搭建一个独立个人博客》。 hexo写博客有好多种途径，比如我之前就曾经在csdn，点点，等其他第三方平台上发表博客。 那些年写过的blog：  csdn 点点(已经倒闭了，没有备份，虽然没有写几篇文章，但都是我的心血啊，想想就心疼)  在考虑了csdn，网易博客，新浪博客，等等大公司平台，不是对代码的兼容性不好，就是像点点一样不知道哪一天就挂了，">
-<meta name="keywords" content="nodejs,hexo">
+  <meta name="description" content="说一说客户端开发中，模拟api请求的几种方式。 硬编码直接修改传入参数，比如一个app分老师和学生两个角色，两个角色的布局是不一样的，用户角色role 字段1代表学生，2代表老，我们可以分别写死role=1和role=2来分别编写相关角色下的页面。能够解决基本问题。但是效率太低，对代码入侵太大。 切换两个角色，如果不改代码就好了。charles的map功能就能解决这一点，并且对代码没有入侵。 巧用">
+<meta name="keywords" content="iOS,android,mock,rap">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我的第一篇博客">
-<meta property="og:url" content="http://dingyusong.com/2016/02/24/我的第一篇博客/index.html">
+<meta property="og:title" content="客户端开发接口mock的几种方式">
+<meta property="og:url" content="http://dingyusong.com/2018/03/20/客户端开发接口mock的几种方式/index.html">
 <meta property="og:site_name" content="笑抽的柚子">
-<meta property="og:description" content="就写一写这个博客诞生的过程吧。 本文也可以叫做《如何搭建一个独立个人博客》。 hexo写博客有好多种途径，比如我之前就曾经在csdn，点点，等其他第三方平台上发表博客。 那些年写过的blog：  csdn 点点(已经倒闭了，没有备份，虽然没有写几篇文章，但都是我的心血啊，想想就心疼)  在考虑了csdn，网易博客，新浪博客，等等大公司平台，不是对代码的兼容性不好，就是像点点一样不知道哪一天就挂了，">
+<meta property="og:description" content="说一说客户端开发中，模拟api请求的几种方式。 硬编码直接修改传入参数，比如一个app分老师和学生两个角色，两个角色的布局是不一样的，用户角色role 字段1代表学生，2代表老，我们可以分别写死role=1和role=2来分别编写相关角色下的页面。能够解决基本问题。但是效率太低，对代码入侵太大。 切换两个角色，如果不改代码就好了。charles的map功能就能解决这一点，并且对代码没有入侵。 巧用">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://dingyusong.com/2016/02/24/我的第一篇博客/QQ20180321-163744.png">
-<meta property="og:updated_time" content="2018-03-26T11:10:27.296Z">
+<meta property="og:updated_time" content="2018-03-27T08:22:57.323Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我的第一篇博客">
-<meta name="twitter:description" content="就写一写这个博客诞生的过程吧。 本文也可以叫做《如何搭建一个独立个人博客》。 hexo写博客有好多种途径，比如我之前就曾经在csdn，点点，等其他第三方平台上发表博客。 那些年写过的blog：  csdn 点点(已经倒闭了，没有备份，虽然没有写几篇文章，但都是我的心血啊，想想就心疼)  在考虑了csdn，网易博客，新浪博客，等等大公司平台，不是对代码的兼容性不好，就是像点点一样不知道哪一天就挂了，">
-<meta name="twitter:image" content="http://dingyusong.com/2016/02/24/我的第一篇博客/QQ20180321-163744.png">
+<meta name="twitter:title" content="客户端开发接口mock的几种方式">
+<meta name="twitter:description" content="说一说客户端开发中，模拟api请求的几种方式。 硬编码直接修改传入参数，比如一个app分老师和学生两个角色，两个角色的布局是不一样的，用户角色role 字段1代表学生，2代表老，我们可以分别写死role=1和role=2来分别编写相关角色下的页面。能够解决基本问题。但是效率太低，对代码入侵太大。 切换两个角色，如果不改代码就好了。charles的map功能就能解决这一点，并且对代码没有入侵。 巧用">
 
 
 
 
 
 
-  <link rel="canonical" href="http://dingyusong.com/2016/02/24/我的第一篇博客/"/>
+  <link rel="canonical" href="http://dingyusong.com/2018/03/20/客户端开发接口mock的几种方式/"/>
 
 
 
@@ -129,7 +127,7 @@
   };
 </script>
 
-  <title>我的第一篇博客 | 笑抽的柚子</title>
+  <title>客户端开发接口mock的几种方式 | 笑抽的柚子</title>
   
 
 
@@ -337,7 +335,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dingyusong.com/2016/02/24/我的第一篇博客/">
+    <link itemprop="mainEntityOfPage" href="http://dingyusong.com/2018/03/20/客户端开发接口mock的几种方式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="丁玉松">
@@ -354,7 +352,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">我的第一篇博客</h1>
+          <h1 class="post-title" itemprop="name headline">客户端开发接口mock的几种方式</h1>
         
 
         <div class="post-meta">
@@ -366,7 +364,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-02-24T15:43:43+08:00">2016-02-24</time>
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-20T14:05:34+08:00">2018-03-20</time>
             
 
             
@@ -387,7 +385,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/nodejs/" itemprop="url" rel="index"><span itemprop="name">nodejs</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/客户端/" itemprop="url" rel="index"><span itemprop="name">客户端</span></a></span>
 
                 
                 
@@ -401,7 +399,7 @@
 
           
           
-             <span id="/2016/02/24/我的第一篇博客/" class="leancloud_visitors" data-flag-title="我的第一篇博客">
+             <span id="/2018/03/20/客户端开发接口mock的几种方式/" class="leancloud_visitors" data-flag-title="客户端开发接口mock的几种方式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -432,99 +430,31 @@
       
 
       
-        <p>就写一写这个博客诞生的过程吧。</p>
-<p>本文也可以叫做《如何搭建一个独立个人博客》。</p>
-<h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><p>写博客有好多种途径，比如我之前就曾经在csdn，点点，等其他第三方平台上发表博客。</p>
-<p>那些年写过的blog：</p>
-<ul>
-<li><a href="http://blog.csdn.net/dys90" target="_blank" rel="noopener">csdn</a></li>
-<li><a href="http://dys90.diandian.com/" target="_blank" rel="noopener">点点</a>(已经倒闭了，没有备份，虽然没有写几篇文章，但都是我的心血啊，想想就心疼)</li>
+        <p>说一说客户端开发中，模拟api请求的几种方式。</p>
+<h1 id="硬编码"><a href="#硬编码" class="headerlink" title="硬编码"></a>硬编码</h1><p>直接修改传入参数，比如一个app分老师和学生两个角色，两个角色的布局是不一样的，用户角色role 字段1代表学生，2代表老，我们可以分别写死role=1和role=2来分别编写相关角色下的页面。能够解决基本问题。但是效率太低，对代码入侵太大。</p>
+<p>切换两个角色，如果不改代码就好了。charles的map功能就能解决这一点，并且对代码没有入侵。</p>
+<h1 id="巧用charles的map功能"><a href="#巧用charles的map功能" class="headerlink" title="巧用charles的map功能"></a>巧用charles的map功能</h1><p>针对特定的接口charles能够给你返回你想要的数据。至于charles的基本使用方法请自行百度。使用charles的map local功能能将接口的返回映射到本地的一个json文件。比如设置请求用户角色的接口，咱们可以在每次请求前修改本地映射文件数据的role字段的值，来控制返回数据，从而达到调试的目的。</p>
+<p>这么看来其实charles很适合做接口调试，我也用了很长一段时间确实很方便。但是他有一个问题，必须配置代理。那么问题就来了，1.是配置代理后会影响其他方面，比如某些app不能使用，那么你还得记得关掉代理，有时候很让人抓狂。2.安全性要求高的通信，比如添加了https认证，那么认证就得关掉。</p>
+<p>相比Charles，rap系统就不用添加代理可以直接修改返回值。</p>
+<h1 id="rap"><a href="#rap" class="headerlink" title="rap"></a>rap</h1><p>阿里出的<a href="http://thx.github.io/RAP/index_zh.html" target="_blank" rel="noopener">rap</a> ，口号是<strong>提高效率，回家吃晚饭。</strong> 确实如他口号所说，正确使用这个mock系统能让我们节省不少时间。他比charles map 进步的方式在于不在需要配置代理，只需要将接口地址修改为mock系统的地址就行了，很方便。当然rap的功能远不止这些，您可以查看官网的介绍，此处不在详细介绍了。</p>
+<p>rap当然也有问题，比如你们几个人一起调试的时候，你修改role为老师，而另外一个同事需要修改role为同学，这就冲突了，因为你们使用的是同一套系统。再者rap有一套返回数值生成规则，熟悉这些规则也得花费不少时间。</p>
+<p>能不能我就调试自己的接口，且对别人没有影响，而且不要太复杂就能，自由的更改我想要的数据呢？目前我还没有找到这样的工具，我想我的需求很简单啊，既然没有那我就动手自己做一个吧！</p>
+<h1 id="自建mock"><a href="#自建mock" class="headerlink" title="自建mock"></a>自建mock</h1><p>自己动手，丰衣足食。</p>
+<p>无论是在开发还是在调试bug，我们需要考虑各种情况，特别是某些极端情况。而这些各种不同情况的复现，从app的角度来看，大部分都是由于接口数据导致的，那么我们就直接修改返回数据到某种情况不就可以调试了吗？</p>
+<p>自建mock需要解决如下几个问题：</p>
+<ol>
+<li>实现数据请求功能。</li>
+<li>特定接口特定mock。很多时候我们只需要调试某一个接口，也就是说只需要mock某个接口，那么就需要做接口刷选，设置一个开关，而且这个开关是针对某个特定接口的。</li>
+<li>返回数据改变不需要重启app。</li>
+</ol>
+<p>完成上面几个需求就可以满足我们日常的调试了。</p>
+<h2 id="客户端项目"><a href="#客户端项目" class="headerlink" title="客户端项目"></a>客户端项目</h2><p>在你的客户端项目网络请求基类上做一些修改，同时维护一个mock接口的列表，列表的每一项包括针对这个接口的mock开关的布尔值。开代表此接口走mock调试，否则否正常的测试环境。同时还需要一个全局的mock开关，全局mock开关控制整个app是否能够连接mock，release环境下必须关闭。具体实现之后我再补充一个demo。</p>
+<h2 id="mock-server端"><a href="#mock-server端" class="headerlink" title="mock server端"></a>mock server端</h2><ul>
+<li>mock服务端请移至我的开源项目<a href="https://github.com/DingYusong/DDMock" target="_blank" rel="noopener">DDMock</a></li>
 </ul>
-<p>在考虑了csdn，网易博客，新浪博客，等等大公司平台，不是对代码的兼容性不好，就是像点点一样不知道哪一天就挂了，同时还不能用我自己的名字做域名，不好装逼，我想了好久，最后还是决定自建博客，把蛋蛋捏在自己手里。</p>
-<p>嗯，捏在自己手里。</p>
-<h2 id="为什么会选择hexo呢？"><a href="#为什么会选择hexo呢？" class="headerlink" title="为什么会选择hexo呢？"></a>为什么会选择hexo呢？</h2><p>在决定自建博客起，我就考虑了<strong>Wordpress</strong>，<strong>hexo</strong>，最后还是选择了<strong>hexo</strong>。有以下几点原因：</p>
-<ol>
-<li>hexo比wordpress简单。</li>
-<li>hexo默认使用markdown来编写，这点很合我胃口。</li>
-<li>hexo搭建博客能直接放到github上发布，省了自建服务器的事，同时如果不想自定义域名，github提供的域名也不错啊。</li>
-<li>hexo使用的是nodejs，这个很贴合这两年的技术发展路径。</li>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ol>
+<li><a href="http://thx.github.io/RAP/index_zh.html" target="_blank" rel="noopener">RAP</a></li>
 </ol>
-<p>总的来说，使用hexo+github这样的组合，对于写技术博客的人来说已经足够了。</p>
-<h1 id="创建博客网站"><a href="#创建博客网站" class="headerlink" title="创建博客网站"></a>创建博客网站</h1><ol>
-<li>用hexo怎么最快弄出一个个人博客？</li>
-</ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo init &lt;folder&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> &lt;folder&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo s</span></span><br></pre></td></tr></table></figure>
-<p>然后访问<code>http://localhost:4000/</code>恭喜你，博客已经建成了，就是这么简单！</p>
-<ol>
-<li>往前退一步，hexo哪来？</li>
-</ol>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-<span class="keyword">cli</span> -g</span><br></pre></td></tr></table></figure>
-<p>全局安装hexo命令行。</p>
-<ol>
-<li><p>再往前推一步，npm是个啥？</p>
-<p>node包管理工具，安装node之后会自带npm。npm可以安装nodejs包。</p>
-</li>
-</ol>
-<ol>
-<li><p>再往前一步，node如何安装？</p>
-<p> <a href="http://nodejs.cn/" target="_blank" rel="noopener">nodejs官网</a>，我使用的是mac，mac用户直接<code>brew install node</code></p>
-</li>
-</ol>
-<ol>
-<li><p>再深一层，nodejs是啥？</p>
-<p>这篇文章可以不用看了。</p>
-</li>
-</ol>
-<h1 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h1><img src="/2016/02/24/我的第一篇博客/QQ20180321-163744.png" title="This is an example image">
-<p><code>hexo new [layout] &lt;title&gt;</code>layout是文件布局，scaffolds文件内默认有3种布局方式：draft，page，post。分别对应source文件内的 _drafts, source, _pages文件夹。</p>
-<p>post 是要发布的文章，draft是草稿不会发布。</p>
-<p>一般常见的姿势是这样的：</p>
-<ol>
-<li>新建一个博客：</li>
-</ol>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="string">"论门卫三问"</span></span><br></pre></td></tr></table></figure>
-<ol>
-<li>开始编写博客</li>
-</ol>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">open</span> -<span class="keyword">a</span> Typora 论门卫三问.md</span><br></pre></td></tr></table></figure>
-<ol>
-<li>写完之后发布</li>
-</ol>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo d -g</span></span><br></pre></td></tr></table></figure>
-<h1 id="博客发布"><a href="#博客发布" class="headerlink" title="博客发布"></a>博客发布</h1><p>部署刚开始的时候可以依赖github做发布。具体步骤如下：</p>
-<ol>
-<li>github账号，没有就注册一个。</li>
-<li>弄一个github pages 仓库，具体怎么搞，参考<a href="https://pages.github.com/" target="_blank" rel="noopener">官方文档啊</a></li>
-<li>配置hexo 的部署配置，细节怎么搞，参考<a href="https://hexo.io/zh-cn/docs/deployment.html" target="_blank" rel="noopener">官方文档啊</a></li>
-<li><code>hexo d</code>一个命令就发布了。</li>
-</ol>
-<p>当然啦你可以有无数种发布方式，这只是hexo的一种部署方法。</p>
-<p>网站建起来了，博客写起来了，也能发布出去了，目前来解决了~生存~的问题，哈哈，可是再进一步，我觉得主题不好看，逼格没有别人高啊，杂办？好办，换主题！</p>
-<h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><ol>
-<li><p>主题从哪里来？</p>
-<p>百度，知乎，<code>hexo 主题</code>一刷一大把。</p>
-</li>
-<li><p>主题怎么安装？</p>
-<p>下载下来，放到<code>themes</code>文件夹,然后配置项目 <code>_config.yml</code>文件。还有其他例如直接<code>git clone</code>高级玩法，慢慢研究吧。</p>
-</li>
-<li><p>安装完成了，怎么配置？</p>
-<p>主题的配置文件和hexo的配置文件名字一样都是<code>_config.yml</code>位置不同，注意别弄错了，具体的配置看某个主题的介绍。比如我用的next的配置<a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">官方介绍在这</a>。</p>
-</li>
-</ol>
-<p>哈哈，好了，漂亮的主题也整上了。百尺竿头更近一步，域名搞成我自己的名字岂不是更个性啊！搞起来</p>
-<p><a href="http://dingyusong.github.io/" target="_blank" rel="noopener">http://dingyusong.github.io/</a>.   搞成  <a href="http://dingyusong.com/">http://dingyusong.com/</a></p>
-<h1 id="域名"><a href="#域名" class="headerlink" title="域名"></a>域名</h1><p>弄个性域名分两步，1.买域名，2.域名解析。</p>
-<ol>
-<li><p>买域名</p>
-<p>去哪买，我就不打广告了，自己搜去。</p>
-</li>
-<li><p>域名解析</p>
-<p>简单来讲就是当你访问 <a href="http://dingyusong.com/">http://dingyusong.com/</a>  给你转到 <a href="http://dingyusong.github.io/" target="_blank" rel="noopener">http://dingyusong.github.io/</a>. 或者你的服务器ip。域名解析在你的域名提供商都可以设置。当然还有些细节需要注意，请自行百度。</p>
-</li>
-</ol>
-<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
-<li><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">hexo 官网</a></li>
-</ul>
 
       
     </div>
@@ -574,9 +504,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
           
-            <a href="/tags/hexo/" rel="tag"># hexo</a>
+            <a href="/tags/android/" rel="tag"># android</a>
+          
+            <a href="/tags/mock/" rel="tag"># mock</a>
+          
+            <a href="/tags/rap/" rel="tag"># rap</a>
           
         </div>
       
@@ -589,14 +523,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/01/04/创建cocoaPod公共库和私有库/" rel="next" title="创建cocoaPod公共库和私有库">
+                <i class="fa fa-chevron-left"></i> 创建cocoaPod公共库和私有库
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/01/04/创建cocoaPod公共库和私有库/" rel="prev" title="创建cocoaPod公共库和私有库">
-                创建cocoaPod公共库和私有库 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/27/hexo常见问题解决方案/" rel="prev" title="hexo常见问题及解决方案">
+                hexo常见问题及解决方案 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -798,7 +736,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#hexo"><span class="nav-number">1.</span> <span class="nav-text">hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会选择hexo呢？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么会选择hexo呢？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建博客网站"><span class="nav-number">2.</span> <span class="nav-text">创建博客网站</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写博客"><span class="nav-number">3.</span> <span class="nav-text">写博客</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#博客发布"><span class="nav-number">4.</span> <span class="nav-text">博客发布</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主题"><span class="nav-number">5.</span> <span class="nav-text">主题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#域名"><span class="nav-number">6.</span> <span class="nav-text">域名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">7.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#硬编码"><span class="nav-number">1.</span> <span class="nav-text">硬编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#巧用charles的map功能"><span class="nav-number">2.</span> <span class="nav-text">巧用charles的map功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rap"><span class="nav-number">3.</span> <span class="nav-text">rap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自建mock"><span class="nav-number">4.</span> <span class="nav-text">自建mock</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端项目"><span class="nav-number">4.1.</span> <span class="nav-text">客户端项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mock-server端"><span class="nav-number">4.2.</span> <span class="nav-text">mock server端</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">5.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
             
 
           </div>
