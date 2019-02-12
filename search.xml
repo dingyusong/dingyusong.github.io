@@ -11,8 +11,6 @@
       <tags>
         <tag>iOS</tag>
         <tag>android</tag>
-        <tag>mock</tag>
-        <tag>rap</tag>
       </tags>
   </entry>
   <entry>
@@ -22,7 +20,6 @@
       <categories>
         <category>应用开发</category>
         <category>nodejs</category>
-        <category>hexo</category>
       </categories>
       <tags>
         <tag>hexo</tag>
@@ -35,7 +32,6 @@
       <categories>
         <category>应用开发</category>
         <category>iOS</category>
-        <category>cocoaPod</category>
       </categories>
       <tags>
         <tag>cocoaPod</tag>
