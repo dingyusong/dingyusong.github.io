@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="做iOS开发，cocoapod的熟练是必须的。 引导语">
+  <meta name="description" content="做iOS开发，cocoapod的熟练是必须的。 本文从大框架上来阐述pod库的创建，发布等流程。不涉及具体库的开发。">
 <meta name="keywords" content="cocoaPod,iOS,客户端">
 <meta property="og:type" content="article">
 <meta property="og:title" content="创建cocoaPod公共库和私有库">
 <meta property="og:url" content="http://dingyusong.com/2017/01/04/创建cocoaPod公共库和私有库/index.html">
 <meta property="og:site_name" content="D哥的博客">
-<meta property="og:description" content="做iOS开发，cocoapod的熟练是必须的。 引导语">
+<meta property="og:description" content="做iOS开发，cocoapod的熟练是必须的。 本文从大框架上来阐述pod库的创建，发布等流程。不涉及具体库的开发。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-19T07:52:13.965Z">
+<meta property="og:updated_time" content="2018-10-23T03:39:35.498Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建cocoaPod公共库和私有库">
-<meta name="twitter:description" content="做iOS开发，cocoapod的熟练是必须的。 引导语">
+<meta name="twitter:description" content="做iOS开发，cocoapod的熟练是必须的。 本文从大框架上来阐述pod库的创建，发布等流程。不涉及具体库的开发。">
 
 
 
@@ -410,14 +410,21 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/客户端/" itemprop="url" rel="index"><span itemprop="name">客户端</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/应用开发/" itemprop="url" rel="index"><span itemprop="name">应用开发</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/客户端/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/应用开发/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/应用开发/iOS/cocoaPod/" itemprop="url" rel="index"><span itemprop="name">cocoaPod</span></a></span>
 
                 
                 
@@ -463,7 +470,7 @@
 
       
         <p>做iOS开发，cocoapod的熟练是必须的。</p>
-<p>引导语</p>
+<p>本文从大框架上来阐述pod库的创建，发布等流程。不涉及具体库的开发。</p>
 <a id="more"></a>
 <h1 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h1><p>要理解一个新的东西，应该先全局后局部。一上来就陷入局部操作细节很容易使人迷惑。</p>
 <p>明确两个仓库：</p>
@@ -478,7 +485,7 @@
 <p>代码仓库是存放你的代码的地方，spec仓库是存放库描述文件的地方，根据spec仓库的不同，我们将三方库分为公共库和私有库。官方的Specs方库和很多大公司自建对外开放的spec仓库，都可以称为共有库。私有库一般是做代码封装，内部使用。</p>
 <h1 id="共有库"><a href="#共有库" class="headerlink" title="共有库"></a>共有库</h1><h2 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h2><p>如果要上传代码到公共库，则名字不能重复，重复了换一个，别屁颠屁颠的弄完了提交的时候发现名字冲突了就不太好了。<code>pod search [pod name]</code>举例如下：</p>
 <figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">➜  DYSKeyboardManager pod search DYSKeyboardManager</span><br><span class="line">[!] Unable <span class="keyword">to</span> <span class="built_in">find</span> a pod <span class="keyword">with</span> <span class="built_in">name</span>, author, summary, <span class="built_in">or</span> description matching `DYSKeyboardManager`</span><br></pre></td></tr></table></figure>
-<h2 id="podspec"><a href="#podspec" class="headerlink" title="podspec"></a>podspec</h2><p>podspec是创建pod库的核心，无论是用<code>pod lib create [NAME]</code>通过模板创建pod库 还是<code>pod lib create [pod name]</code>一步一步来(徒手创建)pod库，这个文件都是必须了解的，具体每一podspec参数可以参考官方文档<a href="https://guides.cocoapods.org/syntax/podspec.html" target="_blank" rel="noopener">Podspec Syntax Reference</a>我就不一一解释了。</p>
+<h2 id="podspec"><a href="#podspec" class="headerlink" title="podspec"></a>podspec</h2><p>podspec是创建pod库的核心，无论是用<code>pod lib create [NAME]</code>通过模板创建pod库 还是<code>pod spec create [pod name]</code>一步一步来(徒手创建)pod库，这个文件都是必须了解的，具体每一podspec参数可以参考官方文档<a href="https://guides.cocoapods.org/syntax/podspec.html" target="_blank" rel="noopener">Podspec Syntax Reference</a>我就不一一解释了。</p>
 <p><code>pod lib create [pod name]</code>一步一步来(徒手创建)的方式虽然慢，但是因为实操了每一步，所以对pod项目的了解很有帮助。不建议上来就用模板创建的方式。</p>
 <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><p>*.podspec 文件 是代码库的描述文件，里面详细记载了代码库的相关信息。<code>pod lib create [pod name]</code>示例如下：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">➜  DYSKeyboardManager ls</span><br><span class="line">➜  DYSKeyboardManager pod spec create DYSKeyboardManager</span><br><span class="line"></span><br><span class="line">Specification created at DYSKeyboardManager.podspec</span><br><span class="line">➜  DYSKeyboardManager ls                                </span><br><span class="line">DYSKeyboardManager.podspec</span><br><span class="line">➜  DYSKeyboardManager open -<span class="selector-tag">a</span> Sublime\ Text DYSKeyboardManager.podspec</span><br></pre></td></tr></table></figure>
@@ -625,8 +632,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/20/客户端开发接口mock的几种方式/" rel="prev" title="客户端开发接口mock的几种方式">
-                客户端开发接口mock的几种方式 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/27/hexo常见问题及解决方案/" rel="prev" title="hexo常见问题及解决方案">
+                hexo常见问题及解决方案 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -753,7 +760,9 @@ var jiathis_config={
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>

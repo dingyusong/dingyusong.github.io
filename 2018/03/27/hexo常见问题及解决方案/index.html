@@ -112,11 +112,11 @@
 <meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo常见问题及解决方案">
-<meta property="og:url" content="http://dingyusong.com/2018/03/27/hexo常见问题解决方案/index.html">
+<meta property="og:url" content="http://dingyusong.com/2018/03/27/hexo常见问题及解决方案/index.html">
 <meta property="og:site_name" content="D哥的博客">
 <meta property="og:description" content="本文记录了几个比较典型的hexo使用中的问题解决方案。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-21T02:56:24.326Z">
+<meta property="og:updated_time" content="2018-10-23T03:39:35.506Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo常见问题及解决方案">
 <meta name="twitter:description" content="本文记录了几个比较典型的hexo使用中的问题解决方案。">
@@ -126,7 +126,7 @@
 
 
 
-  <link rel="canonical" href="http://dingyusong.com/2018/03/27/hexo常见问题解决方案/"/>
+  <link rel="canonical" href="http://dingyusong.com/2018/03/27/hexo常见问题及解决方案/"/>
 
 
 
@@ -350,7 +350,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://dingyusong.com/2018/03/27/hexo常见问题解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://dingyusong.com/2018/03/27/hexo常见问题及解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="丁玉松">
@@ -410,14 +410,21 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/node/" itemprop="url" rel="index"><span itemprop="name">node</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/应用开发/" itemprop="url" rel="index"><span itemprop="name">应用开发</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/node/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/应用开发/nodejs/" itemprop="url" rel="index"><span itemprop="name">nodejs</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/应用开发/nodejs/hexo/" itemprop="url" rel="index"><span itemprop="name">hexo</span></a></span>
 
                 
                 
@@ -431,7 +438,7 @@
 
           
           
-             <span id="/2018/03/27/hexo常见问题解决方案/" class="leancloud_visitors" data-flag-title="hexo常见问题及解决方案">
+             <span id="/2018/03/27/hexo常见问题及解决方案/" class="leancloud_visitors" data-flag-title="hexo常见问题及解决方案">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -494,6 +501,16 @@
 <h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><p>主题配置和主题更新</p>
 <p><a href="https://hexo.io/docs/configuration.html#Overriding-Theme-Config" target="_blank" rel="noopener">https://hexo.io/docs/configuration.html#Overriding-Theme-Config</a></p>
 <p>可以在站点中添加 theme_config标签，让主题配置独立出来。将主题里面的配置文件_config.yml 配置项，复制到站点配置文件里面来，这样以后主题子仓库的更新就不会冲突了。</p>
+<h1 id="引用自己的文章"><a href="#引用自己的文章" class="headerlink" title="引用自己的文章"></a>引用自己的文章</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">post_link</span><br></pre></td></tr></table></figure>
+<p><a href="https://hexo.io/zh-cn/docs/permalinks" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/permalinks</a></p>
+<p><a href="https://hexo.io/zh-cn/docs/tag-plugins.html" target="_blank" rel="noopener">https://hexo.io/zh-cn/docs/tag-plugins.html</a></p>
+<h2 id="引用文章"><a href="#引用文章" class="headerlink" title="引用文章"></a>引用文章</h2><p>引用其他文章的链接。</p>
+<figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name">post_path</span> slug %&#125;</span><span class="xml"></span></span><br><span class="line"><span class="xml"></span><span class="template-tag">&#123;% <span class="name">post_link</span> slug [title] %&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
+<p>注意下面这种空标签 会导致解析异常，已经亲测过。</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">\&#123;</span><span class="symbol">\%</span>  <span class="symbol">\%</span><span class="symbol">\&#125;</span></span><br></pre></td></tr></table></figure>
+<h1 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h1><ul>
+<li><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">https://hexo.io/zh-cn/</a></li>
+</ul>
 <hr>
 <p>原创文章，转载请保留原文链接，未经授权拒绝转载，谢谢。</p>
 <p>联系作者：<a href="mailto:dys90@qq.com" target="_blank" rel="noopener">dys90@qq.com</a></p>
@@ -559,8 +576,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/20/客户端开发接口mock的几种方式/" rel="next" title="客户端开发接口mock的几种方式">
-                <i class="fa fa-chevron-left"></i> 客户端开发接口mock的几种方式
+              <a href="/2017/01/04/创建cocoaPod公共库和私有库/" rel="next" title="创建cocoaPod公共库和私有库">
+                <i class="fa fa-chevron-left"></i> 创建cocoaPod公共库和私有库
               </a>
             
           </div>
@@ -568,6 +585,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/27/客户端开发接口mock的几种方式/" rel="prev" title="客户端开发接口mock的几种方式">
+                客户端开发接口mock的几种方式 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -693,7 +714,9 @@ var jiathis_config={
                     
                       
                     
-                    <span class="site-state-item-count">4</span>
+                      
+                    
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -758,7 +781,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主题"><span class="nav-number">1.</span> <span class="nav-text">主题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主题"><span class="nav-number">1.</span> <span class="nav-text">主题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引用自己的文章"><span class="nav-number">2.</span> <span class="nav-text">引用自己的文章</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引用文章"><span class="nav-number">2.1.</span> <span class="nav-text">引用文章</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文档"><span class="nav-number">3.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
             
 
           </div>
